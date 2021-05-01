@@ -1,8 +1,8 @@
-# Gnosis Safe
+# Azulo Trusts
 
-The most trusted platform to store digital assets on Ethereum. More info at [gnosis-safe.io](https://gnosis-safe.io/)
+Decentralized digital family trust creation, governance, and asset management system.
 
-This repository contains the code for the frontend code hosted at [https://gnosis-safe.io/app/]
+Built utilising Gnosis Safe - the most trusted platform to store digital assets on Ethereum. More info at [gnosis-safe.io](https://gnosis-safe.io/)
 
 Besides Ethereum Mainnet, the following networks are supported:
 
@@ -11,9 +11,6 @@ Besides Ethereum Mainnet, the following networks are supported:
 - [Energy Web Chain](https://ewc.gnosis-safe.io/app/)
 - [Volta Testnet](https://volta.gnosis-safe.io/app/)
 
-For technical information please refer to the [Gnosis Developer Portal](https://docs.gnosis.io/safe/).
-
-For support requests, please open up a [bug issue](https://github.com/gnosis/safe-react/issues/new?template=bug-report.md) or reach out via [Discord](https://discordapp.com/invite/FPMRAwK).
 
 ## Getting Started
 
@@ -72,36 +69,6 @@ yarn build-mainnet
 ```
 
 
-## Running the tests
-
-1. Run `transaction-history-service`
-```
-git clone https://github.com/gnosis/safe-transaction-service.git
-cd safe-transaction-service
-git checkout develop
-docker-compose build
-# it comes enabled by default in docker-compose
-sudo service postgresql stop
-docker-compose up -d
-```
-Check that the service is running at https://localhost:8000
-
-2. Migrate Safe Contracts:
-```
-git clone https://github.com/gnosis/safe-contracts.git
-cd safe-contracts
-yarn
-npx truffle migrate
-```
-3. Migrate Token Contracts for the tests:
-Inside `safe-react` directory
-```
-npx truffle migrate
-```
-4. Run the tests:
-```
-yarn test
-```
 
 ### Lint
 
@@ -146,10 +113,6 @@ We prepare a new release every sprint. Sprints are two weeks long.
 ## Contributing
 
 Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/gnosis/gnosis-team-safe/tags).
 
 ## License
 
