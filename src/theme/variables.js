@@ -1,6 +1,7 @@
 const background = '#ffffff'
-const border = '#e8e7e6'
-const connectedColor = '#7131ff'
+const border = '#DEDEDE'
+const mainColor = '#7131ff'
+const connectedColor = mainColor
 const disabled = '#5D6D74'
 const errorColor = '#f02525'
 const fancyColor = '#f02525'
@@ -23,6 +24,7 @@ const xxl = '40px'
 module.exports = {
   background,
   boldFont: 700,
+  mainColor: mainColor,
   bolderFont: 500,
   border,
   buttonLargeFontSize: '16px',
@@ -34,6 +36,7 @@ module.exports = {
   extraSmallFontSize: '11px',
   fancy: fancyColor,
   fontColor,
+  greyColor: '#c3c3c3',
   fontSizeHeadingLg: 32,
   fontSizeHeadingMd: 20,
   fontSizeHeadingSm: 16,
