@@ -11,6 +11,7 @@ import FamilyTrustImg from '../assets/family_trust.svg';
 import ICBooks from '../assets/ic_books.svg';
 import { onConnectButtonClick } from 'src/components/ConnectButton'
 import { borderRadius } from 'src/theme/variables'
+import { mainStyles } from 'src/theme/PageStyles'
 
 const useStyles = makeStyles(() => ({
   '@global': {
@@ -77,22 +78,6 @@ const useStyles = makeStyles(() => ({
       maxWidth: '420px'
     }
   },
-  mainButton: {
-    borderRadius: '100px',
-    border: '2px solid #7131FF',
-    background: '#7131FF',
-    color: '#fff',
-    padding: '12px 30px',
-    fontSize: '1.1em',
-    '&:hover': {
-      border: '2px solid #000',
-      background: '#000',
-      color: '#fff',
-      '& span': {
-        color: '#fff',
-      }
-    }
-  },
   heroContent: {
     maxWidth: '1400px',
     paddingTop: '155px',
@@ -131,6 +116,7 @@ type Props = {
 }
 
 export const HomeLayout = (): React.ReactElement => {
+  const mainClasses = mainStyles();
   const classes = useStyles();
 
   return (
@@ -152,7 +138,7 @@ export const HomeLayout = (): React.ReactElement => {
                 Built for the decentralized digital world to allow families, partnerships, companies to create and manage trusts and its assets from anywhere in the world.
               </div>
               <div className={classes.actionHld}>
-                <Link to="/start" color="primary" variant="outlined" className={classes.mainButton}>
+                <Link to="/start" color="primary" variant="outlined" className={mainClasses.mainButton}>
                   Get started
                 </Link>
                 <Button onClick={onConnectButtonClick} className={classes.trustlink}>
