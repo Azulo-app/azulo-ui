@@ -1,4 +1,4 @@
-import { lg, md, secondaryText, sm } from 'src/theme/variables'
+import { lg, md, secondaryText, sm, mainFontFamily } from 'src/theme/variables'
 import { createStyles } from '@material-ui/core'
 
 export const styles = createStyles({
@@ -35,7 +35,7 @@ export const styles = createStyles({
     justifyContent: 'center',
     alignItems: 'center',
     '& > button': {
-      fontFamily: 'Averta',
+      fontFamily: mainFontFamily,
       fontSize: md,
     },
   },

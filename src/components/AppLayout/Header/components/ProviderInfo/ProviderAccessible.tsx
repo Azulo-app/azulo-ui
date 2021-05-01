@@ -6,12 +6,12 @@ import NetworkLabel from '../NetworkLabel'
 import Col from 'src/components/layout/Col'
 import Paragraph from 'src/components/layout/Paragraph'
 import WalletIcon from '../WalletIcon'
-import { connected as connectedBg, screenSm, sm } from 'src/theme/variables'
+import { mainFontFamily, connected as connectedBg, screenSm, sm } from 'src/theme/variables'
 import { KeyRing } from 'src/components/AppLayout/Header/components/KeyRing'
 
 const useStyles = makeStyles({
   network: {
-    fontFamily: 'Averta, sans-serif',
+    fontFamily: `${mainFontFamily}`+', sans-serif',
   },
   networkLabel: {
     '& div': {

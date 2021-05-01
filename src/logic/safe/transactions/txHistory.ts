@@ -49,7 +49,7 @@ export const buildTxServiceUrl = (safeAddress: string): string => {
   return `${getSafeServiceBaseUrl(address)}/multisig-transactions/?has_confirmations=True`
 }
 
-const SUCCESS_STATUS = 201 // CREATED status
+const SUCCESS_STATUS = 201 // STARTD status
 
 interface SaveTxToHistoryArgs {
   safeInstance: GnosisSafe

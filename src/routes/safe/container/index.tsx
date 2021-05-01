@@ -5,7 +5,7 @@ import { Redirect, Route, Switch, useRouteMatch } from 'react-router-dom'
 
 import { safeFeaturesEnabledSelector } from 'src/logic/safe/store/selectors'
 import { wrapInSuspense } from 'src/utils/wrapInSuspense'
-import { SAFELIST_ADDRESS } from 'src/routes/routes'
+import { TRUSTS_ADDRESS } from 'src/routes/routes'
 import { FEATURES } from 'src/config/networks/network.d'
 import { LoadingContainer } from 'src/components/LoaderContainer'
 
@@ -33,7 +33,7 @@ const Container = (): React.ReactElement => {
     onClose: () => {},
   })
 
-  const matchSafeWithAddress = useRouteMatch({ path: `${SAFELIST_ADDRESS}/:safeAddress` })
+  const matchSafeWithAddress = useRouteMatch({ path: `${TRUSTS_ADDRESS}/:safeAddress` })
 
   if (!featuresEnabled) {
     return (

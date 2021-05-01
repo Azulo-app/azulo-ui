@@ -13,7 +13,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
 
-  background-color: ${({ theme }) => theme.colors.background};
+  background-color: ${({ theme }) => theme.colors.white};
 `
 
 const HeaderWrapper = styled.nav`
@@ -22,7 +22,6 @@ const HeaderWrapper = styled.nav`
   z-index: 2;
 
   background-color: white;
-  box-shadow: 0 2px 4px 0 rgba(40, 54, 61, 0.18);
 `
 
 const BodyWrapper = styled.div`
@@ -49,9 +48,7 @@ const ContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   overflow-x: auto;
-
-  padding: 0 16px;
-
+  padding: 0 2%;
   > :nth-child(1) {
     flex-grow: 1;
     width: 100%;
@@ -61,7 +58,7 @@ const ContentWrapper = styled.div`
 
   > :nth-child(2) {
     width: 100%;
-    height: 59px;
+    height: 60px;
   }
 `
 
@@ -97,7 +94,7 @@ const Layout: React.FC<Props> = ({
         <Header />
       </HeaderWrapper>
       <BodyWrapper>
-        <SidebarWrapper data-testid="sidebar">
+        {/* <SidebarWrapper data-testid="sidebar">
           <Sidebar
             items={sidebarItems}
             safeAddress={safeAddress}
@@ -108,7 +105,7 @@ const Layout: React.FC<Props> = ({
             onReceiveClick={onReceiveClick}
             onNewTransactionClick={onNewTransactionClick}
           />
-        </SidebarWrapper>
+        </SidebarWrapper> */}
         <ContentWrapper>
           <div>{children}</div>
           <Footer />

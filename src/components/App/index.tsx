@@ -19,7 +19,7 @@ import Img from 'src/components/layout/Img'
 import { getNetworkId } from 'src/config'
 import { ETHEREUM_NETWORK } from 'src/config/networks/network.d'
 import { networkSelector } from 'src/logic/wallets/store/selectors'
-import { SAFELIST_ADDRESS, WELCOME_ADDRESS } from 'src/routes/routes'
+import { TRUSTS_ADDRESS, START_ADDRESS } from 'src/routes/routes'
 import {
   safeTotalFiatBalanceSelector,
   safeNameSelector,
@@ -69,7 +69,7 @@ const App: React.FC = ({ children }) => {
   const currentNetwork = useSelector(networkSelector)
   const isWrongNetwork = currentNetwork !== ETHEREUM_NETWORK.UNKNOWN && currentNetwork !== desiredNetwork
   const { toggleSidebar } = useContext(SafeListSidebarContext)
-  const matchSafe = useRouteMatch({ path: `${SAFELIST_ADDRESS}`, strict: false })
+  const matchSafe = useRouteMatch({ path: `${TRUSTS_ADDRESS}`, strict: false })
   const history = useHistory()
   const safeAddress = useSelector(safeParamAddressFromStateSelector)
   const safeName = useSelector(safeNameSelector) ?? ''
@@ -89,7 +89,7 @@ const App: React.FC = ({ children }) => {
 
   useEffect(() => {
     if (matchSafe?.isExact) {
-      history.push(WELCOME_ADDRESS)
+      history.push(START_ADDRESS)
       return
     }
   }, [matchSafe, history])

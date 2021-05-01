@@ -7,7 +7,7 @@ import { push } from 'connected-react-router'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { SAFELIST_ADDRESS } from 'src/routes/routes'
+import { TRUSTS_ADDRESS } from 'src/routes/routes'
 import { safeParamAddressFromStateSelector } from 'src/logic/safe/store/selectors'
 import { xs } from 'src/theme/variables'
 import { grantedSelector } from 'src/routes/safe/container/selector'
@@ -56,7 +56,7 @@ export const EllipsisTransactionDetails = ({
   const closeMenuHandler = () => setAnchorEl(null)
 
   const addOrEditEntryHandler = () => {
-    dispatch(push(`${SAFELIST_ADDRESS}/${currentSafeAddress}/address-book?entryAddress=${address}`))
+    dispatch(push(`${TRUSTS_ADDRESS}/${currentSafeAddress}/address-book?entryAddress=${address}`))
     closeMenuHandler()
   }
 

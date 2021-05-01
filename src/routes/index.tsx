@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Redirect, Route, Switch, useLocation, useRouteMatch } from 'react-router-dom'
 
-import { LOAD_ADDRESS, OPEN_ADDRESS, SAFELIST_ADDRESS, SAFE_PARAM_ADDRESS, WELCOME_ADDRESS } from './routes'
+import { IMPORT_ADDRESS, CREATE_ADDRESS, TRUSTS_ADDRESS, SAFE_PARAM_ADDRESS, START_ADDRESS, HOME_ADDRESS, TERMS_ADDRESS, COOKIES_ADDRESS, PRIVACY_ADDRESS } from './routes'
 
 import { Loader } from '@gnosis.pm/safe-react-components'
 import { defaultSafeSelector } from 'src/logic/safe/store/selectors'
@@ -10,21 +10,29 @@ import { useAnalytics } from 'src/utils/googleAnalytics'
 import { DEFAULT_SAFE_INITIAL_STATE } from 'src/logic/safe/store/reducer/safe'
 import { LoadingContainer } from 'src/components/LoaderContainer'
 
-const Welcome = React.lazy(() => import('./welcome/container'))
+const Home = React.lazy(() => import('./home/container'))
 
-const Open = React.lazy(() => import('./open/container/Open'))
+const Start = React.lazy(() => import('./start/container'))
 
-const Safe = React.lazy(() => import('./safe/container'))
+const Create = React.lazy(() => import('./create/container'))
 
-const Load = React.lazy(() => import('./load/container/Load'))
+const Trusts = React.lazy(() => import('./safe/container'))
 
-const SAFE_ADDRESS = `${SAFELIST_ADDRESS}/:${SAFE_PARAM_ADDRESS}`
+const Import = React.lazy(() => import('./import/container'))
+
+const SAFE_ADDRESS = `${TRUSTS_ADDRESS}/:${SAFE_PARAM_ADDRESS}`
+
+const Terms = React.lazy(() => import('./legal/Terms'))
+
+const Cookies = React.lazy(() => import('./legal/Cookies'))
+
+const Privacy = React.lazy(() => import('./legal/Privacy'))
 
 const Routes = (): React.ReactElement => {
   const [isInitialLoad, setInitialLoad] = useState(true)
   const location = useLocation()
   const matchSafeWithAction = useRouteMatch<{ safeAddress: string; safeAction: string }>({
-    path: `${SAFELIST_ADDRESS}/:safeAddress/:safeAction`,
+    path: `${TRUSTS_ADDRESS}/:safeAddress/:safeAction`,
   })
 
   const defaultSafe = useSelector(defaultSafeSelector)
@@ -39,7 +47,7 @@ const Routes = (): React.ReactElement => {
   useEffect(() => {
     if (matchSafeWithAction) {
       // prevent logging safeAddress
-      let safePage = `${SAFELIST_ADDRESS}/SAFE_ADDRESS`
+      let safePage = `${TRUSTS_ADDRESS}/SAFE_ADDRESS`
       if (matchSafeWithAction.params?.safeAction) {
         safePage += `/${matchSafeWithAction.params?.safeAction}`
       }
@@ -52,12 +60,12 @@ const Routes = (): React.ReactElement => {
 
   return (
     <Switch>
-      <Route
+      {/* <Route
         exact
         path="/"
         render={() => {
           if (!isInitialLoad) {
-            return <Redirect to={WELCOME_ADDRESS} />
+            return <Redirect to={HOME_ADDRESS} />
           }
 
           if (defaultSafe === DEFAULT_SAFE_INITIAL_STATE) {
@@ -69,16 +77,20 @@ const Routes = (): React.ReactElement => {
           }
 
           if (defaultSafe) {
-            return <Redirect to={`${SAFELIST_ADDRESS}/${defaultSafe}/balances`} />
+            return <Redirect to={`${TRUSTS_ADDRESS}/${defaultSafe}/balances`} />
           }
 
-          return <Redirect to={WELCOME_ADDRESS} />
+          return <Redirect to={HOME_ADDRESS} />
         }}
-      />
-      <Route component={Welcome} exact path={WELCOME_ADDRESS} />
-      <Route component={Open} exact path={OPEN_ADDRESS} />
-      <Route component={Safe} path={SAFE_ADDRESS} />
-      <Route component={Load} exact path={LOAD_ADDRESS} />
+      /> */}
+      <Route component={Home} exact path={HOME_ADDRESS} />
+      <Route component={Start} exact path={START_ADDRESS} />
+      <Route component={Create} exact path={CREATE_ADDRESS} />
+      <Route component={Trusts} path={SAFE_ADDRESS} />
+      <Route component={Import} exact path={IMPORT_ADDRESS} />
+      <Route component={Terms} exact path={TERMS_ADDRESS} />
+      <Route component={Cookies} exact path={COOKIES_ADDRESS} />
+      <Route component={Privacy} exact path={PRIVACY_ADDRESS} />
       <Redirect to="/" />
     </Switch>
   )

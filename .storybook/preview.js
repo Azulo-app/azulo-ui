@@ -6,15 +6,17 @@ import { ThemeProvider, createGlobalStyle } from 'styled-components'
 import { theme } from '@gnosis.pm/safe-react-components'
 
 import { aNewStore } from 'src/store'
-import averta from 'src/assets/fonts/Averta-normal.woff2'
-import avertaBold from 'src/assets/fonts/Averta-ExtraBold.woff2'
+import librefranklinRegular from 'src/assets/fonts/LibreFranklin-Regular.woff2'
+import librefranklinSemiBold from 'src/assets/fonts/LibreFranklin-SemiBold.woff2'
+import librefranklinBold from 'src/assets/fonts/LibreFranklin-Bold.woff2'
 
 const GlobalStyles = createGlobalStyle`
    @font-face {
-        font-family: 'Averta';
-        src: local('Averta'), local('Averta Bold'),
-        url(${averta}) format('woff2'),
-        url(${avertaBold}) format('woff');
+        font-family: 'Libre Franklin';
+        src: local('LibreFranklin'), local('LibreFranklin SemiBold'), local('LibreFranklin Bold'),
+        url(${librefranklinRegular}) format('woff2'),
+        url(${librefranklinSemiBold}) format('woff2'),
+        url(${librefranklinBold}) format('woff');
     }
 `
 

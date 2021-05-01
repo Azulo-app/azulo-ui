@@ -27,7 +27,7 @@ import { safeParamAddressFromStateSelector, safeSpendingLimitsSelector } from 's
 import { TxParameters } from 'src/routes/safe/container/hooks/useTransactionParameters'
 import { TxParametersDetail } from 'src/routes/safe/components/Transactions/helpers/TxParametersDetail'
 
-import { ActionCallback, CREATE } from '.'
+import { ActionCallback, START } from '.'
 import { EditableTxParameters } from 'src/routes/safe/components/Transactions/helpers/EditableTxParameters'
 import { TransactionFees } from 'src/components/TransactionsFees'
 import { EstimationStatus, useEstimateTransactionGas } from 'src/logic/hooks/useEstimateTransactionGas'
@@ -312,7 +312,7 @@ export const ReviewSpendingLimits = ({ onBack, onClose, txToken, values }: Revie
           <Modal.Footer>
             <Modal.Footer.Buttons
               cancelButtonProps={{
-                onClick: () => onBack({ values: {}, txToken: makeToken(), step: CREATE }),
+                onClick: () => onBack({ values: {}, txToken: makeToken(), step: START }),
                 text: 'Back',
               }}
               confirmButtonProps={{

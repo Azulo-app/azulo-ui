@@ -6,9 +6,9 @@ import {
   FIELD_OWNERS,
   getOwnerNameBy,
   getOwnerAddressBy,
-} from 'src/routes/open/components/fields'
+} from 'src/routes/create/components/fields'
 import { getWeb3, getProviderInfo } from 'src/logic/wallets/getWeb3'
-import { createSafe, } from 'src/routes/open/container/Open'
+import { createSafe, } from 'src/routes/create/container'
 import { makeProvider } from 'src/logic/wallets/store/model/provider'
 import addProvider from 'src/logic/wallets/store/actions/addProvider'
 
