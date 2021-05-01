@@ -14,7 +14,7 @@ import Divider from 'src/components/layout/Divider'
 import Hairline from 'src/components/layout/Hairline'
 import Link from 'src/components/layout/Link'
 import Row from 'src/components/layout/Row'
-import { WELCOME_ADDRESS } from 'src/routes/routes'
+import { START_ADDRESS } from 'src/routes/routes'
 import { useAnalytics, SAFE_NAVIGATION_EVENT } from 'src/utils/googleAnalytics'
 
 import { defaultSafeSelector, safeParamAddressFromStateSelector } from 'src/logic/safe/store/selectors'
@@ -110,7 +110,7 @@ export const SafeListSidebar = ({ children }: Props): ReactElement => {
             component={Link}
             onClick={toggleSidebar}
             size="small"
-            to={WELCOME_ADDRESS}
+            to={START_ADDRESS}
             variant="contained"
           >
             + Add Safe

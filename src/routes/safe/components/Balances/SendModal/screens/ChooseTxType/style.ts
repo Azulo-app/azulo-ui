@@ -1,5 +1,5 @@
 import { createStyles, makeStyles } from '@material-ui/core/styles'
-import { lg, md, sm } from 'src/theme/variables'
+import { lg, md, sm, mainFontFamily } from 'src/theme/variables'
 
 export const useStyles = makeStyles(
   createStyles({
@@ -29,7 +29,7 @@ export const useStyles = makeStyles(
       margin: '16px 0 44px 0',
       '& > button': {
         fontSize: md,
-        fontFamily: 'Averta',
+        fontFamily: mainFontFamily,
       },
     },
     firstButton: {

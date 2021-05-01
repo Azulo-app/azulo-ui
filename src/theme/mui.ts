@@ -14,6 +14,7 @@ import {
   lg,
   mainFontFamily,
   md,
+  nm,
   mediumFontSize,
   primary,
   regularFont,
@@ -54,7 +55,7 @@ const theme = createMuiTheme({
     MuiButton: {
       label: {
         lineHeight: '1',
-        fontSize: largeFontSize,
+        fontSize: nm,
         fontWeight: regularFont,
       },
       root: {
@@ -65,7 +66,7 @@ const theme = createMuiTheme({
         },
         color: disabled,
         textTransform: 'none',
-        borderRadius: sm,
+        borderRadius: '100px',
       },
       contained: {
         boxShadow: '1px 2px 10px 0 rgba(212, 212, 211, 0.59)',
@@ -80,9 +81,9 @@ const theme = createMuiTheme({
         },
       },
       outlinedPrimary: {
-        border: `2px solid ${primary}`,
+        border: `1px solid ${primary}`,
         '&:hover': {
-          border: `2px solid ${primary}`,
+          border: `1px solid ${primary}`,
         },
       },
       sizeLarge: {
@@ -272,7 +273,7 @@ const theme = createMuiTheme({
       message: {
         color: fontColor,
         flexGrow: '1',
-        fontFamily: 'Averta',
+        fontFamily: mainFontFamily,
         fontSize: '14px',
         lineHeight: '1.43',
         padding: '0 10px 0 0',

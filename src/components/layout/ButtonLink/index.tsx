@@ -6,7 +6,7 @@ import styles from './index.module.scss'
 
 const cx = cn.bind(styles)
 
-const GnoButtonLink = ({
+const AzuButtonLink = ({
   className = '',
   color = 'secondary',
   size = 'md',
@@ -18,4 +18,4 @@ const GnoButtonLink = ({
   <button className={cx(styles.btnLink, size, color, weight, className)} data-testid={testId} type={type} {...props} />
 )
 
-export default GnoButtonLink
+export default AzuButtonLink

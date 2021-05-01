@@ -17,7 +17,7 @@ import {
   safeNameSelector,
   safeParamAddressFromStateSelector,
 } from 'src/logic/safe/store/selectors'
-import { WELCOME_ADDRESS } from 'src/routes/routes'
+import { START_ADDRESS } from 'src/routes/routes'
 import { removeLocalSafe } from 'src/logic/safe/store/actions/removeLocalSafe'
 import { sameAddress } from 'src/logic/wallets/ethAddresses'
 import { saveDefaultSafe } from 'src/logic/safe/utils'
@@ -50,7 +50,7 @@ export const RemoveSafeModal = ({ isOpen, onClose }: RemoveSafeModalProps): Reac
     // using native redirect in order to avoid problems in several components
     // trying to access references of the removed safe.
     const relativePath = window.location.href.split('/#/')[0]
-    window.location.href = `${relativePath}/#/${WELCOME_ADDRESS}`
+    window.location.href = `${relativePath}/#/${START_ADDRESS}`
   }
 
   return (

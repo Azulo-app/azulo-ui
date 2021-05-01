@@ -3,12 +3,12 @@ import * as React from 'react'
 
 import Col from 'src/components/layout/Col'
 import Paragraph from 'src/components/layout/Paragraph'
-import { sm } from 'src/theme/variables'
+import { sm, mainFontFamily } from 'src/theme/variables'
 import { KeyRing } from 'src/components/AppLayout/Header/components/KeyRing'
 
 const styles = () => ({
   network: {
-    fontFamily: 'Averta, sans-serif',
+    fontFamily: `${mainFontFamily}`+', sans-serif',
   },
   account: {
     alignItems: 'start',

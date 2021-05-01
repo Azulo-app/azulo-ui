@@ -1,6 +1,6 @@
-const background = '#f7f5f5'
+const background = '#ffffff'
 const border = '#e8e7e6'
-const connectedColor = '#008C73'
+const connectedColor = '#7131ff'
 const disabled = '#5D6D74'
 const errorColor = '#f02525'
 const fancyColor = '#f02525'
@@ -9,8 +9,9 @@ const headerHeight = '52px'
 const lg = '24px'
 const marginButtonImg = '12px'
 const md = '16px'
+const nm = '14px'
 const primary = '#001428'
-const secondary = '#008C73'
+const secondary = '#7131ff'
 const secondaryTextOrSvg = '#B2B5B2'
 const secondaryBackground = '#f0efee'
 const sm = '8px'
@@ -40,10 +41,12 @@ module.exports = {
   headerHeight,
   largeFontSize: '16px',
   lg,
+  borderRadius: '8px',
   lightFont: 300,
-  mainFontFamily: 'Averta, sans-serif',
+  mainFontFamily: '"Libre Franklin", sans-serif',
   marginButtonImg,
   md,
+  nm,
   mediumFontSize: '14px',
   primary,
   regularFont: 400,
@@ -55,7 +58,7 @@ module.exports = {
   screenXs: 480,
   screenXsMax: 767,
   secondary,
-  secondaryFontFamily: 'Averta, monospace',
+  secondaryFontFamily: '"Libre Franklin", monospace',
   secondaryText: secondaryTextOrSvg,
   secondaryBackground,
   sm,

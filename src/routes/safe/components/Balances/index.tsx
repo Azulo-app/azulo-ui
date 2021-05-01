@@ -10,7 +10,7 @@ import Col from 'src/components/layout/Col'
 import Divider from 'src/components/layout/Divider'
 
 import Row from 'src/components/layout/Row'
-import { SAFELIST_ADDRESS } from 'src/routes/routes'
+import { TRUSTS_ADDRESS } from 'src/routes/routes'
 import SendModal from 'src/routes/safe/components/Balances/SendModal'
 import { CurrencyDropdown } from 'src/routes/safe/components/CurrencyDropdown'
 import {
@@ -100,7 +100,7 @@ const Balances = (): React.ReactElement => {
       <Row align="center" className={controls}>
         <Col className={assetTabs} sm={6} start="sm" xs={12}>
           <NavLink
-            to={`${SAFELIST_ADDRESS}/${address}/balances`}
+            to={`${TRUSTS_ADDRESS}/${address}/balances`}
             activeClassName={assetTabActive}
             className={assetTab}
             data-testid={'coins-assets-btn'}
@@ -112,7 +112,7 @@ const Balances = (): React.ReactElement => {
             <>
               <Divider className={assetDivider} />
               <NavLink
-                to={`${SAFELIST_ADDRESS}/${address}/balances/collectibles`}
+                to={`${TRUSTS_ADDRESS}/${address}/balances/collectibles`}
                 activeClassName={assetTabActive}
                 className={assetTab}
                 data-testid={'collectibles-assets-btn'}
@@ -125,14 +125,14 @@ const Balances = (): React.ReactElement => {
         </Col>
         <Switch>
           <Route
-            path={`${SAFELIST_ADDRESS}/${address}/balances/collectibles`}
+            path={`${TRUSTS_ADDRESS}/${address}/balances/collectibles`}
             exact
             render={() => {
-              return !erc721Enabled ? <Redirect to={`${SAFELIST_ADDRESS}/${address}/balances`} /> : null
+              return !erc721Enabled ? <Redirect to={`${TRUSTS_ADDRESS}/${address}/balances`} /> : null
             }}
           />
           <Route
-            path={`${SAFELIST_ADDRESS}/${address}/balances`}
+            path={`${TRUSTS_ADDRESS}/${address}/balances`}
             exact
             render={() => {
               return (
@@ -148,7 +148,7 @@ const Balances = (): React.ReactElement => {
       </Row>
       <Switch>
         <Route
-          path={`${SAFELIST_ADDRESS}/${address}/balances/collectibles`}
+          path={`${TRUSTS_ADDRESS}/${address}/balances/collectibles`}
           exact
           render={() => {
             if (erc721Enabled) {
@@ -158,7 +158,7 @@ const Balances = (): React.ReactElement => {
           }}
         />
         <Route
-          path={`${SAFELIST_ADDRESS}/${address}/balances`}
+          path={`${TRUSTS_ADDRESS}/${address}/balances`}
           render={() => {
             return wrapInSuspense(<Coins showReceiveFunds={() => onShow('Receive')} showSendFunds={showSendFunds} />)
           }}

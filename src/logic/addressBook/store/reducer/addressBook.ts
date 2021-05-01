@@ -3,7 +3,7 @@ import { Action, handleActions } from 'redux-actions'
 import { AddressBookEntry, AddressBookState, makeAddressBookEntry } from 'src/logic/addressBook/model/addressBook'
 import { ADD_ENTRY } from 'src/logic/addressBook/store/actions/addAddressBookEntry'
 import { ADD_OR_UPDATE_ENTRY } from 'src/logic/addressBook/store/actions/addOrUpdateAddressBookEntry'
-import { LOAD_ADDRESS_BOOK } from 'src/logic/addressBook/store/actions/loadAddressBook'
+import { IMPORT_ADDRESS_BOOK } from 'src/logic/addressBook/store/actions/loadAddressBook'
 import { REMOVE_ENTRY } from 'src/logic/addressBook/store/actions/removeAddressBookEntry'
 import { UPDATE_ENTRY } from 'src/logic/addressBook/store/actions/updateAddressBookEntry'
 import { AppReduxState } from 'src/store'
@@ -27,7 +27,7 @@ type Payloads = AddressBookPayload | EntryPayload | RemoveEntryPayload
 
 export default handleActions<AppReduxState['addressBook'], Payloads>(
   {
-    [LOAD_ADDRESS_BOOK]: (state, action: Action<AddressBookPayload>) => {
+    [IMPORT_ADDRESS_BOOK]: (state, action: Action<AddressBookPayload>) => {
       const { addressBook } = action.payload
       return addressBook
     },

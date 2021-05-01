@@ -13,7 +13,7 @@ import {
 } from 'src/logic/safe/store/selectors'
 import { grantedSelector } from 'src/routes/safe/container/selector'
 import { getNetworkName, getTxServiceUrl } from 'src/config'
-import { SAFELIST_ADDRESS } from 'src/routes/routes'
+import { TRUSTS_ADDRESS } from 'src/routes/routes'
 import { isSameURL } from 'src/utils/url'
 import { useAnalytics, SAFE_NAVIGATION_EVENT } from 'src/utils/googleAnalytics'
 import { useAppList } from '../hooks/useAppList'
@@ -99,7 +99,7 @@ const AppFrame = ({ appUrl }: Props): React.ReactElement => {
   const [appIsLoading, setAppIsLoading] = useState<boolean>(true)
   const [safeApp, setSafeApp] = useState<SafeApp | undefined>()
 
-  const redirectToBalance = () => history.push(`${SAFELIST_ADDRESS}/${safeAddress}/balances`)
+  const redirectToBalance = () => history.push(`${TRUSTS_ADDRESS}/${safeAddress}/balances`)
   const timer = useRef<number>()
   const [appTimeout, setAppTimeout] = useState(false)
 

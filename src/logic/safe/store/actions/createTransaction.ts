@@ -17,7 +17,7 @@ import { getCurrentSafeVersion } from 'src/logic/safe/utils/safeVersion'
 import { ZERO_ADDRESS } from 'src/logic/wallets/ethAddresses'
 import { EMPTY_DATA } from 'src/logic/wallets/ethTransactions'
 import { providerSelector } from 'src/logic/wallets/store/selectors'
-import { SAFELIST_ADDRESS } from 'src/routes/routes'
+import { TRUSTS_ADDRESS } from 'src/routes/routes'
 import enqueueSnackbar from 'src/logic/notifications/store/actions/enqueueSnackbar'
 import closeSnackbarAction from 'src/logic/notifications/store/actions/closeSnackbar'
 import { generateSafeTxHash } from 'src/logic/safe/store/actions/transactions/utils/transactionHelpers'
@@ -71,7 +71,7 @@ export const createTransaction = (
   const state = getState()
 
   if (navigateToTransactionsTab) {
-    dispatch(push(`${SAFELIST_ADDRESS}/${safeAddress}/transactions`))
+    dispatch(push(`${TRUSTS_ADDRESS}/${safeAddress}/transactions`))
   }
 
   const ready = await onboardUser()

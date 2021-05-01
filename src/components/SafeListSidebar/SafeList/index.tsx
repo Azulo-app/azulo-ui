@@ -9,9 +9,9 @@ import { DefaultSafe } from 'src/routes/safe/store/reducer/types/safe'
 import Hairline from 'src/components/layout/Hairline'
 import Link from 'src/components/layout/Link'
 import { sameAddress } from 'src/logic/wallets/ethAddresses'
-import { SAFELIST_ADDRESS } from 'src/routes/routes'
+import { TRUSTS_ADDRESS } from 'src/routes/routes'
 import { AddressWrapper } from 'src/components/SafeListSidebar/SafeList/AddressWrapper'
-export const SIDEBAR_SAFELIST_ROW_TESTID = 'SIDEBAR_SAFELIST_ROW_TESTID'
+export const SIDEBAR_TRUSTS_ROW_TESTID = 'SIDEBAR_TRUSTS_ROW_TESTID'
 
 const StyledIcon = styled(Icon)`
   margin-right: 4px;
@@ -55,9 +55,9 @@ export const SafeList = ({ currentSafe, defaultSafe, onSafeClick, safes }: Props
       {safes.map((safe) => (
         <React.Fragment key={safe.address}>
           <Link
-            data-testid={SIDEBAR_SAFELIST_ROW_TESTID}
+            data-testid={SIDEBAR_TRUSTS_ROW_TESTID}
             onClick={onSafeClick}
-            to={`${SAFELIST_ADDRESS}/${safe.address}/balances`}
+            to={`${TRUSTS_ADDRESS}/${safe.address}/balances`}
           >
             <ListItem classes={{ root: classes.listItemRoot }}>
               {sameAddress(currentSafe, safe.address) ? (

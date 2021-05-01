@@ -7,21 +7,27 @@ body {
 }
 
 @font-face {
-  font-family: "Averta";
+  font-family: 'Libre Franklin';
+  src:url('../../assets/fonts/LibreFranklin-Regular.woff2') format('woff2');
+  font-weight: normal;
   font-style: normal;
-  font-weight: 400;
   font-display: swap;
-  src: local("Averta-Regular"),
-    url(../../assets/fonts/Averta-normal.woff2) format("woff2");
 }
 
 @font-face {
-  font-family: "Averta";
+  font-family: 'Libre Franklin';
+  src:url('../../assets/fonts/LibreFranklin-SemiBold.woff2') format('woff2');
+  font-weight: 600;
   font-style: normal;
-  font-weight: 800;
   font-display: swap;
-  src: local("Averta-Extrabold"),
-    url(../../assets/fonts/Averta-ExtraBold.woff2) format("woff2");
+}
+
+@font-face {
+  font-family: 'Libre Franklin';
+  src:url('../../assets/fonts/LibreFranklin-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
 }
 
 body {
@@ -30,7 +36,7 @@ body {
   background-color: $background;
   bottom: 0;
   color: $fontColor;
-  font-family: "Averta", monospace;
+  font-family: "Libre Franklin", monospace;
   font-size: $mediumFontSize;
   left: 0;
   margin: 0;

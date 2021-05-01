@@ -436,7 +436,7 @@ export const OwnerList = styled.ul`
     }
 
     span {
-      color: #008c73;
+      color: #7131ff;
       font-weight: bold;
     }
   }

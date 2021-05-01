@@ -5,7 +5,7 @@ import { aMinedSafe } from 'src/test/builder/safe.redux.builder'
 import { renderSafeView } from 'src/test/builder/safe.dom.utils'
 import '@testing-library/jest-dom/extend-expect'
 import { TOGGLE_SIDEBAR_BTN_TESTID } from 'src/components/AppLayout/Sidebar/SafeHeader'
-import { SIDEBAR_SAFELIST_ROW_TESTID } from 'src/components/SafeListSidebar/SafeList'
+import { SIDEBAR_TRUSTS_ROW_TESTID } from 'src/components/SafeListSidebar/SafeList'
 import { sleep } from 'src/utils/timer'
 
 describe('DOM > Feature > Sidebar', () => {
@@ -23,7 +23,7 @@ describe('DOM > Feature > Sidebar', () => {
       fireEvent.click(SafeDom.getByTestId(TOGGLE_SIDEBAR_BTN_TESTID))
     })
 
-    const safes = SafeDom.getAllByTestId(SIDEBAR_SAFELIST_ROW_TESTID)
+    const safes = SafeDom.getAllByTestId(SIDEBAR_TRUSTS_ROW_TESTID)
     expect(safes.length).toBe(1)
 
     expect(safes[0]).toContainElement(SafeDom.getByText('default'))
@@ -41,7 +41,7 @@ describe('DOM > Feature > Sidebar', () => {
 
     await sleep(400)
 
-    const safes = SafeDom.getAllByTestId(SIDEBAR_SAFELIST_ROW_TESTID)
+    const safes = SafeDom.getAllByTestId(SIDEBAR_TRUSTS_ROW_TESTID)
     expect(safes.length).toBe(2)
 
     expect(safes[0]).toContainElement(SafeDom.getByText('default'))

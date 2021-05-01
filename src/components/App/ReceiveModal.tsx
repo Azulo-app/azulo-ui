@@ -10,7 +10,7 @@ import Col from 'src/components/layout/Col'
 import Hairline from 'src/components/layout/Hairline'
 import Paragraph from 'src/components/layout/Paragraph'
 import Row from 'src/components/layout/Row'
-import { border, fontColor, lg, md, screenSm, secondaryText } from 'src/theme/variables'
+import { border, fontColor, lg, md, screenSm, secondaryText, mainFontFamily } from 'src/theme/variables'
 import { getExplorerInfo, getNetworkInfo } from 'src/config'
 import { EthHashInfo } from '@gnosis.pm/safe-react-components'
 
@@ -51,7 +51,7 @@ const useStyles = makeStyles(
       height: '84px',
       justifyContent: 'center',
       '& > button': {
-        fontFamily: 'Averta',
+        fontFamily: `${mainFontFamily}`,
         fontSize: md,
         boxShadow: '1px 2px 10px 0 rgba(212, 212, 211, 0.59)',
       },
