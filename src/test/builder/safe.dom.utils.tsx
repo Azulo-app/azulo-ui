@@ -9,7 +9,7 @@ import ListItemText from 'src/components/List/ListItemText/index'
 import { sleep } from 'src/utils/timer'
 import { history, } from 'src/store'
 import AppRoutes from 'src/routes'
-import { SAFELIST_ADDRESS } from 'src/routes/routes'
+import { TRUSTS_ADDRESS } from 'src/routes/routes'
 import { EMPTY_DATA } from 'src/logic/wallets/ethTransactions'
 import { wrapInSuspense } from 'src/utils/wrapInSuspense'
 
@@ -99,7 +99,7 @@ const renderApp = (store) => ({
 export const renderSafeView = (store, address) => {
   const app = renderApp(store)
 
-  const url = `${SAFELIST_ADDRESS}/${address}/balances/`
+  const url = `${TRUSTS_ADDRESS}/${address}/balances/`
   history.push(url)
 
   return app

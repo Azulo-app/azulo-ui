@@ -1,4 +1,4 @@
-import { background, border, lg, md, secondaryText, sm } from 'src/theme/variables'
+import { background, border, lg, md, secondaryText, sm, mainFontFamily } from 'src/theme/variables'
 import { createStyles } from '@material-ui/core'
 
 export const styles = createStyles({
@@ -37,7 +37,7 @@ export const styles = createStyles({
     wordBreak: 'break-all',
     overflow: 'auto',
     fontSize: '14px',
-    fontFamily: 'Averta',
+    fontFamily: mainFontFamily,
     maxHeight: '100px',
     letterSpacing: 'normal',
     fontStretch: 'normal',
@@ -47,7 +47,7 @@ export const styles = createStyles({
     height: '84px',
     justifyContent: 'center',
     '& > button': {
-      fontFamily: 'Averta',
+      fontFamily: mainFontFamily,
       fontSize: md,
     },
   },

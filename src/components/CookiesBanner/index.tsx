@@ -9,7 +9,7 @@ import { COOKIES_KEY } from 'src/logic/cookies/model/cookie'
 import { openCookieBanner } from 'src/logic/cookies/store/actions/openCookieBanner'
 import { cookieBannerOpen } from 'src/logic/cookies/store/selectors'
 import { loadFromCookie, saveCookie } from 'src/logic/cookies/utils'
-import { mainFontFamily, md, primary, screenSm } from 'src/theme/variables'
+import { mainFontFamily, nm, md, primary, screenSm } from 'src/theme/variables'
 import { loadGoogleAnalytics } from 'src/utils/googleAnalytics'
 import { closeIntercom, isIntercomLoaded, loadIntercom } from 'src/utils/intercom'
 import AlertRedIcon from './assets/alert-red.svg'
@@ -27,9 +27,10 @@ const useStyles = makeStyles({
     justifyContent: 'center',
     left: '0',
     minHeight: '200px',
-    padding: '30px 15px 45px',
+    padding: '30px',
     position: 'fixed',
     width: '100%',
+    maxWidth: '450px',
     zIndex: '999',
   },
   content: {
@@ -38,23 +39,23 @@ const useStyles = makeStyles({
   text: {
     color: primary,
     fontFamily: mainFontFamily,
-    fontSize: md,
+    fontSize: nm,
     fontWeight: 'normal',
     lineHeight: '1.38',
-    margin: '0 auto 35px',
+    margin: '0 auto 15px',
     textAlign: 'center',
     maxWidth: '810px',
   },
   form: {
-    columnGap: '20px',
+    columnGap: '15px',
     display: 'grid',
     gridTemplateColumns: '1fr',
-    paddingBottom: '50px',
+    paddingBottom: '20px',
     rowGap: '15px',
     margin: '0 auto',
     [`@media (min-width: ${screenSm}px)`]: {
-      gridTemplateColumns: '1fr 1fr 1fr 1fr 1fr',
-      paddingBottom: '0',
+      gridTemplateColumns: '1fr 1fr',
+      paddingBottom: '10px',
       rowGap: '5px',
     },
   },
@@ -182,13 +183,13 @@ const CookiesBanner = (): ReactElement => {
             </div>
           )}
           <p className={classes.text}>
-            We use cookies to provide you with the best experience and to help improve our website and application.
+            Cookies are used to provide you with the best experience.
             Please read our{' '}
-            <Link className={classes.link} to="https://gnosis-safe.io/cookie">
+            <Link className={classes.link} to="/cookies">
               Cookie Policy
             </Link>{' '}
             for more information. By clicking &quot;Accept all&quot;, you agree to the storing of cookies on your device
-            to enhance site navigation, analyze site usage and provide customer support.
+            to enhance site navigation, features, analyze site usage and provide customer support.
           </p>
           <div className={classes.form}>
             <div className={classes.formItem}>
@@ -202,7 +203,7 @@ const CookiesBanner = (): ReactElement => {
                 value={localNecessary}
               />
             </div>
-            <div className={classes.formItem}>
+            {/* <div className={classes.formItem}>
               <FormControlLabel
                 control={<Checkbox checked={localIntercom} />}
                 label="Customer support"
@@ -210,7 +211,7 @@ const CookiesBanner = (): ReactElement => {
                 onChange={() => setLocalIntercom((prev) => !prev)}
                 value={localIntercom}
               />
-            </div>
+            </div> */}
             <div className={classes.formItem}>
               <FormControlLabel
                 control={<Checkbox checked={localAnalytics} />}
@@ -220,22 +221,24 @@ const CookiesBanner = (): ReactElement => {
                 value={localAnalytics}
               />
             </div>
+          </div>
+          <div className={classes.form}>
             <div className={classes.formItem}>
               <Button
                 color="primary"
                 component={Link}
-                minWidth={180}
+                minWidth={170}
                 onClick={() => closeCookiesBannerHandler()}
                 variant="outlined"
               >
-                Accept selection
+                Accept selected
               </Button>
             </div>
             <div className={classes.formItem}>
               <Button
                 color="primary"
                 component={Link}
-                minWidth={180}
+                minWidth={170}
                 onClick={() => acceptCookiesHandler()}
                 variant="contained"
               >
@@ -250,13 +253,13 @@ const CookiesBanner = (): ReactElement => {
 
   return (
     <>
-      {!isDesktop && !showIntercom && (
+      {/* {!isDesktop && !showIntercom && (
         <img
           className={classes.intercomImage}
           src={IntercomIcon}
           onClick={() => dispatch.current(openCookieBanner({ cookieBannerOpen: true, intercomAlertDisplayed: true }))}
         />
-      )}
+      )} */}
       {!isDesktop && showBanner?.cookieBannerOpen && (
         <CookiesBannerForm alertMessage={showBanner?.intercomAlertDisplayed} />
       )}

@@ -3,7 +3,7 @@
         <g>
             <g>
                 <path d="M0 0H16V16H0z" transform="translate(-646 -3495) translate(646 3495)"/>
-                <path fill="#008C73" fill-rule="nonzero" d="M8 15c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm0-2c-2.761 0-5-2.239-5-5s2.239-5 5-5 5 2.239 5 5-2.239 5-5 5z" transform="translate(-646 -3495) translate(646 3495)"/>
+                <path fill="#7131ff" fill-rule="nonzero" d="M8 15c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm0-2c-2.761 0-5-2.239-5-5s2.239-5 5-5 5 2.239 5 5-2.239 5-5 5z" transform="translate(-646 -3495) translate(646 3495)"/>
             </g>
         </g>
     </g>

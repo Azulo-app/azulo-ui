@@ -22,8 +22,8 @@ import { addressBookAddressesListSelector } from 'src/logic/addressBook/store/se
 import { AddressBookEntry } from 'src/logic/addressBook/model/addressBook'
 import { Entry } from 'src/routes/safe/components/AddressBook/index'
 
-export const CREATE_ENTRY_INPUT_NAME_ID = 'create-entry-input-name'
-export const CREATE_ENTRY_INPUT_ADDRESS_ID = 'create-entry-input-address'
+export const START_ENTRY_INPUT_NAME_ID = 'create-entry-input-name'
+export const START_ENTRY_INPUT_ADDRESS_ID = 'create-entry-input-address'
 export const SAVE_NEW_ENTRY_BTN_ID = 'save-new-entry-btn-id'
 
 const formMutators = {
@@ -102,7 +102,7 @@ export const CreateEditEntryModal = ({
                       component={TextField}
                       name="name"
                       placeholder="Name"
-                      testId={CREATE_ENTRY_INPUT_NAME_ID}
+                      testId={START_ENTRY_INPUT_NAME_ID}
                       text="Name"
                       type="text"
                       validate={composeValidators(required, minMaxLength(1, 50))}
@@ -116,7 +116,7 @@ export const CreateEditEntryModal = ({
                       fieldMutator={mutators.setOwnerAddress}
                       name="address"
                       placeholder="Address*"
-                      testId={CREATE_ENTRY_INPUT_ADDRESS_ID}
+                      testId={START_ENTRY_INPUT_ADDRESS_ID}
                       text="Address*"
                       validators={[(value?: string) => (isNew ? isUniqueAddress(value) : undefined)]}
                     />

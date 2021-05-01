@@ -25,6 +25,6 @@ export const styles = () => ({
     backgroundColor: error,
   },
   buttonCancel: {
-    color: '#008c73',
+    color: '#7131ff',
   },
 })

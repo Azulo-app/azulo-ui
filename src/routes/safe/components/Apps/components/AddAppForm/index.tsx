@@ -12,7 +12,7 @@ import AppUrl, { AppInfoUpdater, appUrlResolver } from './AppUrl'
 import FormButtons from './FormButtons'
 import { APPS_STORAGE_KEY, getEmptySafeApp } from 'src/routes/safe/components/Apps/utils'
 import { saveToStorage } from 'src/utils/storage'
-import { SAFELIST_ADDRESS } from 'src/routes/routes'
+import { TRUSTS_ADDRESS } from 'src/routes/routes'
 import { useHistory, useRouteMatch } from 'react-router-dom'
 
 const FORM_ID = 'add-apps-form'
@@ -61,7 +61,7 @@ interface AddAppProps {
 const AddApp = ({ appList, closeModal }: AddAppProps): ReactElement => {
   const [appInfo, setAppInfo] = useState<SafeApp>(APP_INFO)
   const history = useHistory()
-  const matchSafeWithAddress = useRouteMatch<{ safeAddress: string }>({ path: `${SAFELIST_ADDRESS}/:safeAddress` })
+  const matchSafeWithAddress = useRouteMatch<{ safeAddress: string }>({ path: `${TRUSTS_ADDRESS}/:safeAddress` })
 
   const handleSubmit = () => {
     const newAppList = [

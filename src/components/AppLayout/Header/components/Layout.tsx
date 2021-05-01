@@ -15,7 +15,7 @@ import Row from 'src/components/layout/Row'
 import { headerHeight, md, screenSm, sm } from 'src/theme/variables'
 import { useStateHandler } from 'src/logic/hooks/useStateHandler'
 
-import SafeLogo from '../assets/gnosis-safe-multisig-logo.svg'
+import AzuloLogo from '../assets/azulo_logo.svg'
 
 const styles = () => ({
   root: {
@@ -34,18 +34,16 @@ const styles = () => ({
     position: 'fixed',
     width: '100%',
     zIndex: 1301,
+    padding: ''
   },
   logo: {
-    flexBasis: '140px',
     flexShrink: '0',
     flexGrow: '0',
     maxWidth: '55px',
-    padding: sm,
     marginTop: '4px',
+    padding: '0 2%',
     [`@media (min-width: ${screenSm}px)`]: {
       maxWidth: 'none',
-      paddingLeft: md,
-      paddingRight: md,
     },
   },
   popper: {
@@ -60,7 +58,7 @@ const Layout = ({ classes, providerDetails, providerInfo }) => {
     <Row className={classes.summary}>
       <Col className={classes.logo} middle="xs" start="xs">
         <Link to="/">
-          <Img alt="Gnosis Team Safe" height={36} src={SafeLogo} testId="heading-gnosis-logo" />
+          <Img alt="Azulo Trusts" height={30} src={AzuloLogo} testId="heading-azulo-logo" />
         </Link>
       </Col>
       <Spacer />

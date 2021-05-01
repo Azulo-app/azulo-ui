@@ -22,7 +22,7 @@ store.dispatch(loadCurrentSessionFromStorage())
 
 Sentry.init({
   dsn: SENTRY_DSN,
-  release: `safe-react@${process.env.REACT_APP_APP_VERSION}`,
+  release: `azulo@${process.env.REACT_APP_APP_VERSION}`,
   integrations: [new Integrations.BrowserTracing()],
   sampleRate: 0.01,
 })

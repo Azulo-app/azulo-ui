@@ -1,7 +1,7 @@
 import { List } from 'immutable'
 import { matchPath, RouteComponentProps } from 'react-router-dom'
 import { createSelector } from 'reselect'
-import { SAFELIST_ADDRESS, SAFE_PARAM_ADDRESS } from 'src/routes/routes'
+import { TRUSTS_ADDRESS, SAFE_PARAM_ADDRESS } from 'src/routes/routes'
 
 import { SAFE_REDUCER_ID } from 'src/logic/safe/store/reducer/safe'
 import { AppReduxState } from 'src/store'
@@ -27,7 +27,7 @@ export const latestMasterContractVersionSelector = createSelector(safesStateSele
 
 export const safeParamAddressFromStateSelector = (state: AppReduxState): string => {
   const match = matchPath<{ safeAddress: string }>(state.router.location.pathname, {
-    path: `${SAFELIST_ADDRESS}/:safeAddress`,
+    path: `${TRUSTS_ADDRESS}/:safeAddress`,
   })
 
   if (match) {

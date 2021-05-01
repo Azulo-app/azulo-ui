@@ -16,7 +16,7 @@ import { safeParamAddressFromStateSelector } from 'src/logic/safe/store/selector
 import AppCard from 'src/routes/safe/components/Apps/components/AppCard'
 import AddAppIcon from 'src/routes/safe/components/Apps/assets/addApp.svg'
 import { useRouteMatch, Link } from 'react-router-dom'
-import { SAFELIST_ADDRESS } from 'src/routes/routes'
+import { TRUSTS_ADDRESS } from 'src/routes/routes'
 
 import { useAppList } from '../hooks/useAppList'
 import { SAFE_APP_FETCH_STATUS, SafeApp } from '../types.d'
@@ -91,7 +91,7 @@ const isAppLoading = (app: SafeApp) => SAFE_APP_FETCH_STATUS.LOADING === app.fet
 const isCustomApp = (appUrl: string, staticAppsList: AppData[]) => !staticAppsList.some(({ url }) => url === appUrl)
 
 const AppsList = (): React.ReactElement => {
-  const matchSafeWithAddress = useRouteMatch<{ safeAddress: string }>({ path: `${SAFELIST_ADDRESS}/:safeAddress` })
+  const matchSafeWithAddress = useRouteMatch<{ safeAddress: string }>({ path: `${TRUSTS_ADDRESS}/:safeAddress` })
   const safeAddress = useSelector(safeParamAddressFromStateSelector)
   const { appList, removeApp, staticAppsList } = useAppList()
   const [isAddAppModalOpen, setIsAddAppModalOpen] = useState<boolean>(false)

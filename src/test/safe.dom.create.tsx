@@ -5,8 +5,8 @@ import { render, fireEvent, act } from '@testing-library/react'
 import { Provider } from 'react-redux'
 import { ConnectedRouter } from 'connected-react-router'
 import { sleep } from 'src/utils/timer'
-import { ADD_OWNER_BUTTON } from 'src/routes/open/components/SafeOwnersConfirmationsForm'
-import Open from 'src/routes/open/container/Open'
+import { ADD_OWNER_BUTTON } from 'src/routes/create/components/SafeOwnersConfirmationsForm'
+import Open from 'src/routes/create/container'
 import { aNewStore, history, } from 'src/store'
 import { getProviderInfo, getWeb3 } from 'src/logic/wallets/getWeb3'
 import addProvider from 'src/logic/wallets/store/actions/addProvider'
@@ -121,7 +121,7 @@ const aDeployedSafe = async (specificStore, threshold = 1, numOwners = 1): Promi
   return safeAddress
 }
 
-describe('DOM > Feature > CREATE a Safe', () => {
+describe('DOM > Feature > START a Safe', () => {
   it('fills correctly the Safe form with 4 owners and 4 threshold and creates a Safe', async () => {
     const owners = 4
     const threshold = 4
