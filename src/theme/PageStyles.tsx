@@ -14,9 +14,8 @@ const mainStyles = makeStyles((theme) => ({
         paddingBottom: theme.spacing(6),
     },
     pageTitleHold: {
-        marginRight: '20px',
-        borderRight: '1px solid #e0e0e0',
-        paddingRight: '20px'
+        textAlign: 'center',
+        margin: '40px 0 10px'
     },
     pageNav: {
         position: 'relative',
@@ -66,13 +65,14 @@ const mainStyles = makeStyles((theme) => ({
         color: '#7131ff'
     },
     pageTitle: {
-        fontSize: '2em',
+        fontSize: '2.2em',
         lineHeight: '1',
         fontWeight: 700
     },
     pageDesc: {
-        fontSize: '1em',
+        fontSize: '1.2em',
         lineHeight: '1',
+        textAlign: 'center',
         paddingTop: '4px'
     },
     mainButton: {
@@ -202,7 +202,7 @@ const mainStyles = makeStyles((theme) => ({
         borderRadius: borderRadius
     },
     createStepOut: {
-        padding: '20px 3%',
+        padding: '10px 3%',
         border: `1px solid ${border}`,
         borderRadius: borderRadius,
         marginBottom: '15px'

@@ -9,9 +9,10 @@ import Block from 'src/components/layout/Block'
 import Heading from 'src/components/layout/Heading'
 import Row from 'src/components/layout/Row'
 import { instantiateSafeContracts } from 'src/logic/contracts/safeContracts'
-import { Review } from 'src/routes/create/components/ReviewInformation'
+import { StartConnect } from 'src/routes/create/components/StartConnect'
 import SafeNameField from 'src/routes/create/components/SafeNameForm'
 import { SafeOwnersPage, validateOwnersForm } from 'src/routes/create/components/SafeOwnersConfirmationsForm'
+import { Review } from 'src/routes/create/components/ReviewInformation'
 import {
   FIELD_CONFIRMATIONS,
   FIELD_CREATION_PROXY_SALT,
@@ -61,7 +62,7 @@ const useStyles = makeStyles(() => ({
 
 const { useEffect } = React
 
-const getSteps = () => ['Name', 'Owners and confirmations', 'Review']
+const getSteps = () => ['Connect', 'Details', 'Review']
 
 export type InitialValuesForm = {
   owner0Address?: string
@@ -153,100 +154,26 @@ export const Layout = (props: LayoutProps): React.ReactElement => {
 
   return (
     <Block>
-      <Grid container alignItems="center">
-        <Grid item className={mainClasses.pageTitleHold}><div className={mainClasses.pageTitle}>Create a trust</div></Grid>
+      <Grid container direction="column" justify="center" alignItems="stretch">
+        <Grid item xs={12} className={mainClasses.pageTitleHold}><div className={mainClasses.pageTitle}>Create a trust</div></Grid>
         <Grid item><div className={mainClasses.pageDesc}>Create a new trust for your family, friends, business, charity or organisation.</div></Grid>
       </Grid>
 
       <>
         <Wrapper>
           <Grid container>
-            <Grid item sm={12} className={mainClasses.createStepOut}>
-              <Grid container direction="row" justify="space-between" alignItems="center">
-                <Grid item className={mainClasses.createStepTitle}>
-                  <Grid container direction="row" justify="flex-start" alignItems="center">
-                    <Grid item className={mainClasses.createStepNum}><span>1</span></Grid>
-                    <Grid item>Step 1: Connect wallet</Grid>
-                  </Grid>
-                </Grid>
-                <Grid item>
-                  {
-                    provider ?
-                      <Button
-                        color="primary"
-                        variant="contained"
-                        className={`${mainClasses.mainButton} ${mainClasses.borderButton} ${mainClasses.greyButton}`}
-                        fullWidth
-                        onClick={onDisconnect}
-                        data-testid="disconnect-btn"
-                      >
-                        Disconnect
-                      </Button>
-                    :
-                      <Button
-                        color="primary"
-                        variant="contained"
-                        onClick={onConnectButtonClick}
-                        className={mainClasses.mainButton}
-                        data-testid="connect-btn"
-                      >
-                        Connect
-                      </Button>
-                  }
-                </Grid>
-              </Grid>
-            </Grid>
-            <Grid item sm={12} className={`${mainClasses.createStepOut} ${provider ? mainClasses.createStepOutActive : ''}`}>
-              <Grid container direction="row" justify="space-between" alignItems="center">
-                <Grid item className={mainClasses.createStepTitle}>
-                  <Grid container direction="row" justify="flex-start" alignItems="center">
-                    <Grid item className={mainClasses.createStepNum}><span>2</span></Grid>
-                    <Grid item>Step 2: Trust details</Grid>
-                  </Grid>
-                </Grid>
-                <Grid item className={mainClasses.createStepBody}>
-                  <Grid container>
-                    <Grid item>
-                      <h3 className={mainClasses.cardTitle}>Set your trust details</h3>
-                      <p className={mainClasses.cardDesc}>You are about to create a new Trust with one or more trustees. You can add a name for your trust. This name is only saved on your device and is not visible to anyone else.</p>
-                      {/* <SafeNameField />
-                      <SafeOwnersPage /> */}
-      <Stepper
-        initialValues={initialValues}
-        mutators={formMutators}
-        onSubmit={onCallSafeContractSubmit}
-        steps={steps}
-        testId="create-safe-form"
-      >
-        <StepperPage component={SafeNameField} />
-        <StepperPage component={SafeOwnersPage} validate={validateOwnersForm} />
-        <StepperPage component={Review} />
-      </Stepper>
-                    </Grid>
-                  </Grid>
-                </Grid>
-              </Grid>
-            </Grid>
-            <Grid item sm={12} className={mainClasses.createStepOut}>
-              <Grid container direction="row" justify="flex-start" alignItems="center">
-                <Grid item className={mainClasses.createStepTitle}>
-                  <Grid container direction="row" justify="flex-start" alignItems="center">
-                    <Grid item className={mainClasses.createStepNum}><span>3</span></Grid>
-                    <Grid item>Step 3: Review</Grid>
-                  </Grid>
-                </Grid>
-              </Grid>
-            </Grid>
-            <Grid item sm={12} className={mainClasses.createStepOut}>
-              <Grid container direction="row" justify="flex-start" alignItems="center">
-                <Grid item className={mainClasses.createStepTitle}>
-                  <Grid container direction="row" justify="flex-start" alignItems="center">
-                    <Grid item className={mainClasses.createStepNum}><span>4</span></Grid>
-                    <Grid item>Step 4: Create trust</Grid>
-                  </Grid>
-                </Grid>
-              </Grid>
-            </Grid>
+            <Stepper
+              initialValues={initialValues}
+              mutators={formMutators}
+              onSubmit={onCallSafeContractSubmit}
+              steps={steps}
+              testId="create-safe-form"
+            >
+              <StepperPage component={StartConnect} />
+              {/* <StepperPage component={SafeNameField} /> */}
+              <StepperPage component={SafeOwnersPage} validate={validateOwnersForm} />
+              <StepperPage component={Review} />
+            </Stepper>
           </Grid>
         </Wrapper>
       </>
