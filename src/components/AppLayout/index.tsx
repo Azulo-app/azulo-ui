@@ -12,16 +12,12 @@ const Container = styled.div`
   width: 100vw;
   display: flex;
   flex-direction: column;
-
-  background-color: ${({ theme }) => theme.colors.white};
 `
 
 const HeaderWrapper = styled.nav`
   height: 52px;
   width: 100%;
   z-index: 2;
-
-  background-color: white;
 `
 
 const BodyWrapper = styled.div`

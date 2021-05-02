@@ -150,7 +150,6 @@ function GnoStepper<V>(props: GnoStepperProps<V>): React.ReactElement {
           const disabled = disabledWhenValidating ? submitting || validating : submitting
           const controls = (
             <>
-              <Hairline />
               <Controls
                 buttonLabels={buttonLabels}
                 currentStep={page}
@@ -164,26 +163,28 @@ function GnoStepper<V>(props: GnoStepperProps<V>): React.ReactElement {
           )
 
           return (
-            <Stepper activeStep={page} classes={{ root: classes.root }} orientation="vertical">
-              {steps.map((label, index) => {
-                const labelProps: any = {}
-                const isClickable = index < page
+            <>
+              <Stepper activeStep={page} classes={{ root: classes.root }} orientation="horizontal">
+                {steps.map((label, index) => {
+                  const labelProps: any = {}
+                  const isClickable = index < page
 
-                if (isClickable) {
-                  labelProps.onClick = () => {
-                    setPage(index)
+                  if (isClickable) {
+                    labelProps.onClick = () => {
+                      setPage(index)
+                    }
+                    labelProps.className = classes.pointerCursor
                   }
-                  labelProps.className = classes.pointerCursor
-                }
 
-                return (
-                  <FormStep key={label}>
-                    <StepLabel {...labelProps}>{label}</StepLabel>
-                    <StepContent TransitionProps={transitionProps}>{activePage(controls, ...rest)}</StepContent>
-                  </FormStep>
-                )
-              })}
-            </Stepper>
+                  return (
+                    <FormStep key={label}>
+                      <StepLabel {...labelProps}>{label}</StepLabel>
+                    </FormStep>
+                  )
+                })}
+              </Stepper>
+              <div>{activePage(controls, ...rest)}</div>
+            </>
           )
         }}
       </GnoForm>

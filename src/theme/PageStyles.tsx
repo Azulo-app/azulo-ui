@@ -1,4 +1,5 @@
 import { makeStyles } from "@material-ui/core/styles";
+import { borderRadius, border, mainColor, greyColor } from 'src/theme/variables'
 
 const mainStyles = makeStyles((theme) => ({
     '@global': {
@@ -13,9 +14,8 @@ const mainStyles = makeStyles((theme) => ({
         paddingBottom: theme.spacing(6),
     },
     pageTitleHold: {
-        marginRight: '20px',
-        borderRight: '1px solid #e0e0e0',
-        paddingRight: '20px'
+        textAlign: 'center',
+        margin: '40px 0 10px'
     },
     pageNav: {
         position: 'relative',
@@ -65,20 +65,22 @@ const mainStyles = makeStyles((theme) => ({
         color: '#7131ff'
     },
     pageTitle: {
-        fontSize: '2em',
+        fontSize: '2.2em',
         lineHeight: '1',
         fontWeight: 700
     },
     pageDesc: {
-        fontSize: '1em',
+        fontSize: '1.2em',
         lineHeight: '1',
+        textAlign: 'center',
         paddingTop: '4px'
     },
     mainButton: {
       borderRadius: '100px',
-      border: '2px solid #7131FF',
-      background: '#7131FF',
+      border: `2px solid ${mainColor}`,
+      background: mainColor,
       color: '#fff',
+      fontWeight: 600,
       padding: '12px 30px',
       fontSize: '1.1em',
       textTransform: 'none',
@@ -87,6 +89,7 @@ const mainStyles = makeStyles((theme) => ({
       transition: 'all 0.3s ease-in-out',
       lineHeight: '1',
       display: 'inline-block',
+      boxShadow: 'none',
       '& svg': {
             marginRight: '5px',
             fill: '#fff'
@@ -107,36 +110,20 @@ const mainStyles = makeStyles((theme) => ({
       }
     },
     borderButton: {
-      borderRadius: '100px',
-      border: '2px solid #7131FF',
-      background: '#fff',
-      color: '#7131FF',
-      padding: '12px 30px',
-      fontSize: '1.1em',
-      position: 'relative',
-      textTransform: 'none',
-      boxSizing: 'border-box',
-      transition: 'all 0.3s ease-in-out',
-      lineHeight: '1',
-      display: 'inline-block',
-      '& svg': {
-            marginRight: '5px',
-            fill: '#7131FF'
-      },
-      '& div': {
-            fontWeight: 600,
-      },
-      '&:hover': {
-        border: '2px solid #000',
-        background: '#000',
-        color: '#fff',
-        '& span': {
-            color: '#fff',
-        },
+        background: 'transparent',
+        border: `2px solid ${mainColor}`,
+        color: mainColor,
         '& svg': {
-            fill: '#fff',
-        }
-      }
+            fill: mainColor
+        },
+    },
+    greyButton: {
+        background: 'transparent',
+        border: `2px solid ${greyColor}`,
+        color: greyColor,
+        '& svg': {
+            fill: greyColor
+        },
     },
     bodyContent: {
         marginTop: '20px',
@@ -170,7 +157,7 @@ const mainStyles = makeStyles((theme) => ({
         margin: 0,
         marginTop: '20px',
         border: '1px solid #dedede',
-        borderRadius: '8px',
+        borderRadius: borderRadius,
         boxSizing: 'border-box',
         padding: '30px 40px',
         width: '100%',
@@ -180,10 +167,12 @@ const mainStyles = makeStyles((theme) => ({
     },
     cardTitle: {
         fontSize: '1.2em',
-        color: '#7131FF',
         transition: 'all 0.3s ease-in-out',
         fontWeight: 600,
         margin: '10px 0 5px'
+    },
+    cardColorTitle: {
+        color: mainColor,
     },
     cardDesc: {
         lineHeight: '1.6',
@@ -192,7 +181,7 @@ const mainStyles = makeStyles((theme) => ({
     infoBox: {
         margin: '0 0 20px',
         border: '1px solid #7131FF',
-        borderRadius: '8px',
+        borderRadius: borderRadius,
         boxSizing: 'border-box',
         padding: '20px 20px',
         width: '100%',
@@ -202,7 +191,7 @@ const mainStyles = makeStyles((theme) => ({
         background: '#f5f2fb'
     },
     contentHighlight: {
-        color: '#7131FF',
+        color: mainColor,
         fontWeight: 600
     },
     inputHld: {
@@ -210,7 +199,48 @@ const mainStyles = makeStyles((theme) => ({
     },
     textInput: {
         border: '1px solid #DEDEDE',
-        borderRadius: '6px'
+        borderRadius: borderRadius
+    },
+    createStepOut: {
+        padding: '10px 3%',
+        border: `1px solid ${border}`,
+        borderRadius: borderRadius,
+        marginBottom: '15px'
+    },
+    createStepTitle: {
+        fontSize: '16px',
+        fontWeight: 700,
+        color: border,
+        marginRight: '20px'
+    },
+    createStepNum: {
+        position: 'relative',
+        width: '36px',
+        height: '36px',
+        background: border,
+        borderRadius: '100%',
+        marginRight: '20px',
+        '& > span': {
+            position: 'absolute',
+            left: '50%',
+            top: '50%',
+            transform: 'translate(-50%, -50%)',
+            lineHeight: 1,
+            color: '#fff',
+            fontWeight: 700,
+            fontSize: '17px'
+        }
+    },
+    createStepOutActive: {
+        '& $createStepTitle': {
+            color: mainColor,
+        },
+        '& $createStepNum': {
+            background: mainColor,
+        }
+    },
+    createStepBody: {
+        marginTop: '30px'
     }
 }));
 
