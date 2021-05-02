@@ -27,7 +27,6 @@ const OpenPaper: React.FC<Props> = ({ children, controls, padding = true }) => {
   return (
     <Paper className={classes.root} elevation={1}>
       <Block className={padding ? classes.padding : ''}>{children}</Block>
-      {controls}
     </Paper>
   )
 }
