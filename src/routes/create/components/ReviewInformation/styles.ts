@@ -1,5 +1,5 @@
 import { createStyles, makeStyles } from '@material-ui/core/styles'
-import { background, border, lg, screenSm, sm } from 'src/theme/variables'
+import { background, border, lg, screenSm, sm, mainLightColor, borderRadius } from 'src/theme/variables'
 
 export const useStyles = makeStyles(
   createStyles({
@@ -43,8 +43,10 @@ export const useStyles = makeStyles(
     owner: {
       alignItems: 'center',
       minWidth: 'fit-content',
-      padding: sm,
-      paddingLeft: lg,
+      padding: '4px 15px',
+      borderRadius: borderRadius,
+      marginBottom: '5px',
+      background: mainLightColor
     },
     user: {
       justifyContent: 'left',
@@ -52,12 +54,37 @@ export const useStyles = makeStyles(
         marginRight: sm,
       },
     },
+    confDesc: {
+      fontSize: '16px'
+    },
     open: {
       paddingLeft: sm,
       width: 'auto',
       '&:hover': {
         cursor: 'pointer',
       },
+    },
+    cardTitle: {
+      margin: 0,
+      textAlign: 'right'
+    },
+    nameField: {
+      marginTop: '15px'
+    },
+    focusHighlight: {
+      color: '#7131FF',
+      fontWeight: 600,
+      position: 'relative',
+      lineHeight: 1,
+      '&:after': {
+        content: '""',
+        background: '#7131FF',
+        position: 'absolute',
+        left: 0,
+        top: '95%',
+        height: '2px',
+        width: '100%'
+      }
     },
   }),
 )

@@ -1,6 +1,6 @@
 
 export const HOME_ADDRESS = '/'
-export const START_ADDRESS = '/start'
+// export const START_ADDRESS = '/start'
 export const TRUSTS_ADDRESS = '/trusts'
 export const ASSETS_ADDRESS = '/assets'
 export const SAFE_PARAM_ADDRESS = 'address'

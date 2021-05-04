@@ -17,7 +17,7 @@ import {
   safeNameSelector,
   safeParamAddressFromStateSelector,
 } from 'src/logic/safe/store/selectors'
-import { START_ADDRESS } from 'src/routes/routes'
+import { CREATE_ADDRESS } from 'src/routes/routes'
 import { removeLocalSafe } from 'src/logic/safe/store/actions/removeLocalSafe'
 import { sameAddress } from 'src/logic/wallets/ethAddresses'
 import { saveDefaultSafe } from 'src/logic/safe/utils'
@@ -50,20 +50,20 @@ export const RemoveSafeModal = ({ isOpen, onClose }: RemoveSafeModalProps): Reac
     // using native redirect in order to avoid problems in several components
     // trying to access references of the removed safe.
     const relativePath = window.location.href.split('/#/')[0]
-    window.location.href = `${relativePath}/#/${START_ADDRESS}`
+    window.location.href = `${relativePath}/#/${CREATE_ADDRESS}`
   }
 
   return (
     <Modal
-      description="Remove the selected Safe"
+      description="Remove the selected Trust"
       handleClose={onClose}
       open={isOpen}
       paperClassName="modal"
-      title="Remove Safe"
+      title="Remove Trust"
     >
       <Row align="center" className={classes.heading} grow>
         <Paragraph className={classes.manage} noMargin weight="bolder">
-          Remove Safe
+          Remove Trust
         </Paragraph>
         <IconButton disableRipple onClick={onClose}>
           <Close className={classes.close} />
@@ -84,8 +84,8 @@ export const RemoveSafeModal = ({ isOpen, onClose }: RemoveSafeModalProps): Reac
         </Row>
         <Row className={classes.description}>
           <Paragraph noMargin size="lg">
-            Removing a Safe only removes it from your interface. <b>It does not delete the Safe</b>. You can always add
-            it back using the Safe&apos;s address.
+            Removing a Trust only removes it from your interface. <b>It does not delete the Trust</b>. You can always add
+            it back using the Trust&apos;s address.
           </Paragraph>
         </Row>
       </Block>

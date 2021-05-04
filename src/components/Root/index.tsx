@@ -27,7 +27,15 @@ const Root = (): React.ReactElement => (
               {wrapInSuspense(
                 <AppRoutes />,
                 <LoadingContainer>
-                  <Loader size="md" />
+                  {/* <Loader size="md" /> */}
+                  <img style={{
+                    position: 'absolute',
+                    top: '50%',
+                    left: '50%',
+                    width: '120px',
+                    height: 'auto',
+                    transform: 'translate(-50%, -50%)'
+                  }} src="./resources/azulo_icon_loader.svg" />
                 </LoadingContainer>,
               )}
             </App>

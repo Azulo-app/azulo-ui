@@ -315,7 +315,7 @@ export const SafeDeployment = ({
   return (
     <Wrapper>
       <Title tag="h2" testId="safe-creation-process-title">
-        Safe creation process
+        Trust creation process
       </Title>
       <Nav>
         <Stepper activeStepIndex={stepIndex} error={error} orientation="vertical" steps={steps} />

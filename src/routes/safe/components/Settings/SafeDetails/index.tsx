@@ -141,26 +141,26 @@ const SafeDetails = (): React.ReactElement => {
                     testId={SAFE_NAME_UPDATE_SAFE_BTN_TEST_ID}
                     variant="contained"
                   >
-                    Update Safe
+                    Update Trust
                   </Button>
                 </Paragraph>
               </Row>
             ) : null}
           </Block>
           <Block className={classes.formContainer}>
-            <Heading tag="h2">Modify Safe name</Heading>
+            <Heading tag="h2">Modify Trust name</Heading>
             <Paragraph size="lg">
-              You can change the name of this Safe. This name is only stored locally <br />
-              and never shared with Gnosis or any third parties.
+              You can change the name of this Trust. This name is only stored locally <br />
+              and never shared with Azulo or any third parties.
             </Paragraph>
             <Block className={classes.root}>
               <Field
                 component={TextField}
                 defaultValue={safeName}
                 name="safeName"
-                placeholder="Safe name*"
+                placeholder="Trust name*"
                 testId={SAFE_NAME_INPUT_TEST_ID}
-                text="Safe name*"
+                text="Trust name*"
                 type="text"
                 validate={composeValidators(required, minMaxLength(1, 50))}
               />
@@ -180,7 +180,7 @@ const SafeDetails = (): React.ReactElement => {
               </Button>
             </Col>
           </Row>
-          <Modal description="Update Safe" handleClose={toggleModal} open={isModalOpen} title="Update Safe">
+          <Modal description="Update Trust" handleClose={toggleModal} open={isModalOpen} title="Update Trust">
             <UpdateSafeModal onClose={toggleModal} safeAddress={safeAddress} />
           </Modal>
         </>

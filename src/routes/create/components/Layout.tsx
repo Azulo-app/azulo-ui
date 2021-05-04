@@ -45,6 +45,10 @@ const Wrapper = styled.div`
   margin: 24px 0 0 0;
 `
 
+const { useEffect } = React
+
+const getSteps = () => ['Connect', 'Details', 'Review']
+
 const useStyles = makeStyles(() => ({
   bg_curve: {
     position: 'absolute',
@@ -59,10 +63,6 @@ const useStyles = makeStyles(() => ({
     }
   },
 }));
-
-const { useEffect } = React
-
-const getSteps = () => ['Connect', 'Details', 'Review']
 
 export type InitialValuesForm = {
   owner0Address?: string
@@ -148,9 +148,9 @@ export const Layout = (props: LayoutProps): React.ReactElement => {
 
   const initialValues = useInitialValuesFrom(userAccount, safeProps)
 
-  if (!provider) {
-    return <CreateLayout isOldMultisigMigration />
-  }
+  // if (!provider) {
+  //   return <CreateLayout isOldMultisigMigration />
+  // }
 
   return (
     <Block>
@@ -170,7 +170,6 @@ export const Layout = (props: LayoutProps): React.ReactElement => {
               testId="create-safe-form"
             >
               <StepperPage component={StartConnect} />
-              {/* <StepperPage component={SafeNameField} /> */}
               <StepperPage component={SafeOwnersPage} validate={validateOwnersForm} />
               <StepperPage component={Review} />
             </Stepper>

@@ -18,7 +18,8 @@ import Block from 'src/components/layout/Block'
 const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
-  margin: 24px 0 0 0;
+  margin: 24px auto 0;
+  max-width: 700px
 `
 const StyledCardDouble = styled(Card)`
   display: flex;
@@ -70,19 +71,19 @@ type Props = {
 const Cookies = (): ReactElement => (
   <Page align="center">
         <Block>
-      {/* Title */}
-      <Title size="md" strong>
-        Cookies
-      </Title>
-
-      {/* Subtitle */}
-      <Title size="xs">
-        Azulo cookies policy
-      </Title>
 
       <>
         <Wrapper>
           <div>
+            {/* Title */}
+            <Title size="md" strong>
+              Cookies
+            </Title>
+
+            {/* Subtitle */}
+            <Title size="xs">
+              Azulo cookies policy
+            </Title>
             <p>Last updated on April, 2020</p>
             <p>&nbsp;</p>
             <p>As described in our Privacy Policy, For general web-browsing of this website, your personal data is not revealed to us, although certain statistical information is available to us via our internet service provider as well as through the use of special tracking technologies. Such information tells us about the pages you are clicking on or the hardware you are using, but not your name, age, address or anything we can use to identify you personally.</p>

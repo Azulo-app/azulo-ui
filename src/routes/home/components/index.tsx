@@ -138,7 +138,7 @@ export const HomeLayout = (): React.ReactElement => {
                 Built for the decentralized digital world to allow families, partnerships, companies to create and manage trusts and its assets from anywhere in the world.
               </div>
               <div className={classes.actionHld}>
-                <Link to="/start" color="primary" variant="outlined" className={mainClasses.mainButton}>
+                <Link to="/create" color="primary" variant="outlined" className={mainClasses.mainButton}>
                   Get started
                 </Link>
                 <Button onClick={onConnectButtonClick} className={classes.trustlink}>

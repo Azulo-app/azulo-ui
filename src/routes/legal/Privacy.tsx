@@ -18,7 +18,8 @@ import Block from 'src/components/layout/Block'
 const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
-  margin: 24px 0 0 0;
+  margin: 24px auto 0;
+  max-width: 700px
 `
 const StyledCardDouble = styled(Card)`
   display: flex;
@@ -63,26 +64,22 @@ const StyledButtonLink = styled(ButtonLink)`
   margin: 16px 0 16px -8px;
 `
 
-type Props = {
-  isOldMultisigMigration?: boolean
-}
-
 const Privacy = (): ReactElement => (
   <Page align="center">
         <Block>
-      {/* Title */}
-      <Title size="md" strong>
-        Privacy
-      </Title>
-
-      {/* Subtitle */}
-      <Title size="xs">
-        Azulo privacy policy
-      </Title>
 
       <>
         <Wrapper>
           <div>
+            {/* Title */}
+            <Title size="md" strong>
+              Privacy
+            </Title>
+
+            {/* Subtitle */}
+            <Title size="xs">
+              Azulo privacy policy
+            </Title>
             <p>Your privacy is very important to us. We want to make your experience on the Internet as enjoyable and rewarding as possible, and we want you to use the Internet’s vast array of information, tools, and opportunities with complete confidence.</p>
             <p>We have created this Privacy Policy to demonstrate our firm commitment to privacy and security. This Privacy Policy describes how our company collects information from all end users of our Internet services (the “Services”)-those who access some of our Services but do not have accounts (“Visitors”) as well as those who may purchase Products and/or pay a monthly service fee to subscribe to the Service (“Members”)-what we do with the information we collect, and the choices Visitors and Members have concerning the collection and use of such information. We request that you read this Privacy Policy carefully.</p>
             <h4>PERSONAL INFORMATION OUR COMPANY COLLECTS AND HOW IT IS USED</h4>
