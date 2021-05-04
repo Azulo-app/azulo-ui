@@ -132,7 +132,6 @@ const ReviewComponent = ({ values, form }: ReviewComponentProps): ReactElement =
 
 export const Review = () =>
   function ReviewPage(controls: React.ReactNode, props: StepperPageFormProps): React.ReactElement {
-    console.log('props a', props);
     return (
       <>
         <OpenPaper controls={controls} padding={false}>
