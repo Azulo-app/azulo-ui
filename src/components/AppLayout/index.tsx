@@ -90,7 +90,7 @@ const Layout: React.FC<Props> = ({
         <Header />
       </HeaderWrapper>
       <BodyWrapper>
-        {/* <SidebarWrapper data-testid="sidebar">
+        <SidebarWrapper data-testid="sidebar">
           <Sidebar
             items={sidebarItems}
             safeAddress={safeAddress}
@@ -101,7 +101,7 @@ const Layout: React.FC<Props> = ({
             onReceiveClick={onReceiveClick}
             onNewTransactionClick={onNewTransactionClick}
           />
-        </SidebarWrapper> */}
+        </SidebarWrapper>
         <ContentWrapper>
           <div>{children}</div>
           <Footer />

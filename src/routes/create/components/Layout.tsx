@@ -170,7 +170,6 @@ export const Layout = (props: LayoutProps): React.ReactElement => {
               testId="create-safe-form"
             >
               <StepperPage component={StartConnect} />
-              {/* <StepperPage component={SafeNameField} /> */}
               <StepperPage component={SafeOwnersPage} validate={validateOwnersForm} />
               <StepperPage component={Review} />
             </Stepper>
