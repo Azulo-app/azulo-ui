@@ -18,7 +18,8 @@ import Block from 'src/components/layout/Block'
 const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
-  margin: 24px 0 0 0;
+  margin: 24px auto 0;
+  max-width: 700px
 `
 const StyledCardDouble = styled(Card)`
   display: flex;
@@ -63,26 +64,22 @@ const StyledButtonLink = styled(ButtonLink)`
   margin: 16px 0 16px -8px;
 `
 
-type Props = {
-  isOldMultisigMigration?: boolean
-}
-
 const Terms = (): ReactElement => (
   <Page align="center">
         <Block>
-      {/* Title */}
-      <Title size="md" strong>
-        Terms
-      </Title>
-
-      {/* Subtitle */}
-      <Title size="xs">
-        Azulo terms of use
-      </Title>
 
       <>
         <Wrapper>
           <div>
+            {/* Title */}
+            <Title size="md" strong>
+              Terms
+            </Title>
+
+            {/* Subtitle */}
+            <Title size="xs">
+              Azulo terms of use
+            </Title>
             <h4>General Use</h4>
             <p>Azulo provides general information, tools and resources only, it does not provide financial services and is not a credit provider. Any information, values and results derived from this website should be used as an indication only. They do not represent financial advice or take into consideration your specific needs, situation or goals. It is advised that you consult with a qualified financial service provider before taking any action. By using this website you understand that Azulo, with your permission, refers you to service providers who can provide you with more information about products and services. The collection and transmission of information is not considered "dealing" in a financial product or service under section 766C of the Corporation Act 2001.</p>
             <h4>Cookies</h4>

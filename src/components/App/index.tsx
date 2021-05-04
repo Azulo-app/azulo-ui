@@ -19,7 +19,7 @@ import Img from 'src/components/layout/Img'
 import { getNetworkId } from 'src/config'
 import { ETHEREUM_NETWORK } from 'src/config/networks/network.d'
 import { networkSelector } from 'src/logic/wallets/store/selectors'
-import { TRUSTS_ADDRESS, START_ADDRESS } from 'src/routes/routes'
+import { TRUSTS_ADDRESS, CREATE_ADDRESS } from 'src/routes/routes'
 import {
   safeTotalFiatBalanceSelector,
   safeNameSelector,
@@ -89,7 +89,7 @@ const App: React.FC = ({ children }) => {
 
   useEffect(() => {
     if (matchSafe?.isExact) {
-      history.push(START_ADDRESS)
+      history.push(CREATE_ADDRESS)
       return
     }
   }, [matchSafe, history])

@@ -18,10 +18,30 @@ export const styles = createStyles({
       width: '14px',
     },
   },
+  nameField: {
+    marginTop: '30px'
+  },
+  confDesc: {
+    fontSize: '16px'
+  },
+  cardTitle: {
+    margin: 0,
+    textAlign: 'right'
+  },
+  infoIcon: {
+    marginLeft: '5px',
+    marginBottom: '-6px'
+  },
+  cardInput: {
+    margin: '0',
+    '& .MuiInput-underline::before': {
+      display: 'none !important'
+    }
+  },
   owner: {
     flexDirection: 'column',
     marginTop: '12px',
-    padding: `0 ${lg}`,
+    padding: `0`,
     '&:first-child': {
       marginTop: 0,
     },
@@ -33,6 +53,8 @@ export const styles = createStyles({
   ownerName: {
     marginBottom: '5px',
     minWidth: '100%',
+    flexBasis: '27%',
+    maxWidth: '30%',
     [`@media (min-width: ${screenSm}px)`]: {
       marginBottom: '0',
       minWidth: '0',
@@ -64,9 +86,17 @@ export const styles = createStyles({
     color: '#03AE60',
     height: '20px',
   },
+  qrcode: {
+    height: '56px',
+    maxWidth: '40px',
+    '&:hover': {
+      cursor: 'pointer',
+    },
+  },
   remove: {
     height: '56px',
-    maxWidth: '50px',
+    marginLeft: '5px',
+    maxWidth: '25px',
     '&:hover': {
       cursor: 'pointer',
     },

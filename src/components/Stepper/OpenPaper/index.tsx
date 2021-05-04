@@ -3,13 +3,16 @@ import { makeStyles } from '@material-ui/core/styles'
 import * as React from 'react'
 
 import Block from 'src/components/layout/Block'
-import { lg } from 'src/theme/variables'
+import { lg, border, borderRadius } from 'src/theme/variables'
 
 const useStyles = makeStyles({
   root: {
-    margin: '10px 0 10px 10px',
-    maxWidth: '770px',
-    boxShadow: '0 0 10px 0 rgba(33,48,77,0.10)',
+    margin: '40px auto',
+    padding: '30px',
+    border: `1px solid ${border}`,
+    borderRadius: borderRadius,
+    maxWidth: '700px',
+    boxShadow: 'none !important'
   },
   padding: {
     padding: lg,
