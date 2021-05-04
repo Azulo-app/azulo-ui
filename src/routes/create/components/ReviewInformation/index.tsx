@@ -21,6 +21,8 @@ import { useEstimateSafeCreationGas } from 'src/logic/hooks/useEstimateSafeCreat
 import { FormApi } from 'final-form'
 import { StepperPageFormProps } from 'src/components/Stepper'
 import { LoadFormValues } from 'src/routes/import/container'
+import { mainStyles } from 'src/theme/PageStyles'
+import Grid from '@material-ui/core/Grid'
 
 type ReviewComponentProps = {
   values: LoadFormValues
@@ -31,6 +33,7 @@ const { nativeCoin } = getNetworkInfo()
 
 const ReviewComponent = ({ values, form }: ReviewComponentProps): ReactElement => {
   const classes = useStyles()
+  const mainClasses = mainStyles()
 
   const names = getNamesFrom(values)
   const addresses = useMemo(() => getAccountsFrom(values), [values])
@@ -40,83 +43,87 @@ const ReviewComponent = ({ values, form }: ReviewComponentProps): ReactElement =
   const { gasCostFormatted, gasLimit } = useEstimateSafeCreationGas({ addresses, numOwners, safeCreationSalt })
 
   useEffect(() => {
-    form.mutators.setValue('gasLimit', gasLimit)
+    if (gasLimit && form.mutators) {
+      form.mutators.setValue('gasLimit', gasLimit)
+    }
   }, [gasLimit, form.mutators])
 
   return (
     <>
-      <Row className={classes.root}>
-        <Col className={classes.detailsColumn} layout="column" xs={4}>
-          <Block className={classes.details}>
-            <Block margin="lg">
-              <Paragraph color="primary" noMargin size="lg" data-testid="create-safe-step-three">
-                Details
-              </Paragraph>
-            </Block>
-            <Block margin="lg">
-              <Paragraph color="disabled" noMargin size="sm">
-                Name of new Safe
-              </Paragraph>
-              <Paragraph
-                className={classes.name}
-                color="primary"
-                noMargin
-                size="lg"
-                weight="bolder"
-                data-testid="create-safe-review-name"
-              >
-                {values[FIELD_NAME]}
-              </Paragraph>
-            </Block>
-            <Block margin="lg">
-              <Paragraph color="disabled" noMargin size="sm">
-                Any transaction requires the confirmation of:
-              </Paragraph>
-              <Paragraph
-                color="primary"
-                noMargin
-                size="lg"
-                weight="bolder"
-                data-testid={`create-safe-review-req-owners-${values[FIELD_CONFIRMATIONS]}`}
-              >
-                {`${values[FIELD_CONFIRMATIONS]} out of ${numOwners} owners`}
-              </Paragraph>
-            </Block>
-          </Block>
-        </Col>
-        <Col className={classes.ownersColumn} layout="column" xs={8}>
-          <TableContainer>
-            <Block className={classes.owners}>
-              <Paragraph color="primary" noMargin size="lg">
-                {`${numOwners} Safe owners`}
-              </Paragraph>
-            </Block>
-            <Hairline />
-            {names.map((name, index) => (
-              <React.Fragment key={`name${index}`}>
-                <Row className={classes.owner}>
-                  <Col align="center" xs={12}>
-                    <EthHashInfo
-                      data-testid={`create-safe-owner-name-${index}`}
-                      hash={addresses[index]}
-                      name={name}
-                      showAvatar
-                      showCopyBtn
-                      explorerUrl={getExplorerInfo(addresses[index])}
-                    />
-                  </Col>
-                </Row>
-                <Hairline />
-              </React.Fragment>
-            ))}
-          </TableContainer>
-        </Col>
-      </Row>
+      <Grid container direction="column">
+        <Grid item sm={12} className={mainClasses.createStepOutActive}>
+          <Grid container direction="row" justify="space-evenly" alignItems="center">
+            <Grid item className={mainClasses.createStepTitle}>
+              <Grid container direction="row" justify="flex-start" alignItems="center">
+                <Grid item className={mainClasses.createStepNum}><span>3</span></Grid>
+                <Grid item>Step 3: Confirm Trust details</Grid>
+              </Grid>
+            </Grid>
+          </Grid>
+        </Grid>
+        <Grid item sm={12}>
+          <Grid container direction="row" justify="flex-start" spacing={2} alignItems="center" className={classes.nameField}>
+            <Grid item xs={3} className={`${mainClasses.cardTitle} ${classes.cardTitle}`}>
+              Trust name
+            </Grid>
+            <Grid item xs={8} data-testid="create-safe-review-name" className={classes.confDesc}>
+              {values[FIELD_NAME] ? values[FIELD_NAME] : 'No name added'}
+            </Grid>
+          </Grid>
+        </Grid>
+        <Grid item sm={12} className={classes.nameField}>
+          <Grid container direction="row" justify="flex-start" spacing={2} alignItems="flex-start">
+            <Grid item xs={3} className={`${mainClasses.cardTitle} ${classes.cardTitle}`}>
+              Trustee(s)
+            </Grid>
+            <Grid item xs={8}>
+              {names.map((name, index) => (
+                <React.Fragment key={`name${index}`}>
+                  <Row className={classes.owner}>
+                    <Col align="center" xs={12}>
+                      <EthHashInfo
+                        data-testid={`create-safe-owner-name-${index}`}
+                        hash={addresses[index]}
+                        name={name}
+                        showAvatar
+                        showCopyBtn
+                        explorerUrl={getExplorerInfo(addresses[index])}
+                      />
+                    </Col>
+                  </Row>
+                </React.Fragment>
+              ))}
+            </Grid>
+          </Grid>
+        </Grid>
+        <Grid item sm={12} className={classes.nameField}>
+          <Grid container direction="row" justify="flex-start" spacing={2} alignItems="center">
+            <Grid item xs={3} className={`${mainClasses.cardTitle} ${classes.cardTitle}`}>
+              Trust requires
+            </Grid>
+            <Grid item xs={8} className={classes.confDesc} data-testid={`create-safe-review-req-owners-${values[FIELD_CONFIRMATIONS]}`}>
+              {`${values[FIELD_CONFIRMATIONS]} out of ${numOwners} trustee(s) to confirm changes and transactions`}
+            </Grid>
+          </Grid>
+        </Grid>
+      </Grid>
       <Row align="center" className={classes.info}>
         <Paragraph color="primary" noMargin size="lg">
-          You&apos;re about to create a new Safe and will have to confirm a transaction with your currently connected
-          wallet. The creation will cost approximately {gasCostFormatted} {nativeCoin.name}. The exact amount will be
+          You&apos;re about to create a new Trust that requires a transaction with your currently connected
+          wallet. The creation will cost approximately <span className={classes.focusHighlight}>{gasCostFormatted} {nativeCoin.name}</span>. The exact amount will be
           determined by your wallet.
+        </Paragraph>
+        <br />
+        <Paragraph color="primary" noMargin size="lg">
+          By continuing you consent to the{' '}
+          <a href="/#/terms" rel="noopener noreferrer" target="_blank">
+            terms of use
+          </a>{' '}
+          and{' '}
+          <a href="/#/privacy" rel="noopener noreferrer" target="_blank">
+            privacy policy
+          </a>
+          .
         </Paragraph>
       </Row>
     </>
@@ -129,6 +136,7 @@ export const Review = () =>
       <>
         <OpenPaper controls={controls} padding={false}>
           <ReviewComponent {...props} />
+          {controls}
         </OpenPaper>
       </>
     )

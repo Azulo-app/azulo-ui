@@ -1,0 +1,92 @@
+<svg id="euu58c2zlg8g1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 240 220" shape-rendering="geometricPrecision" text-rendering="geometricPrecision">
+    <style>
+        <![CDATA[
+            #icon_hldb {animation: icon_hld__to 6000ms ease infinite normal forwards;transform-origin: center center;animation-delay: -1s;}
+            @keyframes icon_hld__to {
+                0% {transform: rotate(0deg)}
+                80% {transform: rotate(360deg)}
+                100% {transform: rotate(360deg)}
+            }
+            #elli_1 {animation: elli_1__to 4000ms ease infinite normal forwards; animation-delay: -3s;}
+            @keyframes elli_1__to {
+                0% {transform: translate(116.15px,45.3px)}
+                35% {transform: translate(116.15px,45.3px)}
+                45% {transform: translate(149.95px,105.2px)}
+                85% {transform: translate(149.95px,105.2px)}
+                100% {transform: translate(116.15px,45.3px)}
+            }
+            #elli_1_2 {animation: elli_1_2__to 4000ms ease infinite normal forwards; animation-delay: -3s;}
+            @keyframes elli_1_2__to {
+                0% {transform: translate(183.75px,165.1px)}
+                35% {transform: translate(183.75px,165.1px)}
+                45% {transform: translate(149.95px,105.2px)}
+                85% {transform: translate(149.95px,105.2px)}
+                100% {transform: translate(183.75px,165.1px)}
+            }
+            #rect_1 {animation: rect_1__an 4000ms ease infinite normal forwards; animation-delay: -3s;}
+            @keyframes rect_1__an {
+                0% {clip-path: polygon(0% 27%, 0 125%, 100% 72%, 54% 0) }
+                35% {clip-path: polygon(0% 27%, 0 125%, 100% 72%, 54% 0) }
+                45% {clip-path: polygon(0% 74%, -47% 100%, 92% 30%, 143% 0) }
+                85% {clip-path: polygon(0% 74%, -47% 100%, 92% 30%, 143% 0) }
+                100% {clip-path: polygon(0% 27%, 0 125%, 100% 72%, 54% 0) }
+            }
+            #icon_inrb {animation: icon_inrb__an 4000ms ease infinite normal forwards; animation-delay: -1.5s;}
+            @keyframes icon_inrb__an {
+                0% {transform: translate(0,0)}
+                30% {transform: translate(-103px, 60px)}
+                40% {transform: translate(-103px, 60px)}
+                70% {transform: translate(0,0)}
+                100% {transform: translate(0,0)}
+            }
+
+            #elli_1b {animation: elli_1b__to 4000ms ease infinite normal forwards; animation-delay: -3s;}
+            @keyframes elli_1b__to {
+                0% {transform: translate(149.95px,105.2px)}
+                45% {transform: translate(149.95px,105.2px)}
+                55% {transform: translate(116.15px,45.3px)}
+                75% {transform: translate(116.15px,45.3px)}
+                85% {transform: translate(149.95px,105.2px)}
+                100% {transform: translate(149.95px,105.2px)}
+            }
+            #elli_1_2b {animation: elli_1_2b__to 4000ms ease infinite normal forwards; animation-delay: -3s;}
+            @keyframes elli_1_2b__to {
+                0% {transform: translate(149.95px,105.2px)}
+                45% {transform: translate(149.95px,105.2px)}
+                55% {transform: translate(183.75px,165.1px)}
+                75% {transform: translate(183.75px,165.1px)}
+                85% {transform: translate(149.95px,105.2px)}
+                100% {transform: translate(149.95px,105.2px)}
+            }
+            #rect_1b {animation: rect_1b__an 4000ms ease infinite normal forwards; animation-delay: -3s;}
+            @keyframes rect_1b__an {
+                0% {clip-path: polygon(0% 74%, -47% 100%, 92% 30%, 143% 0) }
+                45% {clip-path: polygon(0% 74%, -47% 100%, 92% 30%, 143% 0) }
+                55% {clip-path: polygon(0% 27%, 0 125%, 100% 72%, 54% 0) }
+                75% {clip-path: polygon(0% 27%, 0 125%, 100% 72%, 54% 0) }
+                85% {clip-path: polygon(0% 74%, -47% 100%, 92% 30%, 143% 0) }
+                100% {clip-path: polygon(0% 74%, -47% 100%, 92% 30%, 143% 0) }
+            }
+            #icon_inra {animation: icon_inra__an 4000ms ease infinite normal forwards; animation-delay: -1.5s;}
+            @keyframes icon_inra__an {
+                0% {transform: translate(-103px, 60px)}
+                30% {transform: translate(0,0)}
+                40% {transform: translate(0,0)}
+                70% {transform: translate(-103px, 60px)}
+                100% {transform: translate(-103px, 60px)}
+            }
+        ]]>
+    </style>
+    <g id="icon_hld">
+        <g id="icon_inra" transform="translate(-103, 60)">
+            <ellipse id="elli_1b" rx="44.6" ry="44.6" cx="0" cy="0" transform="translate(116.15, 45.3) rotate(-30) scale(1, 1)" fill="rgb(113,49,255)" stroke="none" stroke-width="1"/>
+            <ellipse id="elli_1_2b" rx="44.6" ry="44.6" cx="0" cy="0" transform="translate(183.75, 165.1) rotate(-30) scale(1, 1)" fill="rgb(113,49,255)" stroke="none" stroke-width="1"/>
+            <polygon id="rect_1b" points="222.4,142.8 145.1,187.4 77.1,66.8 155.2,23.8" transform="translate(0,0)" fill="rgb(113,49,255)" stroke="none" stroke-width="1"/>
+        </g>
+        <g id="icon_inrb" transform="translate(0, 0)">
+            <ellipse id="elli_1" rx="44.6" ry="44.6" cx="0" cy="0" transform="translate(116.15, 45.3) rotate(-30) scale(1, 1)" fill="rgb(113,49,255)" stroke="none" stroke-width="1"/>
+            <ellipse id="elli_1_2" rx="44.6" ry="44.6" cx="0" cy="0" transform="translate(183.75, 165.1) rotate(-30) scale(1, 1)" fill="rgb(113,49,255)" stroke="none" stroke-width="1"/>
+            <polygon id="rect_1" points="222.4,142.8 145.1,187.4 77.1,66.8 155.2,23.8" transform="translate(0,0)" fill="rgb(113,49,255)" stroke="none" stroke-width="1"/>
+        </g>
+    </g>
+</svg>

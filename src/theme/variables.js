@@ -1,6 +1,7 @@
 const background = '#ffffff'
 const border = '#DEDEDE'
 const mainColor = '#7131ff'
+const mainLightColor = '#f1ebff'
 const connectedColor = mainColor
 const disabled = '#5D6D74'
 const errorColor = '#f02525'
@@ -25,6 +26,7 @@ module.exports = {
   background,
   boldFont: 700,
   mainColor: mainColor,
+  mainLightColor: mainLightColor,
   bolderFont: 500,
   border,
   buttonLargeFontSize: '16px',

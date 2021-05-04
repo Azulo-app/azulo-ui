@@ -1,7 +1,7 @@
 import InputAdornment from '@material-ui/core/InputAdornment'
 import MenuItem from '@material-ui/core/MenuItem'
 import { Icon, Link, Text } from '@gnosis.pm/safe-react-components'
-import { makeStyles } from '@material-ui/core/styles'
+import { createStyles, makeStyles } from '@material-ui/core/styles'
 import CheckCircle from '@material-ui/icons/CheckCircle'
 import * as React from 'react'
 import styled from 'styled-components'
@@ -34,6 +34,7 @@ import Paragraph from 'src/components/layout/Paragraph'
 import Row from 'src/components/layout/Row'
 import {
   FIELD_CONFIRMATIONS,
+  FIELD_NAME,
   getNumOwnersFrom,
   getOwnerAddressBy,
   getOwnerNameBy,
@@ -42,13 +43,42 @@ import { getAccountsFrom } from 'src/routes/create/utils/safeDataExtractor'
 import { useSelector } from 'react-redux'
 import { addressBookSelector } from 'src/logic/addressBook/store/selectors'
 import { getNameFromAddressBook } from 'src/logic/addressBook/utils'
+import { secondary, sm } from 'src/theme/variables'
+import { mainStyles } from 'src/theme/PageStyles'
+import Grid from '@material-ui/core/Grid'
+import HelpOutline from '@material-ui/icons/HelpOutline'
+import Tooltip from '@material-ui/core/Tooltip'
 
 const { useState } = React
 
-export const ADD_OWNER_BUTTON = '+ Add another owner'
+export const ADD_OWNER_BUTTON = '+ Add trustee'
 
 const StyledAddressInput = styled(AddressInput)`
   width: 460px;
+`
+
+const nameStyles = createStyles({
+  root: {
+    display: 'flex',
+    maxWidth: '440px',
+  },
+  text: {
+    flexWrap: 'nowrap',
+  },
+  dot: {
+    marginRight: sm,
+  },
+  links: {
+    '&>a': {
+      color: secondary,
+    },
+  },
+})
+
+const StyledField = styled(Field)`
+  &.MuiTextField-root {
+    width: 460px;
+  }
 `
 
 /**
@@ -116,6 +146,7 @@ const useStyles = makeStyles(styles)
 const SafeOwnersForm = (props): React.ReactElement => {
   const { errors, form, values } = props
   const classes = useStyles()
+  const mainClasses = mainStyles()
 
   const validOwners = getNumOwnersFrom(values)
   const addressBook = useSelector(addressBookSelector)
@@ -157,137 +188,139 @@ const SafeOwnersForm = (props): React.ReactElement => {
 
   return (
     <>
-      <Block className={classes.title}>
-        <Paragraph color="primary" noMargin size="lg" data-testid="create-safe-step-two">
-          Your Safe will have one or more owners. We have prefilled the first owner with your connected wallet details,
-          but you are free to change this to a different owner.
-          <br />
-          <br />
-          Add additional owners (e.g. wallets of your teammates) and specify how many of them have to confirm a
-          transaction before it gets executed. You can also add/remove owners and change the signature threshold after
-          your Safe is created.
-          <Link
-            href="https://help.gnosis-safe.io/en/articles/4772567-what-gnosis-safe-setup-should-i-use"
-            target="_blank"
-            className={classes.link}
-            rel="noreferrer"
-            title="Learn about which Safe setup to use"
-          >
-            <Text size="xl" as="span" color="primary">
-              Learn about which Safe setup to use
-            </Text>
-            <Icon size="sm" type="externalLink" color="primary" />
-          </Link>
-        </Paragraph>
-      </Block>
-      <Hairline />
-      <Row className={classes.header}>
-        <Col xs={3}>NAME</Col>
-        <Col xs={7}>ADDRESS</Col>
-      </Row>
-      <Hairline />
-      <Block margin="md" padding="md">
-        {[...Array(Number(numOwners))].map((x, index) => {
-          const addressName = getOwnerAddressBy(index)
-          const ownerName = getOwnerNameBy(index)
-
-          return (
-            <Row className={classes.owner} key={`owner${index}`} data-testid={`create-safe-owner-row`}>
-              <Col className={classes.ownerName} xs={3}>
-                <Field
-                  className={classes.name}
+      <Block>
+        <Grid container direction="column">
+          <Grid item sm={12} className={mainClasses.createStepOutActive}>
+            <Grid container direction="row" justify="space-evenly" alignItems="center">
+              <Grid item className={mainClasses.createStepTitle}>
+                <Grid container direction="row" justify="flex-start" alignItems="center">
+                  <Grid item className={mainClasses.createStepNum}><span>2</span></Grid>
+                  <Grid item>Step 2: Trust details</Grid>
+                </Grid>
+              </Grid>
+            </Grid>
+          </Grid>
+          <Grid item sm={12}>
+            <Grid container direction="row" justify="flex-start" spacing={2} alignItems="center" className={classes.nameField}>
+              <Grid item xs={3} className={`${mainClasses.cardTitle} ${classes.cardTitle}`}>
+                Set trust name
+              </Grid>
+              <Grid item xs={8}>
+                <StyledField
                   component={TextField}
-                  name={ownerName}
-                  placeholder="Owner Name*"
-                  text="Owner Name"
+                  defaultValue={values[FIELD_NAME]}
+                  name={FIELD_NAME}
+                  placeholder="Name of the new Trust"
+                  text="Trust name"
                   type="text"
                   validate={composeValidators(required, minMaxLength(1, 50))}
-                  testId={`create-safe-owner-name-field-${index}`}
+                  testId="create-safe-name-field"
                 />
-              </Col>
-              <Col className={classes.ownerAddress} xs={7}>
-                <StyledAddressInput
-                  fieldMutator={(newOwnerAddress) => {
-                    const newOwnerName = getNameFromAddressBook(addressBook, newOwnerAddress, {
-                      filterOnlyValidName: true,
-                    })
-                    form.mutators.setValue(addressName, newOwnerAddress)
-                    if (newOwnerName) {
-                      form.mutators.setValue(ownerName, newOwnerName)
-                    }
-                  }}
-                  // eslint-disable-next-line
-                  // @ts-ignore
-                  inputAdornment={
-                    noErrorsOn(addressName, errors) && {
-                      endAdornment: (
-                        <InputAdornment position="end">
-                          <CheckCircle className={classes.check} data-testid={`valid-address-${index}`} />
-                        </InputAdornment>
-                      ),
-                    }
-                  }
-                  name={addressName}
-                  placeholder="Owner Address*"
-                  text="Owner Address"
-                  testId={`create-safe-address-field-${index}`}
-                />
-              </Col>
-              <Col center="xs" className={classes.remove} middle="xs" xs={1}>
-                <Img
-                  alt="Scan QR"
-                  height={20}
-                  onClick={() => {
-                    openQrModal(addressName)
-                  }}
-                  src={QRIcon}
-                />
-              </Col>
-              <Col center="xs" className={classes.remove} middle="xs" xs={1}>
-                {index > 0 && <Img alt="Delete" height={20} onClick={onRemoveRow(index)} src={trash} />}
-              </Col>
-            </Row>
-          )
-        })}
-      </Block>
-      <Row align="center" className={classes.add} grow margin="xl">
-        <Button color="secondary" data-testid="add-owner-btn" onClick={onAddOwner}>
-          <Paragraph noMargin size="lg">
-            {ADD_OWNER_BUTTON}
-          </Paragraph>
-        </Button>
-      </Row>
-      <Block className={classes.owner} margin="md" padding="md">
-        <Paragraph color="primary" size="md">
-          Any transaction requires the confirmation of:
-        </Paragraph>
-        <Row align="center" className={classes.ownersAmount} margin="xl">
-          <Col className={classes.ownersAmountItem} xs={1}>
-            <Field
-              component={SelectField}
-              data-testid="threshold-select-input"
-              name={FIELD_CONFIRMATIONS}
-              validate={composeValidators(required, mustBeInteger, minValue(1))}
-            >
-              {[...Array(Number(validOwners))].map((x, index) => (
-                <MenuItem key={`selectOwner${index}`} value={`${index + 1}`} data-testid={`input-${index + 1}`}>
-                  {index + 1}
-                </MenuItem>
-              ))}
-            </Field>
-          </Col>
-          <Col className={classes.ownersAmountItem} xs={10}>
-            <Paragraph
-              className={classes.owners}
-              color="primary"
-              noMargin
-              size="lg"
-              data-testid={`create-safe-req-conf-${validOwners}`}
-            >
-              out of {validOwners} owner(s)
-            </Paragraph>
-          </Col>
-        </Row>
+              </Grid>
+            </Grid>
+          </Grid>
+          <Grid item sm={12} className={classes.nameField}>
+            <Grid container direction="row" justify="flex-start" spacing={2} alignItems="flex-start">
+              <Grid item xs={3} className={`${mainClasses.cardTitle} ${classes.cardTitle}`}>
+                Set trustee(s)
+                <Tooltip className={classes.infoIcon} title="Your trust can have one or more trustees. We have prefilled the first owner with your connected wallet details, but you are free to change this to a different owner." arrow><HelpOutline /></Tooltip>
+              </Grid>
+              <Grid item xs={9}>
+                {[...Array(Number(numOwners))].map((x, index) => {
+                  const addressName = getOwnerAddressBy(index)
+                  const ownerName = getOwnerNameBy(index)
+
+                  return (
+                    <Row className={classes.owner} key={`owner${index}`} data-testid={`create-safe-owner-row`}>
+                      <Col className={classes.ownerName} xs={3}>
+                        <Field
+                          className={classes.name}
+                          component={TextField}
+                          name={ownerName}
+                          placeholder="Trustee Name*"
+                          text="Trustee Name"
+                          type="text"
+                          validate={composeValidators(required, minMaxLength(1, 50))}
+                          testId={`create-safe-owner-name-field-${index}`}
+                        />
+                      </Col>
+                      <Col className={classes.ownerAddress} xs={7}>
+                        <StyledAddressInput
+                          fieldMutator={(newOwnerAddress) => {
+                            const newOwnerName = getNameFromAddressBook(addressBook, newOwnerAddress, {
+                              filterOnlyValidName: true,
+                            })
+                            form.mutators.setValue(addressName, newOwnerAddress)
+                            if (newOwnerName) {
+                              form.mutators.setValue(ownerName, newOwnerName)
+                            }
+                          }}
+                          // eslint-disable-next-line
+                          // @ts-ignore
+                          inputAdornment={
+                            noErrorsOn(addressName, errors) && {
+                              endAdornment: (
+                                <InputAdornment position="end">
+                                  <CheckCircle className={classes.check} data-testid={`valid-address-${index}`} />
+                                </InputAdornment>
+                              ),
+                            }
+                          }
+                          name={addressName}
+                          placeholder="Trustee Address*"
+                          text="Trustee Address"
+                          testId={`create-safe-address-field-${index}`}
+                        />
+                      </Col>
+                      <Col center="xs" className={classes.qrcode} middle="xs" xs={1}>
+                        <Img
+                          alt="Scan QR"
+                          height={20}
+                          onClick={() => {
+                            openQrModal(addressName)
+                          }}
+                          src={QRIcon}
+                        />
+                      </Col>
+                      <Col center="xs" className={classes.remove} middle="xs" xs={1}>
+                        {index > 0 && <Img alt="Delete" height={20} onClick={onRemoveRow(index)} src={trash} />}
+                      </Col>
+                    </Row>
+                  )
+                })}
+                <Button color="secondary" data-testid="add-owner-btn" onClick={onAddOwner}>
+                  <Paragraph noMargin size="lg">
+                    {ADD_OWNER_BUTTON}
+                  </Paragraph>
+                </Button>
+              </Grid>
+            </Grid>
+          </Grid>
+          <Grid item sm={12}>
+            <Grid container direction="row" justify="flex-start" spacing={2} alignItems="center" className={classes.nameField}>
+              <Grid item xs={3} className={`${mainClasses.cardTitle} ${classes.cardTitle}`}>
+                Trust requires
+              </Grid>
+              <Grid item className={classes.cardInput}>
+                <Field
+                  component={SelectField}
+                  data-testid="threshold-select-input"
+                  name={FIELD_CONFIRMATIONS}
+                  validate={composeValidators(required, mustBeInteger, minValue(1))}
+                >
+                  {[...Array(Number(validOwners))].map((x, index) => (
+                    <MenuItem key={`selectOwner${index}`} value={`${index + 1}`} data-testid={`input-${index + 1}`}>
+                      {index + 1}
+                    </MenuItem>
+                  ))}
+                </Field>
+              </Grid>
+              <Grid item data-testid={`create-safe-req-conf-${validOwners}`} className={classes.confDesc}>
+                out of {validOwners} trustee(s) to confirm changes and transactions
+              </Grid>
+            </Grid>
+          </Grid>
+        </Grid>
       </Block>
       {qrModalOpen && <ScanQRModal isOpen={qrModalOpen} onClose={closeQrModal} onScan={handleScan} />}
     </>
@@ -300,6 +333,7 @@ export const SafeOwnersPage = () =>
       <>
         <OpenPaper controls={controls} padding={false}>
           <SafeOwnersForm errors={errors} form={form} otherAccounts={getAccountsFrom(values)} values={values} />
+          {controls}
         </OpenPaper>
       </>
     )

@@ -19,7 +19,7 @@ import {
   getSafeNameFrom,
   getThresholdFrom,
 } from 'src/routes/create/utils/safeDataExtractor'
-import { TRUSTS_ADDRESS, START_ADDRESS } from 'src/routes/routes'
+import { TRUSTS_ADDRESS, CREATE_ADDRESS } from 'src/routes/routes'
 import { buildSafe } from 'src/logic/safe/store/actions/fetchSafe'
 import { history } from 'src/store'
 import { loadFromStorage, removeFromStorage, saveToStorage } from 'src/utils/storage'
@@ -207,7 +207,7 @@ const Open = (): React.ReactElement => {
   const onCancel = () => {
     removeFromStorage(SAFE_PENDING_CREATION_STORAGE_KEY)
     history.push({
-      pathname: `${START_ADDRESS}`,
+      pathname: `${CREATE_ADDRESS}`,
     })
   }
 
@@ -228,7 +228,7 @@ const Open = (): React.ReactElement => {
       {showProgress ? (
         <SafeDeployment
           creationTxHash={safeCreationPendingInfo?.txHash}
-          onCancel={onCancel}
+          onCancel={onRetry}
           onRetry={onRetry}
           onSuccess={onSafeCreated}
           submittedPromise={creationTxPromise}

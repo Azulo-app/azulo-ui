@@ -1,5 +1,5 @@
 import { makeStyles } from "@material-ui/core/styles";
-import { borderRadius, border, mainColor, greyColor } from 'src/theme/variables'
+import { borderRadius, border, mainColor, greyColor, mainFontFamily, mainLightColor } from 'src/theme/variables'
 
 const mainStyles = makeStyles((theme) => ({
     '@global': {
@@ -107,6 +107,9 @@ const mainStyles = makeStyles((theme) => ({
         '& svg': {
             fill: '#fff',
         }
+      },
+      '&.Mui-disabled': {
+            borderColor: 'rgba(0, 0, 0, 0.12)'
       }
     },
     borderButton: {
@@ -120,6 +123,14 @@ const mainStyles = makeStyles((theme) => ({
     greyButton: {
         background: 'transparent',
         border: `2px solid ${greyColor}`,
+        color: greyColor,
+        '& svg': {
+            fill: greyColor
+        },
+    },
+    noBgButton: {
+        background: 'transparent',
+        border: 'none',
         color: greyColor,
         '& svg': {
             fill: greyColor
@@ -241,6 +252,30 @@ const mainStyles = makeStyles((theme) => ({
     },
     createStepBody: {
         marginTop: '30px'
+    },
+    userAddress: {
+        padding: '12px 30px',
+        background: mainLightColor,
+        width: 'auto',
+        margin: '20px auto 0',
+        borderRadius: '8px',
+        '& img': {
+            width: '20px',
+            height: '20px',
+        },
+        '& p': {
+            fontSize: '16px',
+            fontWeight: 700,
+            fontFamily: mainFontFamily
+        }
+
+    },
+    userAddressLbl: {
+        fontSize: '16px',
+        marginRight: '20px'
+    },
+    center: {
+        textAlign: 'center'
     }
 }));
 

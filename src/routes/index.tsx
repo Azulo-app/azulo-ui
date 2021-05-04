@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Redirect, Route, Switch, useLocation, useRouteMatch } from 'react-router-dom'
 
-import { IMPORT_ADDRESS, CREATE_ADDRESS, TRUSTS_ADDRESS, SAFE_PARAM_ADDRESS, START_ADDRESS, HOME_ADDRESS, TERMS_ADDRESS, COOKIES_ADDRESS, PRIVACY_ADDRESS } from './routes'
+import { IMPORT_ADDRESS, CREATE_ADDRESS, TRUSTS_ADDRESS, SAFE_PARAM_ADDRESS, HOME_ADDRESS, TERMS_ADDRESS, COOKIES_ADDRESS, PRIVACY_ADDRESS } from './routes'
 
 import { Loader } from '@gnosis.pm/safe-react-components'
 import { defaultSafeSelector } from 'src/logic/safe/store/selectors'
@@ -12,7 +12,7 @@ import { LoadingContainer } from 'src/components/LoaderContainer'
 
 const Home = React.lazy(() => import('./home/container'))
 
-const Start = React.lazy(() => import('./start/container'))
+// const Start = React.lazy(() => import('./start/container'))
 
 const Create = React.lazy(() => import('./create/container'))
 
@@ -84,7 +84,7 @@ const Routes = (): React.ReactElement => {
         }}
       /> */}
       <Route component={Home} exact path={HOME_ADDRESS} />
-      <Route component={Start} exact path={START_ADDRESS} />
+      {/* <Route component={Start} exact path={START_ADDRESS} /> */}
       <Route component={Create} exact path={CREATE_ADDRESS} />
       <Route component={Trusts} path={SAFE_ADDRESS} />
       <Route component={Import} exact path={IMPORT_ADDRESS} />

@@ -81,7 +81,7 @@ export const CreateLayout = ({ isOldMultisigMigration }: Props): React.ReactElem
                   <Grid item className={mainClasses.createStepTitle}>
                     <Grid container direction="row" justify="flex-start" alignItems="center">
                       <Grid item className={mainClasses.createStepNum}><span>1</span></Grid>
-                      <Grid item>Step 1: Connect wallet</Grid>
+                      <Grid item>Step 1: Connect</Grid>
                     </Grid>
                   </Grid>
                   <Grid item>

@@ -2,7 +2,7 @@ import FormStep from '@material-ui/core/Step'
 import StepContent from '@material-ui/core/StepContent'
 import StepLabel from '@material-ui/core/StepLabel'
 import Stepper from '@material-ui/core/Stepper'
-import { makeStyles } from '@material-ui/core/styles'
+import { makeStyles, withStyles } from '@material-ui/core/styles'
 import React, { useCallback, useEffect, useState } from 'react'
 import { FormApi } from 'final-form'
 
@@ -12,7 +12,85 @@ import GnoForm from 'src/components/forms/GnoForm'
 import Hairline from 'src/components/layout/Hairline'
 import { history } from 'src/store'
 import { LoadFormValues } from 'src/routes/import/container'
+import { providerNameSelector } from 'src/logic/wallets/store/selectors'
+import { useSelector } from 'react-redux'
+import { CREATE_ADDRESS } from 'src/routes/routes'
+import StepConnector from '@material-ui/core/StepConnector'
+import PropTypes from 'prop-types'
+import clsx from 'clsx'
+import Check from '@material-ui/icons/Check'
 
+const QontoConnector = withStyles({
+  alternativeLabel: {
+    top: 10,
+    left: 'calc(-50% + 16px)',
+    right: 'calc(50% + 16px)',
+  },
+  active: {
+    '& $line': {
+      borderColor: '#7131ff',
+    },
+  },
+  completed: {
+    '& $line': {
+      borderColor: '#7131ff',
+    },
+  },
+  line: {
+    borderColor: '#eaeaf0',
+    borderTopWidth: 2,
+    borderRadius: 1,
+  },
+})(StepConnector);
+
+const useQontoStepIconStyles = makeStyles({
+  root: {
+    color: '#eaeaf0',
+    display: 'flex',
+    height: 22,
+    alignItems: 'center',
+  },
+  active: {
+    color: '#7131ff',
+  },
+  circle: {
+    width: 8,
+    height: 8,
+    borderRadius: '50%',
+    backgroundColor: 'currentColor',
+  },
+  completed: {
+    color: '#7131ff',
+    zIndex: 1,
+    fontSize: 18,
+  },
+});
+
+function QontoStepIcon(props) {
+  const classes = useQontoStepIconStyles();
+  const { active, completed } = props;
+
+  return (
+    <div
+      className={clsx(classes.root, {
+        [classes.active]: active,
+      })}
+    >
+      {completed ? <Check className={classes.completed} /> : <div className={classes.circle} />}
+    </div>
+  );
+}
+
+QontoStepIcon.propTypes = {
+  /**
+   * Whether this step is active.
+   */
+  active: PropTypes.bool,
+  /**
+   * Mark the step as completed. Is passed to child components.
+   */
+  completed: PropTypes.bool,
+};
 const transitionProps = {
   timeout: {
     enter: 350,
@@ -95,24 +173,28 @@ function GnoStepper<V>(props: GnoStepperProps<V>): React.ReactElement {
     const { children } = props
     const activePageProps = getPageProps(children)
     const { prepareNextInitialProps } = activePageProps
+    console.log('props', props);
+    console.log('children', children);
+    console.log('formValues', formValues);
+    console.log('activePageProps', activePageProps);
+    console.log('prepareNextInitialProps', prepareNextInitialProps);
 
     let pageInitialProps
     if (prepareNextInitialProps) {
       pageInitialProps = await prepareNextInitialProps(formValues)
+      console.log('pageInitialProps', pageInitialProps);
     }
 
     const finalValues = { ...formValues, ...pageInitialProps }
 
     setValues(finalValues)
-    setPage(Math.min(page + 1, React.Children.count(children) - 1))
+    let newPage = Math.min(page + 1, React.Children.count(children) - 1)
+    history.push(CREATE_ADDRESS + '#step-' + (+newPage + 1))
+    setPage(newPage)
   }
 
   const previous = () => {
-    const firstPage = page === 0
-    if (firstPage) {
-      return history.goBack()
-    }
-
+    history.goBack()
     return setPage(Math.max(page - 1, 0))
   }
 
@@ -136,6 +218,26 @@ function GnoStepper<V>(props: GnoStepperProps<V>): React.ReactElement {
 
   const lastPage = isLastPage(page)
   const penultimate = isLastPage(page + 1)
+
+  const provider = useSelector(providerNameSelector)
+  if (!provider && page !== 0) {
+    setPage(0)
+  }
+
+  useEffect(() => {
+    return () => {
+      if (history.action === "POP") {
+        let step = history.location.hash.split("-")
+        if (+step[1] > 0 && +step[1] <= steps.length) {
+          let newPage = Math.max(+step[1] - 1, 0)
+          setPage(newPage)
+        } else if (page !== 0) {
+          let newPage = Math.max(page - 1, 0)
+          setPage(newPage)
+        }
+      }
+    }
+  })
 
   return (
     <>
@@ -164,7 +266,7 @@ function GnoStepper<V>(props: GnoStepperProps<V>): React.ReactElement {
 
           return (
             <>
-              <Stepper activeStep={page} classes={{ root: classes.root }} orientation="horizontal">
+              <Stepper alternativeLabel activeStep={page} classes={{ root: classes.root }} orientation="horizontal" connector={<QontoConnector />}>
                 {steps.map((label, index) => {
                   const labelProps: any = {}
                   const isClickable = index < page
@@ -178,7 +280,7 @@ function GnoStepper<V>(props: GnoStepperProps<V>): React.ReactElement {
 
                   return (
                     <FormStep key={label}>
-                      <StepLabel {...labelProps}>{label}</StepLabel>
+                      <StepLabel StepIconComponent={QontoStepIcon} {...labelProps}>{label}</StepLabel>
                     </FormStep>
                   )
                 })}
@@ -194,8 +296,14 @@ function GnoStepper<V>(props: GnoStepperProps<V>): React.ReactElement {
 
 const useStyles = makeStyles({
   root: {
+    maxWidth: '600px',
     flex: '1 1 auto',
+    margin: '0 auto',
     backgroundColor: 'transparent',
+    padding: '10px 0 0 15px',
+    '& .MuiStepLabel-labelContainer > .MuiStepLabel-label.MuiStepLabel-alternativeLabel': {
+      marginTop: 0,
+    },
   },
   pointerCursor: {
     '& > .MuiStepLabel-iconContainer': {
@@ -203,7 +311,7 @@ const useStyles = makeStyles({
     },
     '& > .MuiStepLabel-labelContainer': {
       cursor: 'pointer',
-    },
+    }
   },
 })
 
