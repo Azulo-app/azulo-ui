@@ -81,10 +81,10 @@ const Load = (): React.ReactElement => {
 
       await loadSafe(safeName, safeAddress, owners, addSafeHandler)
 
-      const url = `${TRUSTS_ADDRESS}/${safeAddress}/balances`
+      const url = `${TRUSTS_ADDRESS}/${safeAddress}/assets`
       history.push(url)
     } catch (error) {
-      console.error('Error while loading the Safe', error)
+      console.error('Error while loading the Trust', error)
     }
   }
 

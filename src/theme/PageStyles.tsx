@@ -1,5 +1,5 @@
 import { makeStyles } from "@material-ui/core/styles";
-import { borderRadius, border, mainColor, greyColor, mainFontFamily, mainLightColor } from 'src/theme/variables'
+import { borderRadius, border, mainColor, greyColor, mainFontFamily, mainLightColor, background } from 'src/theme/variables'
 
 const mainStyles = makeStyles((theme) => ({
     '@global': {
@@ -17,48 +17,20 @@ const mainStyles = makeStyles((theme) => ({
         textAlign: 'center',
         margin: '40px 0 10px'
     },
-    pageNav: {
-        position: 'relative',
-        marginBottom: '50px',
-        paddingBottom: '12px',
-        '& a': {
-            fontSize: '1.2em',
-            color: '#000',
-            fontWeight: 500,
-            marginRight: '50px',
-            position: 'relative',
-            textDecoration: 'none',
-            '&:hover': {
-                textDecoration: 'none',
-                color: '#7131ff'
-            },
-            '&:last-of-type': {
-                marginRight: 0
-            },
-        },
-        '&::after': {
-            content: '""',
-            position: 'absolute',
-            bottom: 0,
-            left: 0,
-            height: '1px',
-            width: '100%',
-            background: '#EEEEEE'
-        },
-        '& $innerNav': {
-            fontWeight: 600,
-            color: '#7131ff',
-            '&::after': {
-                content: '""',
-                position: 'absolute',
-                bottom: '-10px',
-                left: 0,
-                height: '2px',
-                width: '100%',
-                background: '#7131ff',
-                zIndex: 2
-            }
-        },
+    accTitleHold: {
+        marginRight: '20px',
+        borderRight: '1px solid #e0e0e0',
+        paddingRight: '20px'
+    },
+    accTitle: {
+        fontSize: '2em',
+        lineHeight: '1',
+        fontWeight: 700
+    },
+    accDesc: {
+        fontSize: '1em',
+        lineHeight: '1',
+        paddingTop: '4px'
     },
     innerNav: {
         fontWeight: 600,
@@ -89,6 +61,7 @@ const mainStyles = makeStyles((theme) => ({
       transition: 'all 0.3s ease-in-out',
       lineHeight: '1',
       display: 'inline-block',
+      textDecoration: 'none',
       boxShadow: 'none',
       '& svg': {
             marginRight: '5px',
@@ -113,7 +86,7 @@ const mainStyles = makeStyles((theme) => ({
       }
     },
     borderButton: {
-        background: 'transparent',
+        background: background,
         border: `2px solid ${mainColor}`,
         color: mainColor,
         '& svg': {
@@ -121,7 +94,7 @@ const mainStyles = makeStyles((theme) => ({
         },
     },
     greyButton: {
-        background: 'transparent',
+        background: background,
         border: `2px solid ${greyColor}`,
         color: greyColor,
         '& svg': {

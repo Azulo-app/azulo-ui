@@ -22,7 +22,7 @@ import { FEATURES } from 'src/config/networks/network.d'
 
 import { getExplorerInfo } from 'src/config'
 
-type ActiveScreen = 'sendFunds' | 'sendCollectible' | 'contractInteraction'
+type ActiveScreen = 'sendFunds' | 'recurringFunds' | 'sendCollectible' | 'contractInteraction'
 
 interface ChooseTxTypeProps {
   onClose: () => void
@@ -98,6 +98,18 @@ const ChooseTxType = ({
           >
             <Img alt="Send funds" className={classNames(classes.leftIcon, classes.iconSmall)} src={Token} />
             Send funds
+          </Button>
+          <Button
+            className={classes.firstButton}
+            color="primary"
+            minHeight={52}
+            minWidth={260}
+            onClick={() => setActiveScreen('recurringFunds')}
+            variant="contained"
+            testId="modal-send-funds-btn"
+          >
+            <Img alt="Send funds" className={classNames(classes.leftIcon, classes.iconSmall)} src={Token} />
+            Recurring funds
           </Button>
           {erc721Enabled && (
             <Button

@@ -141,7 +141,7 @@ function GnoStepper<V>(props: GnoStepperProps<V>): React.ReactElement {
   const classes = useStyles()
 
   useEffect(() => {
-    if (props.initialValues) {
+    if (Object.keys(values).length == 0 && props.initialValues) {
       setValues(props.initialValues)
     }
   }, [props.initialValues])
@@ -173,16 +173,10 @@ function GnoStepper<V>(props: GnoStepperProps<V>): React.ReactElement {
     const { children } = props
     const activePageProps = getPageProps(children)
     const { prepareNextInitialProps } = activePageProps
-    console.log('props', props);
-    console.log('children', children);
-    console.log('formValues', formValues);
-    console.log('activePageProps', activePageProps);
-    console.log('prepareNextInitialProps', prepareNextInitialProps);
 
     let pageInitialProps
     if (prepareNextInitialProps) {
       pageInitialProps = await prepareNextInitialProps(formValues)
-      console.log('pageInitialProps', pageInitialProps);
     }
 
     const finalValues = { ...formValues, ...pageInitialProps }

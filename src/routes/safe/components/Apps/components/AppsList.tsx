@@ -23,6 +23,25 @@ import { SAFE_APP_FETCH_STATUS, SafeApp } from '../types.d'
 import AddAppForm from './AddAppForm'
 import { AppData } from '../api/fetchSafeAppsList'
 
+import { mainStyles } from 'src/theme/PageStyles'
+import { mainColor, borderRadius, border } from 'src/theme/variables'
+import Button from 'src/components/layout/Button'
+import Grid from '@material-ui/core/Grid'
+import Box from '@material-ui/core/Box'
+
+const ContentHold = styled.div`
+  border: 1px solid ${border};
+  padding: 32px;
+  border-radius: ${borderRadius};
+  margin-top: 25px;
+  box-sizing: border-box;
+  height: 100%;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  overflow: hidden;
+`
+
 const Wrapper = styled.div`
   height: 100%;
   display: flex;
@@ -91,6 +110,7 @@ const isAppLoading = (app: SafeApp) => SAFE_APP_FETCH_STATUS.LOADING === app.fet
 const isCustomApp = (appUrl: string, staticAppsList: AppData[]) => !staticAppsList.some(({ url }) => url === appUrl)
 
 const AppsList = (): React.ReactElement => {
+  const mainClasses = mainStyles()
   const matchSafeWithAddress = useRouteMatch<{ safeAddress: string }>({ path: `${TRUSTS_ADDRESS}/:safeAddress` })
   const safeAddress = useSelector(safeParamAddressFromStateSelector)
   const { appList, removeApp, staticAppsList } = useAppList()
@@ -110,75 +130,79 @@ const AppsList = (): React.ReactElement => {
   }
 
   return (
-    <Wrapper>
-      <Menu>
-        {/* TODO: Add navigation breadcrumb. Empty for now to give some top margin */}
-        <Breadcrumb />
-      </Menu>
+    <>
+      <Grid container alignItems="center">
+        <Grid item className={mainClasses.accTitleHold}><div className={mainClasses.accTitle}>Apps</div></Grid>
+        <Box flexGrow={1}><div className={mainClasses.accDesc}>Extend your trust functionality with Apps</div></Box>
+      </Grid>
+      <ContentHold>
+        <Wrapper>
 
-      <ContentWrapper>
-        <CardsWrapper>
-          <AppCard iconUrl={AddAppIcon} onClick={openAddAppModal} buttonText="Add custom app" iconSize="lg" />
+          <ContentWrapper>
+            <CardsWrapper>
+              <AppCard iconUrl={AddAppIcon} onClick={openAddAppModal} buttonText="Add custom app" iconSize="lg" />
 
-          {appList
-            .filter((a) => a.fetchStatus !== SAFE_APP_FETCH_STATUS.ERROR)
-            .map((a) => (
-              <AppContainer key={a.url}>
-                <StyledLink key={a.url} to={`${matchSafeWithAddress?.url}/apps?appUrl=${encodeURI(a.url)}`}>
-                  <AppCard isLoading={isAppLoading(a)} iconUrl={a.iconUrl} name={a.name} description={a.description} />
-                </StyledLink>
-                {isCustomApp(a.url, staticAppsList) && (
-                  <IconBtn
-                    title="Remove"
-                    onClick={(e) => {
-                      e.stopPropagation()
+              {appList
+                .filter((a) => a.fetchStatus !== SAFE_APP_FETCH_STATUS.ERROR)
+                .map((a) => (
+                  <AppContainer key={a.url}>
+                    <StyledLink key={a.url} to={`${matchSafeWithAddress?.url}/apps?appUrl=${encodeURI(a.url)}`}>
+                      <AppCard isLoading={isAppLoading(a)} iconUrl={a.iconUrl} name={a.name} description={a.description} />
+                    </StyledLink>
+                    {isCustomApp(a.url, staticAppsList) && (
+                      <IconBtn
+                        title="Remove"
+                        onClick={(e) => {
+                          e.stopPropagation()
 
-                      setAppToRemove(a)
-                    }}
-                  >
-                    <Icon size="sm" type="delete" color="error" />
-                  </IconBtn>
-                )}
-              </AppContainer>
-            ))}
-        </CardsWrapper>
+                          setAppToRemove(a)
+                        }}
+                      >
+                        <Icon size="sm" type="delete" color="error" />
+                      </IconBtn>
+                    )}
+                  </AppContainer>
+                ))}
+            </CardsWrapper>
 
-        <IconText
-          color="secondary"
-          iconSize="sm"
-          iconType="info"
-          text="These are third-party apps, which means they are not owned, controlled, maintained or audited by Gnosis. Interacting with the apps is at your own risk. Any communication within the Apps is for informational purposes only and must not be construed as investment advice to engage in any transaction."
-          textSize="sm"
-        />
-      </ContentWrapper>
-
-      {isAddAppModalOpen && (
-        <GenericModal
-          title="Add custom app"
-          body={<AddAppForm closeModal={closeAddAppModal} appList={appList} />}
-          onClose={closeAddAppModal}
-        />
-      )}
-
-      {appToRemove && (
-        <GenericModal
-          title="Remove app"
-          body={<Text size="md">This action will remove {appToRemove.name} from the interface</Text>}
-          footer={
-            <ModalFooterConfirmation
-              cancelText="Cancel"
-              handleCancel={() => setAppToRemove(null)}
-              handleOk={() => {
-                removeApp(appToRemove.url)
-                setAppToRemove(null)
-              }}
-              okText="Remove"
+            <IconText
+              color="secondary"
+              iconSize="sm"
+              iconType="info"
+              text="These are third-party apps, which means they are not owned, controlled, maintained or audited by Gnosis. Interacting with the apps is at your own risk. Any communication within the Apps is for informational purposes only and must not be construed as investment advice to engage in any transaction."
+              textSize="sm"
             />
-          }
-          onClose={() => setAppToRemove(null)}
-        />
-      )}
-    </Wrapper>
+          </ContentWrapper>
+
+          {isAddAppModalOpen && (
+            <GenericModal
+              title="Add custom app"
+              body={<AddAppForm closeModal={closeAddAppModal} appList={appList} />}
+              onClose={closeAddAppModal}
+            />
+          )}
+
+          {appToRemove && (
+            <GenericModal
+              title="Remove app"
+              body={<Text size="md">This action will remove {appToRemove.name} from the interface</Text>}
+              footer={
+                <ModalFooterConfirmation
+                  cancelText="Cancel"
+                  handleCancel={() => setAppToRemove(null)}
+                  handleOk={() => {
+                    removeApp(appToRemove.url)
+                    setAppToRemove(null)
+                  }}
+                  okText="Remove"
+                />
+              }
+              onClose={() => setAppToRemove(null)}
+            />
+          )}
+        </Wrapper>
+      </ContentHold>
+    </>
   )
 }
 

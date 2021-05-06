@@ -157,7 +157,7 @@ export const ReviewRemoveOwnerModal = ({
                   </Block>
                   <Block margin="lg">
                     <Paragraph color="disabled" noMargin size="sm">
-                      Safe name
+                      TrustSafe name
                     </Paragraph>
                     <Paragraph className={classes.name} color="primary" noMargin size="lg" weight="bolder">
                       {safeName}
@@ -177,7 +177,7 @@ export const ReviewRemoveOwnerModal = ({
               <Col className={classes.owners} layout="column" xs={8}>
                 <Row className={classes.ownersTitle}>
                   <Paragraph color="primary" noMargin size="lg">
-                    {`${owners ? owners.size - 1 : 0} Safe owner(s)`}
+                    {`${owners ? owners.size - 1 : 0} Trust trustee(s)`}
                   </Paragraph>
                 </Row>
                 <Hairline />
@@ -202,7 +202,7 @@ export const ReviewRemoveOwnerModal = ({
                 )}
                 <Row align="center" className={classes.info}>
                   <Paragraph color="primary" noMargin size="md" weight="bolder">
-                    REMOVING OWNER &darr;
+                    REMOVING TRUSTEE &darr;
                   </Paragraph>
                 </Row>
                 <Hairline />

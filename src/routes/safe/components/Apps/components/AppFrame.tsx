@@ -2,7 +2,7 @@ import React, { useState, useRef, useCallback, useEffect } from 'react'
 import styled from 'styled-components'
 import { FixedIcon, Loader, Title, Card } from '@gnosis.pm/safe-react-components'
 import { MethodToResponse, RPCPayload } from '@gnosis.pm/safe-apps-sdk'
-import { useHistory } from 'react-router-dom'
+import { useHistory, Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { INTERFACE_MESSAGES, Transaction, RequestId, LowercaseNetworks } from '@gnosis.pm/safe-apps-sdk-v1'
 
@@ -29,6 +29,25 @@ import { getAppInfoFromUrl } from '../utils'
 import { SafeApp } from '../types.d'
 import { useAppCommunicator } from '../communicator'
 
+import { mainStyles } from 'src/theme/PageStyles'
+import { mainColor, borderRadius, border } from 'src/theme/variables'
+import Button from 'src/components/layout/Button'
+import Grid from '@material-ui/core/Grid'
+import Box from '@material-ui/core/Box'
+
+const ContentHold = styled.div`
+  border: 1px solid ${border};
+  padding: 32px;
+  border-radius: ${borderRadius};
+  margin-top: 25px;
+  box-sizing: border-box;
+  height: 100%;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  overflow: hidden;
+`
+
 const OwnerDisclaimer = styled.div`
   display: flex;
   align-items: center;
@@ -40,8 +59,11 @@ const OwnerDisclaimer = styled.div`
 const AppWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  height: calc(100% + 59px);
+  height: calc(100% - 120px);
   margin: 0 -16px;
+  > div {
+    box-shadow: none !important;
+  }
 `
 
 const StyledCard = styled(Card)`
@@ -83,6 +105,7 @@ const INITIAL_CONFIRM_TX_MODAL_STATE: ConfirmTransactionModalState = {
 }
 
 const AppFrame = ({ appUrl }: Props): React.ReactElement => {
+  const mainClasses = mainStyles()
   const granted = useSelector(grantedSelector)
   const safeAddress = useSelector(safeParamAddressFromStateSelector)
   const ethBalance = useSelector(safeEthBalanceSelector)
@@ -99,7 +122,7 @@ const AppFrame = ({ appUrl }: Props): React.ReactElement => {
   const [appIsLoading, setAppIsLoading] = useState<boolean>(true)
   const [safeApp, setSafeApp] = useState<SafeApp | undefined>()
 
-  const redirectToBalance = () => history.push(`${TRUSTS_ADDRESS}/${safeAddress}/balances`)
+  const redirectToBalance = () => history.push(`${TRUSTS_ADDRESS}/${safeAddress}/assets`)
   const timer = useRef<number>()
   const [appTimeout, setAppTimeout] = useState(false)
 
@@ -268,49 +291,62 @@ const AppFrame = ({ appUrl }: Props): React.ReactElement => {
     return (
       <OwnerDisclaimer>
         <FixedIcon type="notOwner" />
-        <Title size="xs">To use apps, you must be an owner of this Safe</Title>
+        <Title size="xs">To use apps, you must be an owner of this Trust</Title>
       </OwnerDisclaimer>
     )
   }
 
   return (
-    <AppWrapper>
-      <StyledCard>
-        {appIsLoading && (
-          <LoadingContainer style={{ flexDirection: 'column' }}>
-            {appTimeout && (
-              <Title size="xs">
-                The safe app is taking longer than usual to load. There might be a problem with the app provider.
-              </Title>
+    <>
+      <Grid container alignItems="center">
+        <Grid item className={mainClasses.accTitleHold}><div className={mainClasses.accTitle}>Apps</div></Grid>
+        <Box flexGrow={1}><div className={mainClasses.accDesc}>Extend your trust functionality with Apps</div></Box>
+        <Grid item>
+          <Link className={`${mainClasses.mainButton} ${mainClasses.borderButton}`} to={`${TRUSTS_ADDRESS}/${safeAddress}/apps`}>
+            Back to apps
+          </Link>
+        </Grid>
+      </Grid>
+      <ContentHold>
+        <AppWrapper>
+          <StyledCard>
+            {appIsLoading && (
+              <LoadingContainer style={{ flexDirection: 'column' }}>
+                {appTimeout && (
+                  <Title size="xs">
+                    The trust app is taking longer than usual to load. There might be a problem with the app provider.
+                  </Title>
+                )}
+                <Loader size="md" />
+              </LoadingContainer>
             )}
-            <Loader size="md" />
-          </LoadingContainer>
-        )}
 
-        <StyledIframe
-          isLoading={appIsLoading}
-          frameBorder="0"
-          id={`iframe-${appUrl}`}
-          ref={iframeRef}
-          src={appUrl}
-          title={safeApp.name}
-          onLoad={onIframeLoad}
-        />
-      </StyledCard>
+            <StyledIframe
+              isLoading={appIsLoading}
+              frameBorder="0"
+              id={`iframe-${appUrl}`}
+              ref={iframeRef}
+              src={appUrl}
+              title={safeApp.name}
+              onLoad={onIframeLoad}
+            />
+          </StyledCard>
 
-      <ConfirmTxModal
-        isOpen={confirmTransactionModal.isOpen}
-        app={safeApp as SafeApp}
-        safeAddress={safeAddress}
-        ethBalance={ethBalance as string}
-        safeName={safeName as string}
-        txs={confirmTransactionModal.txs}
-        onClose={closeConfirmationModal}
-        onUserConfirm={onUserTxConfirm}
-        params={confirmTransactionModal.params}
-        onTxReject={onTxReject}
-      />
-    </AppWrapper>
+          <ConfirmTxModal
+            isOpen={confirmTransactionModal.isOpen}
+            app={safeApp as SafeApp}
+            safeAddress={safeAddress}
+            ethBalance={ethBalance as string}
+            safeName={safeName as string}
+            txs={confirmTransactionModal.txs}
+            onClose={closeConfirmationModal}
+            onUserConfirm={onUserTxConfirm}
+            params={confirmTransactionModal.params}
+            onTxReject={onTxReject}
+          />
+        </AppWrapper>
+      </ContentHold>
+    </>
   )
 }
 

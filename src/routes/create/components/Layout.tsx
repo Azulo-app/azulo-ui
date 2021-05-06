@@ -28,14 +28,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import { addressBookSelector } from 'src/logic/addressBook/store/selectors'
 import { getNameFromAddressBook } from 'src/logic/addressBook/utils'
 import { SafeProps } from 'src/routes/create/container'
-import { borderRadius } from 'src/theme/variables'
-import Grid from '@material-ui/core/Grid';
-import { withStyles, makeStyles } from '@material-ui/core/styles'
+import Grid from '@material-ui/core/Grid'
 import { mainStyles } from 'src/theme/PageStyles'
-import Button from '@material-ui/core/Button'
-import MuiAccordion from '@material-ui/core/Accordion'
-import MuiAccordionSummary from '@material-ui/core/AccordionSummary'
-import MuiAccordionDetails from '@material-ui/core/AccordionDetails'
 import { removeProvider } from 'src/logic/wallets/store/actions'
 import { onConnectButtonClick } from 'src/components/ConnectButton'
 
@@ -48,21 +42,6 @@ const Wrapper = styled.div`
 const { useEffect } = React
 
 const getSteps = () => ['Connect', 'Details', 'Review']
-
-const useStyles = makeStyles(() => ({
-  bg_curve: {
-    position: 'absolute',
-    top: 0,
-    right: 0,
-    zIndex: -1,
-    width: '60%',
-    height: '100%',
-    overflow: 'hidden',
-    '& > div': {
-      height: '100%'
-    }
-  },
-}));
 
 export type InitialValuesForm = {
   owner0Address?: string
@@ -125,8 +104,7 @@ type LayoutProps = {
 }
 
 export const Layout = (props: LayoutProps): React.ReactElement => {
-  const mainClasses = mainStyles();
-  const classes = useStyles();
+  const mainClasses = mainStyles()
   const dispatch = useDispatch()
 
   const onDisconnect = () => {

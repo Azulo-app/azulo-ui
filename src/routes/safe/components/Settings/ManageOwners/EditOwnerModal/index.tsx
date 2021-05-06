@@ -20,6 +20,7 @@ import { NOTIFICATIONS } from 'src/logic/notifications'
 import enqueueSnackbar from 'src/logic/notifications/store/actions/enqueueSnackbar'
 import editSafeOwner from 'src/logic/safe/store/actions/editSafeOwner'
 import { safeParamAddressFromStateSelector } from 'src/logic/safe/store/selectors'
+import { mainStyles } from 'src/theme/PageStyles'
 
 import { styles } from './style'
 import { getExplorerInfo } from 'src/config'
@@ -38,6 +39,7 @@ type OwnProps = {
 }
 
 export const EditOwnerModal = ({ isOpen, onClose, ownerAddress, selectedOwnerName }: OwnProps): React.ReactElement => {
+  const mainClasses = mainStyles()
   const classes = useStyles()
   const dispatch = useDispatch()
   const safeAddress = useSelector(safeParamAddressFromStateSelector)
@@ -54,15 +56,15 @@ export const EditOwnerModal = ({ isOpen, onClose, ownerAddress, selectedOwnerNam
 
   return (
     <Modal
-      description="Edit owner from Safe"
+      description="Edit trustee from Trust"
       handleClose={onClose}
       open={isOpen}
       paperClassName="smaller-modal-window"
-      title="Edit owner from Safe"
+      title="Edit trustee from Trust"
     >
       <Row align="center" className={classes.heading} grow>
         <Paragraph className={classes.manage} noMargin weight="bolder">
-          Edit owner name
+          Edit trustee name
         </Paragraph>
         <IconButton disableRipple onClick={onClose}>
           <Close className={classes.close} />
@@ -80,9 +82,9 @@ export const EditOwnerModal = ({ isOpen, onClose, ownerAddress, selectedOwnerNam
                     component={TextField}
                     initialValue={selectedOwnerName}
                     name="ownerName"
-                    placeholder="Owner name*"
+                    placeholder="Trustee name*"
                     testId={RENAME_OWNER_INPUT_TEST_ID}
-                    text="Owner name*"
+                    text="Trustee name*"
                     type="text"
                     validate={composeValidators(required, minMaxLength(1, 50))}
                   />
@@ -98,15 +100,16 @@ export const EditOwnerModal = ({ isOpen, onClose, ownerAddress, selectedOwnerNam
                   </Block>
                 </Row>
               </Block>
-              <Hairline />
               <Row align="center" className={classes.buttonRow}>
-                <Button minHeight={42} minWidth={140} onClick={onClose}>
+                <Button minHeight={42} minWidth={140} onClick={onClose}
+                  className={`${mainClasses.mainButton} ${mainClasses.noBgButton}`}>
                   Cancel
                 </Button>
                 <Button
                   color="primary"
                   minHeight={42}
                   minWidth={140}
+                  className={`${mainClasses.mainButton} ${mainClasses.borderButton}`}
                   testId={SAVE_OWNER_CHANGES_BTN_TEST_ID}
                   type="submit"
                   variant="contained"

@@ -173,7 +173,7 @@ describe('shouldSafeStoreBeUpdated', () => {
     // Then
     expect(expectedResult).toEqual(true)
   })
-  it(`Given an old balances list and a new balances list for the safe, should return true`, () => {
+  it(`Given an old assets list and a new assets list for the trust, should return true`, () => {
     // given
     const mockedActiveTokenAddress1 = '0x36591cd3DA96b21Ac9ca54cFaf80fe45107294F1'
     const mockedActiveTokenAddress2 = '0x92aF97cbF10742dD2527ffaBA70e34C03CFFC2c1'
@@ -193,7 +193,7 @@ describe('shouldSafeStoreBeUpdated', () => {
     // Then
     expect(expectedResult).toEqual(true)
   })
-  it(`Given an old nonce and a new nonce for the safe, should return true`, () => {
+  it(`Given an old nonce and a new nonce for the trust, should return true`, () => {
     // given
     const oldNonce = 1
     const newNonce = 2
@@ -208,7 +208,7 @@ describe('shouldSafeStoreBeUpdated', () => {
     // Then
     expect(expectedResult).toEqual(true)
   })
-  it(`Given an old newLatestIncomingTxBlock and a new newLatestIncomingTxBlock for the safe, should return true`, () => {
+  it(`Given an old newLatestIncomingTxBlock and a new newLatestIncomingTxBlock for the trust, should return true`, () => {
     // given
     const oldLatestIncomingTxBlock = 1
     const newLatestIncomingTxBlock = 2
@@ -223,7 +223,7 @@ describe('shouldSafeStoreBeUpdated', () => {
     // Then
     expect(expectedResult).toEqual(true)
   })
-  it(`Given an old recurringUser and a new recurringUser for the safe, should return true`, () => {
+  it(`Given an old recurringUser and a new recurringUser for the trust, should return true`, () => {
     // given
     const oldRecurringUser = true
     const newRecurringUser = false
@@ -238,7 +238,7 @@ describe('shouldSafeStoreBeUpdated', () => {
     // Then
     expect(expectedResult).toEqual(true)
   })
-  it(`Given an old recurringUser and a new recurringUser for the safe, should return true`, () => {
+  it(`Given an old recurringUser and a new recurringUser for the trust, should return true`, () => {
     // given
     const oldCurrentVersion = '1.1.1'
     const newCurrentVersion = '1.0.0'
@@ -253,7 +253,7 @@ describe('shouldSafeStoreBeUpdated', () => {
     // Then
     expect(expectedResult).toEqual(true)
   })
-  it(`Given an old needsUpdate and a new needsUpdate for the safe, should return true`, () => {
+  it(`Given an old needsUpdate and a new needsUpdate for the trust, should return true`, () => {
     // given
     const oldNeedsUpdate = false
     const newNeedsUpdate = true
@@ -268,7 +268,7 @@ describe('shouldSafeStoreBeUpdated', () => {
     // Then
     expect(expectedResult).toEqual(true)
   })
-  it(`Given an old featuresEnabled and a new featuresEnabled for the safe, should return true`, () => {
+  it(`Given an old featuresEnabled and a new featuresEnabled for the trust, should return true`, () => {
     // given
     const oldFeaturesEnabled = []
     const newFeaturesEnabled = undefined

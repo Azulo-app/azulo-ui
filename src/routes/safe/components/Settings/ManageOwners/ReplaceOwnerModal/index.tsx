@@ -117,17 +117,17 @@ export const ReplaceOwnerModal = ({
         ),
       )
     } catch (error) {
-      console.error('Error while removing an owner', error)
+      console.error('Error while removing an trustee', error)
     }
   }
 
   return (
     <Modal
-      description="Replace owner from Safe"
+      description="Replace trustee from Trust"
       handleClose={onClose}
       open={isOpen}
       paperClassName="bigger-modal-window"
-      title="Replace owner from Safe"
+      title="Replace trustee from Trust"
     >
       <>
         {activeScreen === 'checkOwner' && (

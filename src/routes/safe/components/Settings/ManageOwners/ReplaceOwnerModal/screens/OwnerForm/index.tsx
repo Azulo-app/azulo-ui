@@ -111,12 +111,12 @@ export const OwnerForm = ({
               <Block className={classes.formContainer}>
                 <Row>
                   <Paragraph>
-                    Review the owner you want to replace from the active Safe. Then specify the new owner you want to
+                    Review the trustee you want to replace from the active Trust. Then specify the new trustee you want to
                     replace it with:
                   </Paragraph>
                 </Row>
                 <Row>
-                  <Paragraph>Current owner</Paragraph>
+                  <Paragraph>Current trustee</Paragraph>
                 </Row>
                 <Row className={classes.owner}>
                   <Col align="center" xs={12}>
@@ -137,9 +137,9 @@ export const OwnerForm = ({
                     <Field
                       component={TextField}
                       name="ownerName"
-                      placeholder="Owner name*"
+                      placeholder="Trustee name*"
                       testId={REPLACE_OWNER_NAME_INPUT_TEST_ID}
-                      text="Owner name*"
+                      text="Trustee name*"
                       type="text"
                       validate={composeValidators(required, minMaxLength(1, 50))}
                     />
@@ -150,9 +150,9 @@ export const OwnerForm = ({
                     <AddressInput
                       fieldMutator={mutators.setOwnerAddress}
                       name="ownerAddress"
-                      placeholder="Owner address*"
+                      placeholder="Trustee address*"
                       testId={REPLACE_OWNER_ADDRESS_INPUT_TEST_ID}
-                      text="Owner address*"
+                      text="Trustee address*"
                       validators={[ownerDoesntExist, ownerAddressIsNotSafeAddress]}
                     />
                   </Col>

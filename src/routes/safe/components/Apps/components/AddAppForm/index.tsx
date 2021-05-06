@@ -79,16 +79,16 @@ const AddApp = ({ appList, closeModal }: AddAppProps): ReactElement => {
         <>
           <AppDocsInfo>
             <Text size="xl" as="span" color="secondary">
-              Safe Apps are third-party extensions.
+              Trust Apps are third-party extensions.
             </Text>
             <Link
               href="https://docs.gnosis.io/safe/docs/sdks_safe_apps/"
               target="_blank"
               rel="noreferrer"
-              title="Learn more about building Safe Apps"
+              title="Learn more about building Trust Apps"
             >
               <Text size="xl" as="span" color="primary">
-                Learn more about building Safe Apps.
+                Learn more about building Trust Apps.
               </Text>
               <Icon size="sm" type="externalLink" color="primary" />
             </Link>

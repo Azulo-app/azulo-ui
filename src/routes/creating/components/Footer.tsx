@@ -5,7 +5,9 @@ import { Icon, Link, Text } from '@gnosis.pm/safe-react-components'
 
 import Button from 'src/components/layout/Button'
 import { getExplorerInfo } from 'src/config'
-import Hairline from 'src/components/layout/Hairline'
+import { mainStyles } from 'src/theme/PageStyles'
+import { mainColor, borderRadius, mainLightColor, warning, warningLight } from 'src/theme/variables'
+import Grid from '@material-ui/core/Grid'
 
 const StyledText = styled(Text)`
   display: inline-flex;
@@ -18,27 +20,60 @@ const StyledText = styled(Text)`
     left: 4px;
   }
 `
+const NextText = styled(Text)`
+  font-weight: 700;
+  font-size: '16px';
+  color: ${mainColor};
+  margin-right: 20px;
+`
 const ButtonWithMargin = styled(Button)`
   margin-right: 16px;
 `
 const FooterContainer = styled.div`
   width: 100%;
-  height: 76px;
-
-  button {
-    margin-top: 24px;
+  background: ${mainLightColor};
+  border: 1px solid ${mainColor};
+  padding: 25px 45px;
+  max-width: 600px;
+  border-radius: ${borderRadius};
+  margin-top: 15px;
+  box-sizing: border-box;
+`
+const InfoContainer = styled.div`
+  width: 100%;
+  background: ${warningLight};
+  border: 1px solid ${warning};
+  padding: 25px 45px;
+  max-width: 600px;
+  border-radius: ${borderRadius};
+  margin-top: 15px;
+  box-sizing: border-box;
+  text-align: center;
+  color: ${warning} !important;
+  p {
+    color: ${warning} !important;
+  }
+  a {
+    color: ${warning} !important;
+    span {
+      color: ${warning} !important;
+    }
+    svg .icon-color {
+      fill: ${warning} !important;
+    }
   }
 `
 
 export const GenericFooter = ({ safeCreationTxHash }: { safeCreationTxHash: string }): ReactElement => {
+  const mainClasses = mainStyles()
   const explorerInfo = getExplorerInfo(safeCreationTxHash)
   const { url, alt } = explorerInfo()
   const match = /(http|https):\/\/(\w+\.\w+)\/.*/i.exec(url)
   const explorerDomain = match !== null ? match[2] : 'Network Explorer'
 
   return (
-    <span>
-      <Text size="xl">This process should take a couple of minutes.</Text>
+    <InfoContainer>
+      <StyledText size="xl">This process could take a couple of minutes.</StyledText>
       <StyledText size="xl">
         Follow the progress on{' '}
         <Link
@@ -55,7 +90,7 @@ export const GenericFooter = ({ safeCreationTxHash }: { safeCreationTxHash: stri
           <Icon size="sm" type="externalLink" color="primary" />
         </Link>
       </StyledText>
-    </span>
+    </InfoContainer>
   )
 }
 
@@ -65,20 +100,27 @@ export const ContinueFooter = ({
 }: {
   continueButtonDisabled: boolean
   onContinue: (event: SyntheticEvent) => void
-}): ReactElement => (
-  <FooterContainer>
-    <Hairline />
-    <Button
-      color="primary"
-      disabled={continueButtonDisabled}
-      onClick={onContinue}
-      variant="contained"
-      data-testid="continue-btn"
-    >
-      Get started
-    </Button>
-  </FooterContainer>
-)
+}): ReactElement => {
+  const mainClasses = mainStyles()
+
+  return (
+    <FooterContainer>
+      <Grid container direction="row" justify="center" alignItems="center">
+        <NextText size="xl">Next steps</NextText>
+        <Button
+          color="primary"
+          disabled={continueButtonDisabled}
+          onClick={onContinue}
+          variant="contained"
+          data-testid="continue-btn"
+          className={mainClasses.mainButton}
+        >
+          Get started
+        </Button>
+      </Grid>
+    </FooterContainer>
+  )
+}
 
 export const ErrorFooter = ({
   onCancel,
@@ -86,14 +128,21 @@ export const ErrorFooter = ({
 }: {
   onCancel: (event: SyntheticEvent) => void
   onRetry: (event: SyntheticEvent) => void
-}): ReactElement => (
-  <FooterContainer>
-    <Hairline />
-    <ButtonWithMargin onClick={onCancel} variant="contained">
-      Cancel
-    </ButtonWithMargin>
-    <Button color="primary" onClick={onRetry} variant="contained">
-      Retry
-    </Button>
-  </FooterContainer>
-)
+}): ReactElement => {
+  const mainClasses = mainStyles()
+
+  return (
+    <>
+      <FooterContainer>
+        <Grid container direction="row" justify="center" alignItems="center">
+          <ButtonWithMargin className={`${mainClasses.mainButton} ${mainClasses.greyButton}`} onClick={onCancel} variant="contained">
+            Cancel trust
+          </ButtonWithMargin>
+          <Button color="primary" className={mainClasses.mainButton} onClick={onRetry} variant="contained">
+            Retry creation
+          </Button>
+        </Grid>
+      </FooterContainer>
+    </>
+  )
+}

@@ -16,7 +16,7 @@ describe('fetchTokenCurrenciesBalances', () => {
     jest.unmock('axios')
   })
 
-  it('Given a safe address, calls the API and returns token balances', async () => {
+  it('Given a trust address, calls the API and returns token balances', async () => {
     // given
     const expectedResult = [
       {

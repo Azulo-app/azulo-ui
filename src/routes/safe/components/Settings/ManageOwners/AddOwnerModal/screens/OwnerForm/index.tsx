@@ -93,7 +93,7 @@ export const OwnerForm = ({ onClose, onSubmit, initialValues }: OwnerFormProps):
             <>
               <Block className={classes.formContainer}>
                 <Row margin="md">
-                  <Paragraph>Add a new owner to the active Safe</Paragraph>
+                  <Paragraph>Add a new Trustee to the active Trust</Paragraph>
                 </Row>
                 <Row margin="md">
                   <Col xs={8}>

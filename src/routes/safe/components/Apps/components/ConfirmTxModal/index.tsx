@@ -51,7 +51,7 @@ export const ConfirmTxModal = (props: ConfirmTxModalProps): ReactElement | null 
   }
 
   return (
-    <Modal description="Safe App transaction" title="Safe App transaction" open={props.isOpen}>
+    <Modal description="Trust App transaction" title="Trust App transaction" open={props.isOpen}>
       {areTxsMalformed && <SafeAppLoadError {...props} />}
       {decodedTxDetails && (
         <DecodedTxDetail
