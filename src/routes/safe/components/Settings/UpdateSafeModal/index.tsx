@@ -87,7 +87,7 @@ export const UpdateSafeModal = ({ onClose, safeAddress }: Props): React.ReactEle
         <>
           <Row align="center" className={classes.heading} grow>
             <Paragraph className={classes.headingText} noMargin weight="bolder">
-              Update to new Safe version
+              Update to new Trust version
             </Paragraph>
             <IconButton disableRipple onClick={onClose}>
               <Close className={classes.close} />
@@ -111,8 +111,8 @@ export const UpdateSafeModal = ({ onClose, safeAddress }: Props): React.ReactEle
                       </ul>
                     </Block>
                     <Paragraph>
-                      You will need to confirm this update just like any other transaction. This means other owners will
-                      have to confirm the update in case more than one confirmation is required for this Safe.
+                      You will need to confirm this update just like any other transaction. This means other trustees will
+                      have to confirm the update in case more than one confirmation is required for this Trust.
                     </Paragraph>
                   </Row>
                   {/* Tx Parameters */}
@@ -147,7 +147,7 @@ export const UpdateSafeModal = ({ onClose, safeAddress }: Props): React.ReactEle
                     variant="contained"
                     disabled={!multiSendCallData || txEstimationExecutionStatus === EstimationStatus.LOADING}
                   >
-                    Update Safe
+                    Update Trust
                   </Button>
                 </Row>
               </>

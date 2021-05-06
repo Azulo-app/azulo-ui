@@ -130,15 +130,15 @@ export const EditTxParametersForm = ({
           {() => (
             <>
               <StyledText size="xl" strong>
-                Safe transaction
+                Trust transaction
               </StyledText>
 
               <SafeOptions>
                 <Field
                   name="safeNonce"
                   defaultValue={safeNonce}
-                  placeholder="Safe nonce"
-                  text="Safe nonce"
+                  placeholder="Trust nonce"
+                  text="Trust nonce"
                   type="number"
                   min="0"
                   component={TextField}
@@ -147,8 +147,8 @@ export const EditTxParametersForm = ({
                 <Field
                   name="safeTxGas"
                   defaultValue={safeTxGas}
-                  placeholder="SafeTxGas"
-                  text="SafeTxGas"
+                  placeholder="TrustTxGas"
+                  text="Trust"
                   type="number"
                   min="0"
                   component={TextField}

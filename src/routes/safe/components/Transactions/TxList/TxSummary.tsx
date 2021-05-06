@@ -31,7 +31,7 @@ export const TxSummary = ({ txDetails }: { txDetails: ExpandedTxDetails }): Reac
       {safeTxHash !== undefined && (
         <div className="tx-hash">
           <Text size="xl" strong as="span">
-            SafeTxHash:{' '}
+            TrustTxHash:{' '}
           </Text>
           <InlineEthHashInfo textSize="xl" hash={safeTxHash} shortenHash={8} showCopyBtn />
         </div>

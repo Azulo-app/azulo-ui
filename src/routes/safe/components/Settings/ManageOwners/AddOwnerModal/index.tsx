@@ -109,11 +109,11 @@ export const AddOwnerModal = ({ isOpen, onClose }: Props): React.ReactElement =>
 
   return (
     <Modal
-      description="Add owner to Safe"
+      description="Add trustee to Trust"
       handleClose={onClose}
       open={isOpen}
       paperClassName="bigger-modal-window"
-      title="Add owner to Safe"
+      title="Add trustee to Trust"
     >
       <>
         {activeScreen === 'selectOwner' && (

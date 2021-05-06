@@ -189,12 +189,12 @@ const Open = (): React.ReactElement => {
 
     trackEvent({
       category: 'User',
-      action: 'Created a safe',
+      action: 'Created a trust',
     })
 
     removeFromStorage(SAFE_PENDING_CREATION_STORAGE_KEY)
     const url = {
-      pathname: `${TRUSTS_ADDRESS}/${safeProps.address}/balances`,
+      pathname: `${TRUSTS_ADDRESS}/${safeProps.address}/assets`,
       state: {
         name,
         tx: pendingCreation?.txHash,

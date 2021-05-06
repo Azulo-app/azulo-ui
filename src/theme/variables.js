@@ -4,8 +4,9 @@ const mainColor = '#7131ff'
 const mainLightColor = '#f1ebff'
 const connectedColor = mainColor
 const disabled = '#5D6D74'
-const errorColor = '#f02525'
-const fancyColor = '#f02525'
+const errorColor = '#FF3E3E'
+const errorBGColor = '#FFDEDE'
+const fancyColor = '#FF3E3E'
 const fontColor = '#001428'
 const headerHeight = '52px'
 const lg = '24px'
@@ -17,7 +18,8 @@ const secondary = '#7131ff'
 const secondaryTextOrSvg = '#B2B5B2'
 const secondaryBackground = '#f0efee'
 const sm = '8px'
-const warningColor = '#ffc05f'
+const warningColor = '#f59400'
+const warningColorLight = '#FFFCF6'
 const xl = '32px'
 const xs = '4px'
 const xxl = '40px'
@@ -33,6 +35,7 @@ module.exports = {
   connected: connectedColor,
   disabled,
   error: errorColor,
+  errorBG: errorBGColor,
   extraBoldFont: 800,
   extraLargeFontSize: '20px',
   extraSmallFontSize: '11px',
@@ -53,7 +56,7 @@ module.exports = {
   md,
   nm,
   mediumFontSize: '14px',
-  primary,
+  primary: mainColor,
   regularFont: 400,
   screenLg: 1200,
   screenMd: 992,
@@ -69,6 +72,7 @@ module.exports = {
   sm,
   smallFontSize: '12px',
   warning: warningColor,
+  warningLight: warningColorLight,
   xl,
   xs,
   xxl,

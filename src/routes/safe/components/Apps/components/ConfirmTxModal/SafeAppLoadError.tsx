@@ -29,8 +29,8 @@ export const SafeAppLoadError = ({ onTxReject, onClose }: ConfirmTxModalProps): 
         <Title size="xs">Transaction error</Title>
       </IconText>
       <Text size="lg">
-        This Safe App initiated a transaction which cannot be processed. Please get in touch with the developer of this
-        Safe App for more information.
+        This Trust App initiated a transaction which cannot be processed. Please get in touch with the developer of this
+        Trust App for more information.
       </Text>
 
       <FooterWrapper>

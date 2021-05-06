@@ -106,11 +106,11 @@ export const RemoveOwnerModal = ({
 
   return (
     <Modal
-      description="Remove owner from Safe"
+      description="Remove trustee from Trust"
       handleClose={onClose}
       open={isOpen}
       paperClassName="bigger-modal-window"
-      title="Remove owner from Safe"
+      title="Remove trustee from Trust"
     >
       <>
         {activeScreen === 'checkOwner' && (

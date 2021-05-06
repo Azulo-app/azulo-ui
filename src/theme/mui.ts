@@ -196,12 +196,12 @@ const theme = createMuiTheme({
         '&::before': {
           borderBottomColor: primary,
           borderBottomStyle: 'solid',
-          borderBottomWidth: '2px !important',
+          borderBottomWidth: '1px !important',
         },
         '&::after': {
           borderBottomColor: primary,
           borderBottomStyle: 'solid',
-          borderBottomWidth: '2px !important',
+          borderBottomWidth: '1px !important',
         },
         '&.isValid::before': {
           borderBottomColor: `${secondary} !important`,
@@ -222,12 +222,12 @@ const theme = createMuiTheme({
         '&::before': {
           borderBottomColor: primary,
           borderBottomStyle: 'solid',
-          borderBottomWidth: '2px !important',
+          borderBottomWidth: '1px !important',
         },
         '&::after': {
           borderBottomColor: primary,
           borderBottomStyle: 'solid',
-          borderBottomWidth: '2px !important',
+          borderBottomWidth: '1px !important',
         },
         '&.isValid::before': {
           borderBottomColor: `${secondary} !important`,
@@ -362,7 +362,7 @@ const theme = createMuiTheme({
     },
     MuiTableCell: {
       root: {
-        borderBottomWidth: '2px',
+        borderBottomWidth: '1px',
         fontFamily: secondaryFontFamily,
         fontSize: mediumFontSize,
       },

@@ -56,7 +56,7 @@ export const EllipsisTransactionDetails = ({
   const closeMenuHandler = () => setAnchorEl(null)
 
   const addOrEditEntryHandler = () => {
-    dispatch(push(`${TRUSTS_ADDRESS}/${currentSafeAddress}/address-book?entryAddress=${address}`))
+    dispatch(push(`${TRUSTS_ADDRESS}/${currentSafeAddress}/beneficiaries?entryAddress=${address}`))
     closeMenuHandler()
   }
 

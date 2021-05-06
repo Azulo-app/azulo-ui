@@ -42,7 +42,7 @@ export const NewLimitSteps = (): ReactElement => (
       </Text>
 
       <Text size="lg" color="placeHolder" center>
-        The beneficiary does not have to be an owner of this Safe
+        The beneficiary does not have to be a trustee of this Trust
       </Text>
     </Step>
 
@@ -56,7 +56,7 @@ export const NewLimitSteps = (): ReactElement => (
       </Text>
 
       <Text size="lg" color="placeHolder" center>
-        You can set a spending limit for any asset stored in your Safe
+        You can set a spending limit for any asset stored in your Trust
       </Text>
     </Step>
 

@@ -1,61 +1,63 @@
-import { Button, EthHashInfo, FixedIcon, Text } from '@gnosis.pm/safe-react-components'
-import TableCell from '@material-ui/core/TableCell'
-import TableContainer from '@material-ui/core/TableContainer'
-import TableRow from '@material-ui/core/TableRow'
 import { makeStyles } from '@material-ui/core/styles'
-import cn from 'classnames'
 import styled from 'styled-components'
 import React, { ReactElement, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { NavLink, Redirect, Route, Switch, useLocation } from 'react-router-dom'
 
 import { styles } from './style'
 
-import { getExplorerInfo } from 'src/config'
-import Table from 'src/components/Table'
-import { cellWidth } from 'src/components/Table/TableHead'
-import Block from 'src/components/layout/Block'
-import ButtonLink from 'src/components/layout/ButtonLink'
+import { wrapInSuspense } from 'src/utils/wrapInSuspense'
+import { TRUSTS_ADDRESS } from 'src/routes/routes'
 import Col from 'src/components/layout/Col'
-import Img from 'src/components/layout/Img'
 import Row from 'src/components/layout/Row'
+import SendModal from 'src/routes/safe/components/Balances/SendModal'
+import { CreateEditEntryModal } from 'src/routes/safe/components/AddressBook/CreateEditEntryModal'
 import { AddressBookEntry, makeAddressBookEntry } from 'src/logic/addressBook/model/addressBook'
 import { addAddressBookEntry } from 'src/logic/addressBook/store/actions/addAddressBookEntry'
-import { removeAddressBookEntry } from 'src/logic/addressBook/store/actions/removeAddressBookEntry'
 import { updateAddressBookEntry } from 'src/logic/addressBook/store/actions/updateAddressBookEntry'
 import { addressBookSelector } from 'src/logic/addressBook/store/selectors'
-import { isUserAnOwnerOfAnySafe, sameAddress } from 'src/logic/wallets/ethAddresses'
-import { CreateEditEntryModal } from 'src/routes/safe/components/AddressBook/CreateEditEntryModal'
-import DeleteEntryModal from 'src/routes/safe/components/AddressBook/DeleteEntryModal'
-import {
-  AB_ADDRESS_ID,
-  ADDRESS_BOOK_ROW_ID,
-  EDIT_ENTRY_BUTTON,
-  REMOVE_ENTRY_BUTTON,
-  SEND_ENTRY_BUTTON,
-  generateColumns,
-} from 'src/routes/safe/components/AddressBook/columns'
-import SendModal from 'src/routes/safe/components/Balances/SendModal'
-import RenameOwnerIcon from 'src/routes/safe/components/Settings/ManageOwners/assets/icons/rename-owner.svg'
-import RemoveOwnerIcon from 'src/routes/safe/components/Settings/assets/icons/bin.svg'
-import { addressBookQueryParamsSelector, safesListSelector } from 'src/logic/safe/store/selectors'
+import { sameAddress } from 'src/logic/wallets/ethAddresses'
+import { addressBookQueryParamsSelector, safesListSelector, safeParamAddressFromStateSelector } from 'src/logic/safe/store/selectors'
 import { checksumAddress } from 'src/utils/checksumAddress'
-import { grantedSelector } from 'src/routes/safe/container/selector'
 import { useAnalytics, SAFE_NAVIGATION_EVENT } from 'src/utils/googleAnalytics'
 
-const StyledButton = styled(Button)`
-  &&.MuiButton-root {
-    margin: 4px 12px 4px 0px;
-    padding: 0 12px;
-    min-width: auto;
-  }
-  svg {
-    margin: 0 6px 0 0;
-  }
+import { mainStyles } from 'src/theme/PageStyles'
+import { mainColor, borderRadius, border } from 'src/theme/variables'
+import Button from 'src/components/layout/Button'
+import Grid from '@material-ui/core/Grid'
+import Box from '@material-ui/core/Box'
+import Divider from 'src/components/layout/Divider'
+
+const ContentHold = styled.div`
+  border: 1px solid ${border};
+  padding: 32px;
+  border-radius: ${borderRadius};
+  margin-top: 25px;
+  box-sizing: border-box;
+  height: 100%;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  overflow: hidden;
 `
+
 const useStyles = makeStyles(styles)
+
+const AutoDistributions = React.lazy(() => import('src/routes/safe/components/AddressBook/AutoDistributions'))
+const Beneficiaries = React.lazy(() => import('src/routes/safe/components/AddressBook/Beneficiaries'))
 
 interface AddressBookSelectedEntry extends AddressBookEntry {
   isNew?: boolean
+}
+
+const INITIAL_STATE = {
+  erc721Enabled: false,
+  showToken: false,
+  sendFunds: {
+    isOpen: false,
+    selectedToken: '',
+  },
+  showReceive: false,
 }
 
 export type Entry = {
@@ -67,22 +69,20 @@ export type Entry = {
 const initialEntryState: Entry = { entry: { address: '', name: '', isNew: true } }
 
 const AddressBookTable = (): ReactElement => {
+  const mainClasses = mainStyles()
   const classes = useStyles()
-  const columns = generateColumns()
-  const autoColumns = columns.filter(({ custom }) => !custom)
+  const location = useLocation();
   const dispatch = useDispatch()
-  const safesList = useSelector(safesListSelector)
+  const address = useSelector(safeParamAddressFromStateSelector)
   const entryAddressToEditOrCreateNew = useSelector(addressBookQueryParamsSelector)
   const addressBook = useSelector(addressBookSelector)
-  const granted = useSelector(grantedSelector)
   const [selectedEntry, setSelectedEntry] = useState<Entry>(initialEntryState)
   const [editCreateEntryModalOpen, setEditCreateEntryModalOpen] = useState(false)
-  const [deleteEntryModalOpen, setDeleteEntryModalOpen] = useState(false)
-  const [sendFundsModalOpen, setSendFundsModalOpen] = useState(false)
   const { trackEvent } = useAnalytics()
+  const [state, setState] = useState(INITIAL_STATE)
 
   useEffect(() => {
-    trackEvent({ category: SAFE_NAVIGATION_EVENT, action: 'AddressBook' })
+    trackEvent({ category: SAFE_NAVIGATION_EVENT, action: 'Beneficiaries' })
   }, [trackEvent])
 
   useEffect(() => {
@@ -131,120 +131,98 @@ const AddressBookTable = (): ReactElement => {
     dispatch(updateAddressBookEntry(makeAddressBookEntry(checksumEntries)))
   }
 
-  const deleteEntryModalHandler = () => {
-    const entryAddress = selectedEntry?.entry ? checksumAddress(selectedEntry.entry.address) : ''
-    setSelectedEntry(initialEntryState)
-    setDeleteEntryModalOpen(false)
-    dispatch(removeAddressBookEntry(entryAddress))
+  const showSendFunds = (tokenAddress: string): void => {
+    setState((prevState) => ({
+      ...prevState,
+      sendFunds: {
+        isOpen: true,
+        selectedToken: tokenAddress,
+      },
+    }))
   }
+
+  const hideSendFunds = () => {
+    setState((prevState) => ({
+      ...prevState,
+      sendFunds: {
+        isOpen: false,
+        selectedToken: '',
+      },
+    }))
+  }
+
+  const { erc721Enabled, sendFunds, showReceive } = state
 
   return (
     <>
-      <Row align="center" className={classes.message}>
-        <Col end="sm" xs={12}>
-          <ButtonLink
-            onClick={() => {
-              setSelectedEntry(initialEntryState)
-              setEditCreateEntryModalOpen(true)
-            }}
-            size="lg"
-            testId="manage-tokens-btn"
-          >
-            + Create entry
-          </ButtonLink>
-        </Col>
-      </Row>
-      <Block className={classes.formContainer}>
-        <TableContainer>
-          <Table
-            columns={columns}
-            data={addressBook}
-            defaultFixed
-            defaultRowsPerPage={25}
-            disableLoadingOnEmptyTable
-            label="Owners"
-            size={addressBook?.length || 0}
-          >
-            {(sortedData) =>
-              sortedData.map((row, index) => {
-                const userOwner = isUserAnOwnerOfAnySafe(safesList, row.address)
-                const hideBorderBottom = index >= 3 && index === sortedData.size - 1 && classes.noBorderBottom
-                return (
-                  <TableRow
-                    className={cn(classes.hide, hideBorderBottom)}
-                    data-testid={ADDRESS_BOOK_ROW_ID}
-                    key={index}
-                    tabIndex={-1}
-                  >
-                    {autoColumns.map((column) => {
-                      return (
-                        <TableCell align={column.align} component="td" key={column.id} style={cellWidth(column.width)}>
-                          {column.id === AB_ADDRESS_ID ? (
-                            <Block justify="left">
-                              <EthHashInfo
-                                hash={row[column.id]}
-                                showCopyBtn
-                                showAvatar
-                                explorerUrl={getExplorerInfo(row[column.id])}
-                              />
-                            </Block>
-                          ) : (
-                            row[column.id]
-                          )}
-                        </TableCell>
-                      )
-                    })}
-                    <TableCell component="td">
-                      <Row align="end" className={classes.actions}>
-                        <Img
-                          alt="Edit entry"
-                          className={granted ? classes.editEntryButton : classes.editEntryButtonNonOwner}
-                          onClick={() => {
-                            setSelectedEntry({
-                              entry: row,
-                              isOwnerAddress: userOwner,
-                            })
-                            setEditCreateEntryModalOpen(true)
-                          }}
-                          src={RenameOwnerIcon}
-                          testId={EDIT_ENTRY_BUTTON}
-                        />
-                        <Img
-                          alt="Remove entry"
-                          className={granted ? classes.removeEntryButton : classes.removeEntryButtonNonOwner}
-                          onClick={() => {
-                            setSelectedEntry({ entry: row })
-                            setDeleteEntryModalOpen(true)
-                          }}
-                          src={RemoveOwnerIcon}
-                          testId={REMOVE_ENTRY_BUTTON}
-                        />
-                        {granted ? (
-                          <StyledButton
-                            color="primary"
-                            onClick={() => {
-                              setSelectedEntry({ entry: row })
-                              setSendFundsModalOpen(true)
-                            }}
-                            size="md"
-                            variant="contained"
-                            data-testid={SEND_ENTRY_BUTTON}
-                          >
-                            <FixedIcon type="arrowSentWhite" />
-                            <Text size="xl" color="white">
-                              Send
-                            </Text>
-                          </StyledButton>
-                        ) : null}
-                      </Row>
-                    </TableCell>
-                  </TableRow>
-                )
-              })
+      <Grid container alignItems="center">
+        <Grid item className={mainClasses.accTitleHold}><div className={mainClasses.accTitle}>Beneficiary</div></Grid>
+        <Box flexGrow={1}><div className={mainClasses.accDesc}>View and manage beneficiaries of your trust and distributions</div></Box>
+        <Grid item>
+          <Button className={mainClasses.mainButton} onClick={() => {
+                setSelectedEntry(initialEntryState)
+                setEditCreateEntryModalOpen(true)
+              }} variant="contained">
+            + Add beneficiary
+          </Button>
+        </Grid>
+      </Grid>
+      <ContentHold>
+        <Row align="center">
+          <Grid container className={classes.assetTabs} direction="row" justify="flex-start" alignItems="center">
+            <Grid item xs={6} container>
+              <NavLink
+                to={`${TRUSTS_ADDRESS}/${address}/beneficiaries`}
+                activeClassName={classes.assetTabActive}
+                className={classes.assetTab}
+                data-testid={'list-assets-btn'}
+                exact
+              >
+                List
+              </NavLink>
+              <Divider className={classes.assetDivider} />
+              <NavLink
+                to={`${TRUSTS_ADDRESS}/${address}/beneficiaries/auto-distributions`}
+                className={classes.assetTab}
+                activeClassName={classes.assetTabActive}
+                data-testid={'distributions-assets-btn'}
+                exact
+              >
+                Auto Distributions
+              </NavLink>
+            </Grid>
+            {
+              (location.pathname == `${TRUSTS_ADDRESS}/${address}/beneficiaries/auto-distributions`) ? (
+              <>
+                <Grid item xs={6} container justify="flex-end">
+                  <Button className={`${mainClasses.mainButton} ${mainClasses.borderButton}`}
+                      onClick={() => {
+                        showSendFunds(address)
+                      }} variant="contained">
+                    + Add distribution
+                  </Button>
+                </Grid>
+              </>
+              ) : null
             }
-          </Table>
-        </TableContainer>
-      </Block>
+          </Grid>
+        </Row>
+        <Switch>
+          <Route
+            path={`${TRUSTS_ADDRESS}/${address}/beneficiaries/auto-distributions`}
+            exact
+            render={() => {
+              return wrapInSuspense(<AutoDistributions />)
+            }}
+          />
+          <Route
+            path={`${TRUSTS_ADDRESS}/${address}/beneficiaries`}
+            render={() => {
+              return wrapInSuspense(<Beneficiaries />)
+            }}
+          />
+        </Switch>
+      </ContentHold>
       <CreateEditEntryModal
         editEntryModalHandler={editEntryModalHandler}
         entryToEdit={selectedEntry}
@@ -252,18 +230,11 @@ const AddressBookTable = (): ReactElement => {
         newEntryModalHandler={newEntryModalHandler}
         onClose={() => setEditCreateEntryModalOpen(false)}
       />
-      <DeleteEntryModal
-        deleteEntryModalHandler={deleteEntryModalHandler}
-        entryToDelete={selectedEntry}
-        isOpen={deleteEntryModalOpen}
-        onClose={() => setDeleteEntryModalOpen(false)}
-      />
       <SendModal
-        activeScreenType="chooseTxType"
-        isOpen={sendFundsModalOpen}
-        onClose={() => setSendFundsModalOpen(false)}
-        recipientAddress={selectedEntry?.entry?.address}
-        recipientName={selectedEntry?.entry?.name}
+        activeScreenType="sendFunds"
+        isOpen={sendFunds.isOpen}
+        onClose={hideSendFunds}
+        selectedToken={sendFunds.selectedToken}
       />
     </>
   )

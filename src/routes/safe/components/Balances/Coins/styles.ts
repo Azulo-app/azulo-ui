@@ -31,4 +31,13 @@ export const styles = createStyles({
   currencyValueRow: {
     textAlign: 'right',
   },
+  buttonIcon: {
+    padding: '10px 30px',
+    margin: '5px',
+    '& svg': {
+      height: '16px',
+      width: '16px',
+      verticalAlign: 'middle'
+    }
+  },
 })

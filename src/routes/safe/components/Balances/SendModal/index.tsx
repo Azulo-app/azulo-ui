@@ -44,6 +44,8 @@ export type TxType =
   | 'chooseTxType'
   | 'sendFunds'
   | 'sendFundsReviewTx'
+  | 'recurringFunds'
+  | 'recurringFundsReviewTx'
   | 'contractInteraction'
   | 'contractInteractionReview'
   | 'reviewCustomTx'
@@ -143,6 +145,22 @@ const SendModal = ({
         {activeScreen === 'sendFundsReviewTx' && (
           <ReviewSendFundsTx onClose={onClose} onPrev={() => setActiveScreen('sendFunds')} tx={tx as ReviewTxProp} />
         )}
+
+        {activeScreen === 'recurringFunds' && (
+          <SendFunds
+            initialValues={tx as ReviewTxProp}
+            onClose={onClose}
+            onReview={handleTxCreation}
+            recipientAddress={recipientAddress}
+            selectedToken={selectedToken as string}
+            amount={tokenAmount}
+          />
+        )}
+
+        {activeScreen === 'recurringFundsReviewTx' && (
+          <ReviewSendFundsTx onClose={onClose} onPrev={() => setActiveScreen('sendFunds')} tx={tx as ReviewTxProp} />
+        )}
+
 
         {activeScreen === 'contractInteraction' && isABI && (
           <ContractInteraction

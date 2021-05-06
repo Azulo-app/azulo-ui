@@ -57,7 +57,7 @@ export const SafeList = ({ currentSafe, defaultSafe, onSafeClick, safes }: Props
           <Link
             data-testid={SIDEBAR_TRUSTS_ROW_TESTID}
             onClick={onSafeClick}
-            to={`${TRUSTS_ADDRESS}/${safe.address}/balances`}
+            to={`${TRUSTS_ADDRESS}/${safe.address}/assets`}
           >
             <ListItem classes={{ root: classes.listItemRoot }}>
               {sameAddress(currentSafe, safe.address) ? (

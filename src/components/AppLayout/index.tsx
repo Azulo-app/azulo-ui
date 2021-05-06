@@ -48,8 +48,10 @@ const ContentWrapper = styled.div`
   > :nth-child(1) {
     flex-grow: 1;
     width: 100%;
-    align-items: center;
-    justify-content: center;
+    align-items: flex-start;
+    justify-content: flex-start;
+    display: flex;
+    flex-direction: column;
   }
 
   > :nth-child(2) {

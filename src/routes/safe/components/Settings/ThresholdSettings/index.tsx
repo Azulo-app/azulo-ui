@@ -9,6 +9,7 @@ import Button from 'src/components/layout/Button'
 import Heading from 'src/components/layout/Heading'
 import Paragraph from 'src/components/layout/Paragraph'
 import Row from 'src/components/layout/Row'
+import { mainStyles } from 'src/theme/PageStyles'
 import { grantedSelector } from 'src/routes/safe/container/selector'
 import {
   safeOwnersSelector,
@@ -23,6 +24,7 @@ import { styles } from './style'
 const useStyles = makeStyles(styles)
 
 const ThresholdSettings = (): React.ReactElement => {
+  const mainClasses = mainStyles()
   const classes = useStyles()
   const [isModalOpen, setModalOpen] = useState(false)
   const threshold = useSelector(safeThresholdSelector) || 1
@@ -51,7 +53,7 @@ const ThresholdSettings = (): React.ReactElement => {
         {owners && owners.size > 1 && granted && (
           <Row className={classes.buttonRow}>
             <Button
-              className={classes.modifyBtn}
+              className={`${mainClasses.mainButton} ${mainClasses.borderButton}`}
               color="primary"
               minWidth={120}
               onClick={toggleModal}

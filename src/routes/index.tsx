@@ -77,7 +77,7 @@ const Routes = (): React.ReactElement => {
           }
 
           if (defaultSafe) {
-            return <Redirect to={`${TRUSTS_ADDRESS}/${defaultSafe}/balances`} />
+            return <Redirect to={`${TRUSTS_ADDRESS}/${defaultSafe}/assets`} />
           }
 
           return <Redirect to={HOME_ADDRESS} />

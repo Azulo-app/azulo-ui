@@ -64,7 +64,7 @@ export const TxParametersDetail = ({
       <AccordionDetails>
         <AccordionDetailsWrapper>
           <StyledText size="md" color="placeHolder">
-            Safe transaction
+            Trust transaction
           </StyledText>
 
           <TxParameterWrapper>
@@ -72,7 +72,7 @@ export const TxParametersDetail = ({
               size="lg"
               color={areSafeParamsEnabled(parametersStatus || defaultParameterStatus) ? 'text' : 'secondaryLight'}
             >
-              Safe nonce
+              Trust nonce
             </Text>
             <Text
               size="lg"
@@ -87,7 +87,7 @@ export const TxParametersDetail = ({
               size="lg"
               color={areSafeParamsEnabled(parametersStatus || defaultParameterStatus) ? 'text' : 'secondaryLight'}
             >
-              SafeTxGas
+              TrustTxGas
             </Text>
             <Text
               size="lg"

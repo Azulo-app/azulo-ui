@@ -9,7 +9,11 @@ import TableRow from '@material-ui/core/TableRow'
 import { Skeleton } from '@material-ui/lab'
 
 import InfoIcon from 'src/assets/icons/info_red.svg'
-import { FixedIcon, Text, Button } from '@gnosis.pm/safe-react-components'
+import CallMadeIcon from '@material-ui/icons/CallMade'
+import CallReceivedIcon from '@material-ui/icons/CallReceived'
+import Button from 'src/components/layout/Button'
+import { mainStyles } from 'src/theme/PageStyles'
+import { FixedIcon, Text } from '@gnosis.pm/safe-react-components'
 
 import Img from 'src/components/layout/Img'
 import Table from 'src/components/Table'
@@ -73,6 +77,7 @@ const CurrencyTooltip = (props: CurrencyTooltipProps): React.ReactElement | null
 
 const Coins = (props: Props): React.ReactElement => {
   const { showReceiveFunds, showSendFunds } = props
+  const mainClasses = mainStyles()
   const classes = useStyles()
   const columns = generateColumns()
   const autoColumns = columns.filter((c) => !c.custom)
@@ -141,25 +146,24 @@ const Coins = (props: Props): React.ReactElement => {
               <TableCell component="td">
                 <Row align="end" className={classes.actions}>
                   {granted && (
-                    <StyledButton
-                      color="primary"
+                    <Button
+                      className={`${mainClasses.mainButton} ${mainClasses.borderButton} ${classes.buttonIcon}`}
                       onClick={() => showSendFunds(row.asset.address)}
-                      size="md"
                       variant="contained"
                       data-testid="balance-send-btn"
                     >
-                      <FixedIcon type="arrowSentWhite" />
-                      <Text size="xl" color="white">
-                        Send
-                      </Text>
-                    </StyledButton>
+                      <CallMadeIcon color="primary" />
+                      Send
+                    </Button>
                   )}
-                  <StyledButton color="primary" onClick={showReceiveFunds} size="md" variant="contained">
-                    <FixedIcon type="arrowReceivedWhite" />
-                    <Text size="xl" color="white">
-                      Receive
-                    </Text>
-                  </StyledButton>
+                  <Button
+                    className={`${mainClasses.mainButton} ${mainClasses.borderButton} ${classes.buttonIcon}`}
+                    onClick={showReceiveFunds}
+                    variant="contained"
+                  >
+                    <CallReceivedIcon color="primary" />
+                    Receive
+                  </Button>
                 </Row>
               </TableCell>
             </TableRow>

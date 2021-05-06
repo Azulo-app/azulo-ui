@@ -19,11 +19,11 @@ export type TransactionStatusProps = {
 
 export const useTransactionStatus = (transaction: Transaction): TransactionStatusProps => {
   const currentUser = useSelector(userAccountSelector)
-  const [status, setStatus] = useState<TransactionStatusProps>({ color: 'primary', text: '' })
+  const [status, setStatus] = useState<TransactionStatusProps>({ color: 'secondary', text: '' })
 
   useEffect(() => {
     if (isStatusSuccess(transaction.txStatus)) {
-      setStatus({ color: 'primary', text: 'Success' })
+      setStatus({ color: 'secondary', text: 'Success' })
     } else if (isStatusFailed(transaction.txStatus)) {
       setStatus({ color: 'error', text: 'Failed' })
     } else if (isStatusCancelled(transaction.txStatus)) {

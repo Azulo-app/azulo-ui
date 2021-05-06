@@ -46,8 +46,8 @@ const useSidebarItems = (): ListItemType[] => {
       {
         label: 'ASSETS',
         icon: <ListIcon type="assets" />,
-        selected: matchSafeWithAction?.params.safeAction === 'balances',
-        href: `${matchSafeWithAddress?.url}/balances`,
+        selected: matchSafeWithAction?.params.safeAction === 'assets',
+        href: `${matchSafeWithAddress?.url}/assets`,
       },
       {
         label: 'TRANSACTIONS',
@@ -58,8 +58,8 @@ const useSidebarItems = (): ListItemType[] => {
       {
         label: 'AddressBook',
         icon: <ListIcon type="addressBook" />,
-        selected: matchSafeWithAction?.params.safeAction === 'address-book',
-        href: `${matchSafeWithAddress?.url}/address-book`,
+        selected: matchSafeWithAction?.params.safeAction === 'beneficiaries',
+        href: `${matchSafeWithAddress?.url}/beneficiaries`,
       },
       ...safeSidebar,
     ]

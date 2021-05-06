@@ -12,7 +12,7 @@ type BalanceResult = {
 
 export const fetchTokenBalanceList = (safeAddress: string): Promise<AxiosResponse<{ results: BalanceResult[] }>> => {
   const address = checksumAddress(safeAddress)
-  const url = `${getSafeServiceBaseUrl(address)}/balances/`
+  const url = `${getSafeServiceBaseUrl(address)}/assets/`
 
   return axios.get(url)
 }

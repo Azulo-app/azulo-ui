@@ -17,6 +17,7 @@ import RenameOwnerIcon from './assets/icons/rename-owner.svg'
 import ReplaceOwnerIcon from './assets/icons/replace-owner.svg'
 import { OWNERS_TABLE_ADDRESS_ID, OWNERS_TABLE_NAME_ID, generateColumns, getOwnerData } from './dataFetcher'
 import { styles } from './style'
+import { mainStyles } from 'src/theme/PageStyles'
 
 import { getExplorerInfo } from 'src/config'
 import Table from 'src/components/Table'
@@ -50,6 +51,7 @@ type Props = {
 
 const ManageOwners = ({ addressBook, granted, owners }: Props): React.ReactElement => {
   const { trackEvent } = useAnalytics()
+  const mainClasses = mainStyles()
   const classes = useStyles()
 
   const [selectedOwnerAddress, setSelectedOwnerAddress] = useState('')
@@ -92,11 +94,11 @@ const ManageOwners = ({ addressBook, granted, owners }: Props): React.ReactEleme
     <>
       <Block className={classes.formContainer}>
         <Heading className={classes.title} tag="h2">
-          Manage Safe Owners
+          Manage Trustees
         </Heading>
         <Paragraph className={classes.annotation}>
-          Add, remove and replace owners or rename existing owners. Owner names are only stored locally and never shared
-          with Gnosis or any third parties.
+          Add, remove and replace trustees or rename existing trustees. Trustees names are only stored locally and never shared
+          with Azulo or any third parties.
         </Paragraph>
         <TableContainer>
           <Table
@@ -171,17 +173,17 @@ const ManageOwners = ({ addressBook, granted, owners }: Props): React.ReactEleme
       </Block>
       {granted && (
         <>
-          <Hairline />
           <Row align="end" className={classes.controlsRow} grow>
             <Col end="xs">
               <Button
                 color="primary"
                 onClick={onShow('AddOwner')}
                 size="small"
+                className={`${mainClasses.mainButton} ${mainClasses.borderButton}`}
                 testId={ADD_OWNER_BTN_TEST_ID}
                 variant="contained"
               >
-                Add new owner
+                Add new trustee
               </Button>
             </Col>
           </Row>

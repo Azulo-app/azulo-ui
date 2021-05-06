@@ -16,85 +16,80 @@ import { background, connected, fontColor } from 'src/theme/variables'
 import { providerNameSelector } from 'src/logic/wallets/store/selectors'
 import { useSelector } from 'react-redux'
 
-import SuccessSvg from './assets/safe-created.svg'
-import VaultErrorSvg from './assets/vault-error.svg'
-import VaultLoading from './assets/creation-process.gif'
+import SuccessSvg from './assets/wallet_success.svg'
+import ErrorSvg from './assets/wallet_error.svg'
+import TransactionLoading from './assets/wallet_animation.svg'
 import { PromiEvent, TransactionReceipt } from 'web3-core'
+import { makeStyles, withStyles } from '@material-ui/core/styles'
+import { mainStyles } from 'src/theme/PageStyles'
+import Grid from '@material-ui/core/Grid'
+import InfoOutlined from '@material-ui/icons/InfoOutlined'
+import { safeNameSelector } from 'src/logic/safe/store/selectors'
+import LinearProgress from '@material-ui/core/LinearProgress'
+import { mainColor, border, borderRadius, error, errorBG } from 'src/theme/variables'
 
-const Wrapper = styled.div`
-  display: grid;
-  grid-template-columns: 250px auto;
-  grid-template-rows: 43px auto;
-  margin-bottom: 30px;
-`
+const useStyles = makeStyles(() => ({
+  pageTitleHold: {
+    marginTop: '60px',
+    marginBottom: '20px'
+  },
+  pageTitle: {
+    marginTop: '15px',
+    marginBottom: '15px'
+  },
+  boxHld: {
+    border: `1px solid ${border}`,
+    width: '100%',
+    maxWidth: '600px',
+    borderRadius: borderRadius,
+    padding: '25px 45px'
+  },
+  safeName: {
+    fontWeight: 700,
+    fontSize: '16px',
+  },
+  progress: {
+    margin: '25px 0 20px',
+    width: '100%'
+  },
+  progressStatus: {
+    color: mainColor,
+    fontWeight: 600
+  },
+  infoHld: {
+    marginTop: '20px',
+    padding: '12px 20px',
+    border: `1px solid ${error}`,
+    borderRadius: borderRadius,
+    background: errorBG,
+    '& svg': {
+      fill: error
+    },
+    '& > div > div': {
+      color: error,
+      marginLeft: '10px'
+    }
+  }
+}));
 
-const Title = styled(Heading)`
-  grid-column: 1/3;
-  grid-row: 1;
-  margin: 7px 0 0 0 !important;
-`
-
-const Nav = styled.div`
-  grid-column: 1;
-  grid-row: 2;
-`
-
-const Body = styled.div`
-  grid-column: 2;
-  grid-row: 2;
-  text-align: center;
-  background-color: ${({ theme }) => theme.colors.white};
-  border-radius: 5px;
-  min-width: 700px;
-  padding-top: 70px;
-  box-shadow: 0 0 10px 0 rgba(33, 48, 77, 0.1);
-
-  display: grid;
-  grid-template-rows: 100px 50px 110px 1fr;
-`
-
-const CardTitle = styled.div`
-  font-size: 20px;
-  padding-top: 10px;
-`
+const BorderLinearProgress = withStyles((theme) => ({
+  root: {
+    height: 18,
+    borderRadius: 25,
+  },
+  colorPrimary: {
+    backgroundColor: theme.palette.grey[theme.palette.type === 'light' ? 200 : 700],
+  },
+  bar: {
+    borderRadius: 25,
+    backgroundColor: mainColor,
+  },
+}))(LinearProgress);
 
 interface FullParagraphProps {
   inversecolors: string
   stepIndex: number
 }
-
-const FullParagraph = styled(Paragraph)<FullParagraphProps>`
-  background-color: ${({ stepIndex }) => (stepIndex === 0 ? connected : background)};
-  color: ${({ theme, stepIndex }) => (stepIndex === 0 ? theme.colors.white : fontColor)};
-  padding: 28px;
-  font-size: 20px;
-  margin-bottom: 16px;
-  transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
-`
-
-const BodyImage = styled.div`
-  grid-row: 1;
-`
-const BodyDescription = styled.div`
-  grid-row: 2;
-`
-const BodyInstruction = styled.div`
-  grid-row: 3;
-  margin: 27px 0;
-`
-const BodyFooter = styled.div`
-  grid-row: 4;
-
-  padding: 10px 0;
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-`
-
-const BackButton = styled(Button)`
-  grid-column: 2;
-  margin: 20px auto 0;
-`
 
 type Props = {
   creationTxHash?: string
@@ -121,6 +116,9 @@ export const SafeDeployment = ({
   const [waitingSafeDeployed, setWaitingSafeDeployed] = useState(false)
   const [continueButtonDisabled, setContinueButtonDisabled] = useState(false)
   const provider = useSelector(providerNameSelector)
+  const safeName = useSelector(safeNameSelector) ?? 'Progress of your new Trust'
+  const mainClasses = mainStyles()
+  const classes = useStyles()
 
   const confirmationStep = isConfirmationStep(stepIndex)
 
@@ -146,11 +144,11 @@ export const SafeDeployment = ({
 
   const getImage = () => {
     if (error) {
-      return VaultErrorSvg
+      return ErrorSvg
     }
 
     if (stepIndex <= 4) {
-      return VaultLoading
+      return TransactionLoading
     }
 
     return SuccessSvg
@@ -313,13 +311,49 @@ export const SafeDeployment = ({
   }
 
   return (
-    <Wrapper>
-      <Title tag="h2" testId="safe-creation-process-title">
-        Trust creation process
-      </Title>
-      <Nav>
-        <Stepper activeStepIndex={stepIndex} error={error} orientation="vertical" steps={steps} />
-      </Nav>
+    <>
+      <Grid container direction="column" justify="center" alignItems="center">
+        <Grid item xs={12} className={`${mainClasses.pageTitleHold} ${classes.pageTitleHold}`}>
+          <div><Img alt="Status" height={92} src={getImage()} /></div>
+          <div className={`${mainClasses.pageTitle} ${classes.pageTitle}`}>Trust creation & validation</div>
+        </Grid>
+      </Grid>
+      <Grid container direction="column">
+        <Grid item sm={12}>
+          <Grid container direction="row" justify="center" alignItems="center">
+            <Grid item className={classes.boxHld}>
+              <Grid container direction="column" justify="center" alignItems="center">
+                <Grid item className={classes.safeName}>{safeName}</Grid>
+                <Grid item className={classes.progress}>
+                  <BorderLinearProgress variant="determinate" value={((stepIndex + 1) / steps.length) * 100} />
+                </Grid>
+                <Grid item className={classes.progressStatus}>{steps[stepIndex].description || steps[stepIndex].label}</Grid>
+                {steps[stepIndex].instruction && (
+                  <Grid item className={classes.infoHld}>
+                    <Grid container direction="row" justify="center" alignItems="center">
+                      <InfoOutlined />
+                      <Grid item>{error ? 'You can Cancel or Retry the Trust creation process.' : steps[stepIndex].instruction}</Grid>
+                    </Grid>
+                  </Grid>
+                )}
+              </Grid>
+            </Grid>
+          </Grid>
+        </Grid>
+      </Grid>
+      <Grid container direction="column" justify="center" alignItems="center">
+        {FooterComponent ? (
+          <FooterComponent
+            continueButtonDisabled={continueButtonDisabled}
+            onCancel={onCancel}
+            onClick={onRetryTx}
+            onContinue={navigateToSafe}
+            onRetry={onRetryTx}
+            safeCreationTxHash={safeCreationTxHash}
+          />
+        ) : null}
+      </Grid>
+      {/* <Stepper activeStepIndex={stepIndex} error={error} orientation="horizontal" steps={steps} />
       <Body>
         <BodyImage>
           <Img alt="Vault" height={92} src={getImage()} />
@@ -338,7 +372,7 @@ export const SafeDeployment = ({
               size="md"
               stepIndex={stepIndex}
             >
-              {error ? 'You can Cancel or Retry the Safe creation process.' : steps[stepIndex].instruction}
+              {error ? 'You can Cancel or Retry the Trust creation process.' : steps[stepIndex].instruction}
             </FullParagraph>
           </BodyInstruction>
         )}
@@ -361,7 +395,7 @@ export const SafeDeployment = ({
         <BackButton color="primary" minWidth={140} onClick={onCancel} data-testid="safe-creation-back-btn">
           Back
         </BackButton>
-      )}
-    </Wrapper>
+      )} */}
+    </>
   )
 }

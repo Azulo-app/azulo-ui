@@ -1,4 +1,4 @@
-import { lg, md, sm } from 'src/theme/variables'
+import { lg, md, sm, secondary, screenSm } from 'src/theme/variables'
 import { createStyles } from '@material-ui/core'
 
 export const styles = createStyles({
@@ -42,6 +42,13 @@ export const styles = createStyles({
   editEntryButtonNonOwner: {
     cursor: 'pointer',
   },
+  buttonIcon: {
+    '& svg': {
+      height: '16px',
+      width: '16px',
+      verticalAlign: 'middle'
+    }
+  },
   removeEntryButton: {
     marginLeft: lg,
     marginRight: lg,
@@ -70,5 +77,35 @@ export const styles = createStyles({
   },
   iconSmall: {
     fontSize: 16,
+  },
+  assetTabs: {
+    alignItems: 'center',
+    display: 'flex',
+    order: 2,
+
+    [`@media (min-width: ${screenSm}px)`]: {
+      order: '1',
+    },
+  },
+  assetTab: {
+    color: '#686868',
+    margin: '2px 0',
+    padding: '0 10px',
+    textDecoration: 'underline',
+
+    '&:hover': {
+      cursor: 'pointer',
+    },
+  },
+  assetTabActive: {
+    color: secondary,
+    fontWeight: 'bold',
+    margin: '2px 0',
+    padding: '0 10px',
+    textDecoration: 'none',
+  },
+  assetDivider: {
+    borderRightColor: `${secondary} !important`,
+    height: '18px !important',
   },
 })

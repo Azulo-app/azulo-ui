@@ -32,7 +32,7 @@ const useStyles = makeStyles({
       left: 0,
       top: 0,
       width: '100%',
-      height: '1px',
+      height: '0',
       background: '#eeeeee'
     }
   },

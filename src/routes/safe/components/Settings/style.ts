@@ -17,7 +17,6 @@ export const styles = createStyles({
   root: {
     backgroundColor: 'white',
     borderRadius: sm,
-    boxShadow: '1px 2px 10px 0 rgba(212, 212, 211, 0.59)',
     display: 'flex',
     flexDirection: 'column',
     marginBottom: '54px',
@@ -51,9 +50,8 @@ export const styles = createStyles({
 
     [`@media (min-width: ${screenSm}px)`]: {
       borderBottom: 'none',
-      borderRight: `solid 2px ${border}`,
       flexDirection: 'column',
-      width: '250px',
+      width: '200px',
     },
   },
   menuOption: {

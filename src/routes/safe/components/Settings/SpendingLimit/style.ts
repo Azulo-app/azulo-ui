@@ -53,14 +53,7 @@ export const useStyles = makeStyles(
       marginRight: sm,
     },
     buttonRow: {
-      padding: lg,
-      position: 'absolute',
-      left: 0,
-      bottom: 0,
-      boxSizing: 'border-box',
-      width: '100%',
-      justifyContent: 'flex-end',
-      borderTop: `2px solid ${border}`,
+      marginTop: '30px'
     },
     modifyBtn: {
       height: xl,

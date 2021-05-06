@@ -13,6 +13,7 @@ import Row from 'src/components/layout/Row'
 import { border, fontColor, lg, md, screenSm, secondaryText, mainFontFamily } from 'src/theme/variables'
 import { getExplorerInfo, getNetworkInfo } from 'src/config'
 import { EthHashInfo } from '@gnosis.pm/safe-react-components'
+import { mainStyles } from 'src/theme/PageStyles'
 
 const networkInfo = getNetworkInfo()
 const useStyles = makeStyles(
@@ -76,6 +77,7 @@ type Props = {
 
 const ReceiveModal = ({ onClose, safeAddress, safeName }: Props): ReactElement => {
   const classes = useStyles()
+  const mainClasses = mainStyles()
 
   return (
     <>
@@ -92,7 +94,7 @@ const ReceiveModal = ({ onClose, safeAddress, safeName }: Props): ReactElement =
         {networkInfo.label} Network only send {networkInfo.label} assets to this Safe.
       </Paragraph>
       <Paragraph className={classes.annotation} noMargin size="lg">
-        This is the address of your Safe. Deposit funds by scanning the QR code or copying the address below. Only send{' '}
+        This is the address of your Trust. Deposit funds by scanning the QR code or copying the address below. Only send{' '}
         {networkInfo.nativeCoin.name} and assets to this address (e.g. ETH, ERC20, ERC721)!
       </Paragraph>
       <Col layout="column" middle="xs">
@@ -108,7 +110,7 @@ const ReceiveModal = ({ onClose, safeAddress, safeName }: Props): ReactElement =
       </Col>
       <Hairline />
       <Row align="center" className={classes.buttonRow}>
-        <Button color="primary" minWidth={130} onClick={onClose} variant="contained">
+        <Button className={mainClasses.mainButton} minWidth={130} onClick={onClose} variant="contained">
           Done
         </Button>
       </Row>

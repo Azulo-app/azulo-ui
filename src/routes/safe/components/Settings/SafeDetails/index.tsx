@@ -24,6 +24,7 @@ import { grantedSelector } from 'src/routes/safe/container/selector'
 import updateSafe from 'src/logic/safe/store/actions/updateSafe'
 import { Icon, Link, Text } from '@gnosis.pm/safe-react-components'
 import styled from 'styled-components'
+import { mainStyles } from 'src/theme/PageStyles'
 
 import {
   latestMasterContractVersionSelector,
@@ -52,6 +53,7 @@ const StyledIcon = styled(Icon)`
 `
 
 const SafeDetails = (): React.ReactElement => {
+  const mainClasses = mainStyles()
   const classes = useStyles()
   const isUserOwner = useSelector(grantedSelector)
   const latestMasterContractVersion = useSelector(latestMasterContractVersionSelector)
@@ -169,7 +171,7 @@ const SafeDetails = (): React.ReactElement => {
           <Row align="end" className={classes.controlsRow} grow>
             <Col end="xs">
               <Button
-                className={classes.saveBtn}
+                className={`${mainClasses.mainButton} ${mainClasses.borderButton}`}
                 color="primary"
                 size="small"
                 testId={SAFE_NAME_SUBMIT_BTN_TEST_ID}

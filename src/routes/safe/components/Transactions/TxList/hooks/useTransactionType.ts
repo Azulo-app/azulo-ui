@@ -21,7 +21,7 @@ export const useTransactionType = (tx: Transaction): TxTypeProps => {
   useEffect(() => {
     switch (tx.txInfo.type) {
       case 'Creation': {
-        setType({ icon: SettingsTxIcon, text: 'Safe created' })
+        setType({ icon: SettingsTxIcon, text: 'Trust created' })
         break
       }
       case 'Transfer': {

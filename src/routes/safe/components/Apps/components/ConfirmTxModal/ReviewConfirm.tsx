@@ -241,7 +241,7 @@ export const ReviewConfirm = ({
             {/* Warning gas estimation */}
             {params?.safeTxGas && (
               <div className="section">
-                <Heading tag="h3">SafeTxGas</Heading>
+                <Heading tag="h3">TrustTxGas</Heading>
                 <StyledTextBox>{params?.safeTxGas}</StyledTextBox>
                 <GasEstimationInfo
                   appEstimation={params.safeTxGas}
