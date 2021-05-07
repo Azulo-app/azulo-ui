@@ -169,6 +169,7 @@
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "4.0.0-alpha.58",
     "@openzeppelin/contracts": "3.1.0",
+    "@popperjs/core": "^2.9.2",
     "@sentry/react": "^6.2.1",
     "@sentry/tracing": "^6.2.1",
     "@superfluid-finance/js-sdk": "^0.4.3",
