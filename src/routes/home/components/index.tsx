@@ -141,9 +141,9 @@ export const HomeLayout = (): React.ReactElement => {
                 <Link to="/create" color="primary" variant="outlined" className={mainClasses.mainButton}>
                   Get started
                 </Link>
-                <Button onClick={onConnectButtonClick} className={classes.trustlink}>
+                <Link to="/import" className={classes.trustlink}>
                   Access trust
-                </Button>
+                </Link>
               </div>
               <Grid container alignItems="center" className={classes.features}>
 
@@ -151,8 +151,8 @@ export const HomeLayout = (): React.ReactElement => {
                   <Grid container spacing={1}>
                     <Grid item xs={2} className={classes.featIcon}><Img alt="Features" height={16} src={ICBooks} testId="feature-icon" /></Grid>
                     <Grid item sm={10}>
-                      <div className={classes.featTitle}>Create a trusts</div>
-                      <div className={classes.featDesc}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                      <div className={classes.featTitle}>Create & manage trusts</div>
+                      <div className={classes.featDesc}>Create and manage digital trusts. Add multiple trustees that have shared authority over the trust's transactions. Add beneficiaries to allow distributions and more. Built using Gnosis Safe.</div>
                     </Grid>
                   </Grid>
                 </Grid>
@@ -161,8 +161,8 @@ export const HomeLayout = (): React.ReactElement => {
                   <Grid container spacing={1}>
                     <Grid item xs={2} className={classes.featIcon}><Img alt="Features" height={16} src={ICBooks} testId="feature-icon" /></Grid>
                     <Grid item sm={10}>
-                      <div className={classes.featTitle}>Manage your trusts</div>
-                      <div className={classes.featDesc}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                      <div className={classes.featTitle}>Built for Eth assets</div>
+                      <div className={classes.featDesc}>Trusts support a range of digital assets including Ethereum, Ethereum network tokens, wrapped assets, and pooled assets (i.e. ERC20) and NFT collectables (i.e. ERC721).</div>
                     </Grid>
                   </Grid>
                 </Grid>

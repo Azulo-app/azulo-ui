@@ -6,6 +6,8 @@ const connectedColor = mainColor
 const disabled = '#5D6D74'
 const errorColor = '#FF3E3E'
 const errorBGColor = '#FFDEDE'
+const successColor = '#53b744'
+const successBGColor = '#f5fff4'
 const fancyColor = '#FF3E3E'
 const fontColor = '#001428'
 const headerHeight = '52px'
@@ -36,6 +38,8 @@ module.exports = {
   disabled,
   error: errorColor,
   errorBG: errorBGColor,
+  successColor: successColor,
+  successBGColor: successBGColor,
   extraBoldFont: 800,
   extraLargeFontSize: '20px',
   extraSmallFontSize: '11px',

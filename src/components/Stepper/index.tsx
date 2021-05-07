@@ -14,7 +14,7 @@ import { history } from 'src/store'
 import { LoadFormValues } from 'src/routes/import/container'
 import { providerNameSelector } from 'src/logic/wallets/store/selectors'
 import { useSelector } from 'react-redux'
-import { CREATE_ADDRESS } from 'src/routes/routes'
+import { CREATE_ADDRESS, IMPORT_ADDRESS } from 'src/routes/routes'
 import StepConnector from '@material-ui/core/StepConnector'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
@@ -183,7 +183,7 @@ function GnoStepper<V>(props: GnoStepperProps<V>): React.ReactElement {
 
     setValues(finalValues)
     let newPage = Math.min(page + 1, React.Children.count(children) - 1)
-    history.push(CREATE_ADDRESS + '#step-' + (+newPage + 1))
+    history.push(history.location.pathname + '#step-' + (+newPage + 1))
     setPage(newPage)
   }
 

@@ -115,7 +115,7 @@ export const ContinueFooter = ({
           data-testid="continue-btn"
           className={mainClasses.mainButton}
         >
-          Get started
+          Access trust
         </Button>
       </Grid>
     </FooterContainer>

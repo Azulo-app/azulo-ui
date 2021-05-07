@@ -1,4 +1,4 @@
-import { Loader, Stepper } from '@gnosis.pm/safe-react-components'
+import { Loader, Stepper, Icon, CopyToClipboardBtn } from '@gnosis.pm/safe-react-components'
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 
@@ -12,10 +12,13 @@ import Paragraph from 'src/components/layout/Paragraph'
 import { instantiateSafeContracts } from 'src/logic/contracts/safeContracts'
 import { EMPTY_DATA } from 'src/logic/wallets/ethTransactions'
 import { getWeb3 } from 'src/logic/wallets/getWeb3'
-import { background, connected, fontColor } from 'src/theme/variables'
+import { mainColor, mainLightColor, border, borderRadius, error, errorBG, successColor, successBGColor } from 'src/theme/variables'
 import { providerNameSelector } from 'src/logic/wallets/store/selectors'
 import { useSelector } from 'react-redux'
+import useSafeActions from 'src/logic/safe/hooks/useSafeActions'
 
+import Modal from 'src/components/Modal'
+import ReceiveModal from 'src/components/App/ReceiveModal'
 import SuccessSvg from './assets/wallet_success.svg'
 import ErrorSvg from './assets/wallet_error.svg'
 import TransactionLoading from './assets/wallet_animation.svg'
@@ -26,7 +29,6 @@ import Grid from '@material-ui/core/Grid'
 import InfoOutlined from '@material-ui/icons/InfoOutlined'
 import { safeNameSelector } from 'src/logic/safe/store/selectors'
 import LinearProgress from '@material-ui/core/LinearProgress'
-import { mainColor, border, borderRadius, error, errorBG } from 'src/theme/variables'
 
 const useStyles = makeStyles(() => ({
   pageTitleHold: {
@@ -69,6 +71,51 @@ const useStyles = makeStyles(() => ({
       color: error,
       marginLeft: '10px'
     }
+  },
+  boxHldSuc: {
+    marginTop: '15px',
+    border: `1px solid ${successColor}`
+  },
+  nextStepAdd: {
+    background: mainLightColor,
+    padding: '10px 15px',
+    borderRadius: borderRadius,
+    margin: '12px 0 25px',
+    fontWeight: 700,
+    color: mainColor,
+    '& button': {
+      display: 'inline-block !important',
+      verticalAlign: 'middle',
+      marginTop: '2px !important'
+    },
+  },
+  nextStepHdr: {
+    color: successColor,
+    fontSize: '16px',
+    fontWeight: 700,
+    '& svg': {
+      fill: successColor,
+      marginRight: '10px'
+    },
+  },
+  nextStepP: {
+    fontSize: '16px',
+    marginBottom: '15px',
+    textAlign: 'center',
+  },
+  unStyledButton: {
+    background: 'none',
+    color: 'inherit',
+    border: 'none',
+    padding: 0,
+    font: 'inherit',
+    cursor: 'pointer',
+    outlineColor: border,
+    display: 'flex',
+    alignItems: 'center',
+    width: '24px',
+    minWidth: '24px',
+    margin: '0 0 0 10px'
   }
 }));
 
@@ -119,6 +166,10 @@ export const SafeDeployment = ({
   const safeName = useSelector(safeNameSelector) ?? 'Progress of your new Trust'
   const mainClasses = mainStyles()
   const classes = useStyles()
+  const { safeActionsState, onShow, onHide } = useSafeActions()
+
+  const onReceiveShow = () => onShow('Receive')
+  const onReceiveHide = () => onHide('Receive')
 
   const confirmationStep = isConfirmationStep(stepIndex)
 
@@ -338,6 +389,39 @@ export const SafeDeployment = ({
                 )}
               </Grid>
             </Grid>
+            { createdSafeAddress ? (
+              <>
+                <Grid item className={`${classes.boxHld} ${classes.boxHldSuc}`}>
+                  <Grid container direction="column" justify="center" alignItems="center">
+                    <Grid item>
+                      <Grid container className={classes.nextStepHdr} direction="row" justify="center" alignItems="center">
+                        <InfoOutlined />
+                        <Grid item>This is your new trust wallet address.</Grid>
+                      </Grid>
+                      <Grid item container className={classes.nextStepAdd} direction="row" justify="center" alignItems="center">
+                        <Grid item>{createdSafeAddress}</Grid>
+                        <Grid item>
+                          <Button className={classes.unStyledButton} onClick={onReceiveShow}>
+                            <Icon size="sm" type="qrCode" tooltip="Show QR" />
+                          </Button>
+                          <CopyToClipboardBtn className={classes.unStyledButton} textToCopy={createdSafeAddress} />
+                        </Grid>
+                      </Grid>
+                      <Grid container direction="row" justify="center" alignItems="center">
+                        <Grid item>
+                          <Paragraph className={classes.nextStepP} noMargin size="lg">
+                            You can now start sending compatible ERC20 and ERC721 assets to this address. Click 'Access trust' below to view and manage the trust.
+                          </Paragraph>
+                          <Paragraph className={classes.nextStepP} noMargin size="lg">
+                            Be sure to copy and keep a record so you can access the trust again in the future, also share the address with other trustees.
+                          </Paragraph>
+                        </Grid>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                </Grid>
+              </>
+            ) : null }
           </Grid>
         </Grid>
       </Grid>
@@ -353,6 +437,18 @@ export const SafeDeployment = ({
           />
         ) : null}
       </Grid>
+
+      {createdSafeAddress && safeName && (
+        <Modal
+          description="Receive Tokens Form"
+          handleClose={onReceiveHide}
+          open={safeActionsState.showReceive}
+          paperClassName="receive-modal"
+          title="Receive Tokens"
+        >
+          <ReceiveModal onClose={onReceiveHide} safeAddress={createdSafeAddress} safeName={"New trust"} />
+        </Modal>
+      )}
       {/* <Stepper activeStepIndex={stepIndex} error={error} orientation="horizontal" steps={steps} />
       <Body>
         <BodyImage>

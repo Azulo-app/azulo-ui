@@ -32,6 +32,15 @@ export const styles = createStyles({
   },
   title: {
     padding: `${md} ${lg}`,
+    '& p': {
+      fontSize: '16px',
+      textAlign: 'center',
+    },
+    '& p:last-of-type': {
+      fontSize: '14px',
+      textAlign: 'center',
+      marginBottom: '12px',
+    }
   },
   owner: {
     padding: `0 ${lg}`,

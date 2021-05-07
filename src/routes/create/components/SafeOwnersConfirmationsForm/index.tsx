@@ -315,7 +315,7 @@ const SafeOwnersForm = (props): React.ReactElement => {
                   ))}
                 </Field>
               </Grid>
-              <Grid item data-testid={`create-safe-req-conf-${validOwners}`} className={classes.confDesc}>
+              <Grid item xs={7} data-testid={`create-safe-req-conf-${validOwners}`} className={classes.confDesc}>
                 out of {validOwners} trustee(s) to confirm changes and transactions
               </Grid>
             </Grid>

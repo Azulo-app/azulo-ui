@@ -21,7 +21,6 @@ import {
   generateColumns,
 } from 'src/routes/safe/components/AddressBook/columns'
 
-import SuperfluidSDK from '@superfluid-finance/js-sdk'
 import { addressBookSelector } from 'src/logic/addressBook/store/selectors'
 import { AddressBookEntry, makeAddressBookEntry } from 'src/logic/addressBook/model/addressBook'
 import { addAddressBookEntry } from 'src/logic/addressBook/store/actions/addAddressBookEntry'

@@ -5,6 +5,8 @@ import Block from 'src/components/layout/Block'
 import Col from 'src/components/layout/Col'
 import Hairline from 'src/components/layout/Hairline'
 import Paragraph from 'src/components/layout/Paragraph'
+import Grid from '@material-ui/core/Grid'
+import { mainStyles } from 'src/theme/PageStyles'
 import Row from 'src/components/layout/Row'
 import OpenPaper from 'src/components/Stepper/OpenPaper'
 import { FIELD_IMPORT_ADDRESS, FIELD_LOAD_NAME, THRESHOLD } from 'src/routes/import/components/fields'
@@ -34,6 +36,7 @@ interface Props {
 }
 
 const ReviewComponent = ({ userAddress, values }: Props): React.ReactElement => {
+  const mainClasses = mainStyles()
   const classes = useStyles()
   const isOwner = checkIfUserAddressIsAnOwner(values, userAddress)
   const owners = getAccountsFrom(values)
@@ -41,6 +44,20 @@ const ReviewComponent = ({ userAddress, values }: Props): React.ReactElement => 
 
   return (
     <>
+      <Block margin="lg">
+        <Grid container direction="column">
+          <Grid item sm={12} className={mainClasses.createStepOutActive}>
+            <Grid container direction="row" justify="space-evenly" alignItems="center">
+              <Grid item className={mainClasses.createStepTitle}>
+                <Grid container direction="row" justify="flex-start" alignItems="center">
+                  <Grid item className={mainClasses.createStepNum}><span>4</span></Grid>
+                  <Grid item>Step 4: Review & Access</Grid>
+                </Grid>
+              </Grid>
+            </Grid>
+          </Grid>
+        </Grid>
+      </Block>
       <Row className={classes.root}>
         <Col className={classes.detailsColumn} layout="column" xs={4}>
           <Block className={classes.details}>
@@ -51,7 +68,7 @@ const ReviewComponent = ({ userAddress, values }: Props): React.ReactElement => 
             </Block>
             <Block margin="lg">
               <Paragraph color="disabled" noMargin size="sm">
-                Name of the Safe
+                Name of the Trust
               </Paragraph>
               <Paragraph
                 className={classes.name}
@@ -66,7 +83,7 @@ const ReviewComponent = ({ userAddress, values }: Props): React.ReactElement => 
             </Block>
             <Block margin="lg">
               <Paragraph color="disabled" noMargin size="sm">
-                Safe address
+                Trust address
               </Paragraph>
               <Row className={classes.container}>
                 <EthHashInfo
@@ -80,7 +97,7 @@ const ReviewComponent = ({ userAddress, values }: Props): React.ReactElement => 
             </Block>
             <Block margin="lg">
               <Paragraph color="disabled" noMargin size="sm">
-                Connected wallet client is owner?
+                Connected wallet client is trustee?
               </Paragraph>
               <Paragraph className={classes.name} color="primary" noMargin size="lg" weight="bolder">
                 {isOwner ? 'Yes' : 'No (read-only)'}
@@ -91,7 +108,7 @@ const ReviewComponent = ({ userAddress, values }: Props): React.ReactElement => 
                 Any transaction requires the confirmation of:
               </Paragraph>
               <Paragraph className={classes.name} color="primary" noMargin size="lg" weight="bolder">
-                {`${values[THRESHOLD]} out of ${getNumOwnersFrom(values)} owners`}
+                {`${values[THRESHOLD]} out of ${getNumOwnersFrom(values)} trustees`}
               </Paragraph>
             </Block>
           </Block>
@@ -100,10 +117,9 @@ const ReviewComponent = ({ userAddress, values }: Props): React.ReactElement => 
           <TableContainer>
             <Block className={classes.owners}>
               <Paragraph color="primary" noMargin size="lg">
-                {`${getNumOwnersFrom(values)} Safe owners`}
+                {`${getNumOwnersFrom(values)} Trust trustees`}
               </Paragraph>
             </Block>
-            <Hairline />
             {owners.map((address, index) => (
               <>
                 <Row className={classes.owner}>
@@ -133,6 +149,7 @@ const Review = ({ userAddress }: { userAddress: string }) =>
       <>
         <OpenPaper controls={controls} padding={false}>
           <ReviewComponent userAddress={userAddress} values={values} />
+          {controls}
         </OpenPaper>
       </>
     )
