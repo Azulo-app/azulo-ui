@@ -21,7 +21,6 @@ const useStyles = makeStyles({
   container: {
     backgroundColor: '#fff',
     bottom: '0',
-    boxShadow: '1px 2px 10px 0 rgba(40, 54, 61, 0.18)',
     boxSizing: 'border-box',
     display: 'flex',
     justifyContent: 'center',

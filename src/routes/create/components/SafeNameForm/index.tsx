@@ -57,11 +57,11 @@ const SafeNameForm = ({ safeName }: { safeName: string }): React.ReactElement =>
       <Block margin="lg">
         <Paragraph className={classes.links} color="primary" noMargin size="lg">
           By continuing you consent to the{' '}
-          <a href="/terms" rel="noopener noreferrer" target="_blank">
+          <a href="/#/terms" rel="noopener noreferrer" target="_blank">
             terms of use
           </a>{' '}
           and{' '}
-          <a href="/privacy" rel="noopener noreferrer" target="_blank">
+          <a href="/#/privacy" rel="noopener noreferrer" target="_blank">
             privacy policy
           </a>
           .

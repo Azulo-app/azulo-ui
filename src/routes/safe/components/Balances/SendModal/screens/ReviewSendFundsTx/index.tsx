@@ -122,7 +122,7 @@ const ReviewSendFundsTx = ({ onClose, onPrev, tx }: ReviewTxProps): React.ReactE
     const isSpendingLimit = sameString(tx.txType, 'spendingLimit')
 
     if (!safeAddress) {
-      console.error('There was an error trying to submit the transaction, the safeAddress was not found')
+      console.error('There was an error trying to submit the transaction, the Address was not found')
       return
     }
 

@@ -16,6 +16,8 @@ const ChooseTxType = React.lazy(() => import('./screens/ChooseTxType'))
 
 const SendFunds = React.lazy(() => import('./screens/SendFunds'))
 
+const RecurringFunds = React.lazy(() => import('./screens/RecurringFunds'))
+
 const SendCollectible = React.lazy(() => import('./screens/SendCollectible'))
 
 const ReviewCollectible = React.lazy(() => import('./screens/ReviewCollectible'))
@@ -147,7 +149,7 @@ const SendModal = ({
         )}
 
         {activeScreen === 'recurringFunds' && (
-          <SendFunds
+          <RecurringFunds
             initialValues={tx as ReviewTxProp}
             onClose={onClose}
             onReview={handleTxCreation}

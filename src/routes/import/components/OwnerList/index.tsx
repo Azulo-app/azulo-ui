@@ -8,6 +8,8 @@ import Field from 'src/components/forms/Field'
 import TextField from 'src/components/forms/TextField'
 import { composeValidators, minMaxLength, required } from 'src/components/forms/validator'
 import Block from 'src/components/layout/Block'
+import Grid from '@material-ui/core/Grid'
+import { mainStyles } from 'src/theme/PageStyles'
 import Col from 'src/components/layout/Col'
 import Hairline from 'src/components/layout/Hairline'
 import Paragraph from 'src/components/layout/Paragraph'
@@ -43,6 +45,7 @@ const useStyles = makeStyles(styles)
 
 const OwnerListComponent = (props) => {
   const [owners, setOwners] = useState<string[]>([])
+  const mainClasses = mainStyles()
   const classes = useStyles()
   const { updateInitialProps, values } = props
 
@@ -74,21 +77,36 @@ const OwnerListComponent = (props) => {
 
   return (
     <>
+      <Block margin="lg">
+        <Grid container direction="column">
+          <Grid item sm={12} className={mainClasses.createStepOutActive}>
+            <Grid container direction="row" justify="space-evenly" alignItems="center">
+              <Grid item className={mainClasses.createStepTitle}>
+                <Grid container direction="row" justify="flex-start" alignItems="center">
+                  <Grid item className={mainClasses.createStepNum}><span>3</span></Grid>
+                  <Grid item>Step 3: Trustee list</Grid>
+                </Grid>
+              </Grid>
+            </Grid>
+          </Grid>
+        </Grid>
+      </Block>
       <Block className={classes.title}>
         <Paragraph color="primary" noMargin size="md" data-testid="load-safe-step-two">
-          {`This Safe has ${owners.length} owners. Optional: Provide a name for each owner.`}
+          This Trust has {owners.length} trustees. You can provide a name for each trustee.
+        </Paragraph>
+        <Paragraph color="primary" noMargin size="md" data-testid="load-safe-step-two">
+          (These name are only visible to you on your device)
         </Paragraph>
       </Block>
-      <Hairline />
       <TableContainer>
         <Row className={classes.header}>
           <Col xs={4}>NAME</Col>
           <Col xs={8}>ADDRESS</Col>
         </Row>
-        <Hairline />
         <Block margin="md" padding="md">
           {ownersWithNames.map(({ address, name }, index) => {
-            const ownerName = name || `Owner #${index + 1}`
+            const ownerName = name || `Trustee #${index + 1}`
             return (
               <Row className={classes.owner} key={address} data-testid="owner-row">
                 <Col className={classes.ownerName} xs={4}>
@@ -97,8 +115,8 @@ const OwnerListComponent = (props) => {
                     component={TextField}
                     initialValue={ownerName}
                     name={getOwnerNameBy(index)}
-                    placeholder="Owner Name*"
-                    text="Owner Name"
+                    placeholder="Trustee Name*"
+                    text="Trustee Name"
                     type="text"
                     validate={composeValidators(required, minMaxLength(1, 50))}
                     testId={`load-safe-owner-name-${index}`}
@@ -124,6 +142,7 @@ const OwnerList = ({ updateInitialProps }, network) =>
       <>
         <OpenPaper controls={controls} padding={false}>
           <OwnerListComponent network={network} updateInitialProps={updateInitialProps} values={values} />
+          {controls}
         </OpenPaper>
       </>
     )

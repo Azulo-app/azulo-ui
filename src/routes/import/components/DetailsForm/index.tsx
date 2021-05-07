@@ -10,6 +10,8 @@ import { StepperPageFormProps } from 'src/components/Stepper'
 import AddressInput from 'src/components/forms/AddressInput'
 import Field from 'src/components/forms/Field'
 import TextField from 'src/components/forms/TextField'
+import { mainStyles } from 'src/theme/PageStyles'
+import Grid from '@material-ui/core/Grid'
 import {
   mustBeEthereumAddress,
   noErrorsOn,
@@ -28,11 +30,22 @@ const useStyles = makeStyles({
   root: {
     display: 'flex',
     maxWidth: '460px',
-    marginTop: '12px',
+    margin: '12px auto 0',
   },
   check: {
     color: '#03AE60',
     height: '20px',
+  },
+  consent: {
+    marginTop: '20px',
+    textAlign: 'center'
+  },
+  confText: {
+    fontSize: '16px',
+    textAlign: 'center'
+  },
+  center: {
+    textAlign: 'center'
   },
   links: {
     '&>a': {
@@ -41,7 +54,7 @@ const useStyles = makeStyles({
   },
 })
 
-export const SAFE_ADDRESS_NOT_VALID = 'Address given is not a valid Safe address'
+export const SAFE_ADDRESS_NOT_VALID = 'Address given is not a valid Trust address'
 
 // In case of an error here, it will be swallowed by final-form
 // So if you're experiencing any strang behaviours like freeze or hanging
@@ -69,6 +82,7 @@ interface DetailsFormProps {
 }
 
 const DetailsForm = ({ errors, form }: DetailsFormProps): React.ReactElement => {
+  const mainClasses = mainStyles()
   const classes = useStyles()
 
   const handleScan = (value: string, closeQrModal: () => void): void => {
@@ -78,13 +92,26 @@ const DetailsForm = ({ errors, form }: DetailsFormProps): React.ReactElement => 
 
   return (
     <>
-      <Block margin="md">
-        <Paragraph color="primary" noMargin size="md">
-          You are about to add an existing Gnosis Safe. First, choose a name and enter the Safe address. The name is
-          only stored locally and will never be shared with Gnosis or any third parties.
-          <br />
-          Your connected wallet does not have to be the owner of this Safe. In this case, the interface will provide you
-          a read-only view.
+      <Block margin="lg">
+        <Grid container direction="column">
+          <Grid item sm={12} className={mainClasses.createStepOutActive}>
+            <Grid container direction="row" justify="space-evenly" alignItems="center">
+              <Grid item className={mainClasses.createStepTitle}>
+                <Grid container direction="row" justify="flex-start" alignItems="center">
+                  <Grid item className={mainClasses.createStepNum}><span>2</span></Grid>
+                  <Grid item>Step 2: Trust details</Grid>
+                </Grid>
+              </Grid>
+            </Grid>
+          </Grid>
+        </Grid>
+      </Block>
+      <Block margin="lg">
+        <Paragraph className={classes.confText} color="primary" noMargin size="md">
+          To add an existing Trust, enter the address and a name for the Trust
+        </Paragraph>
+        <Paragraph className={classes.center} color="primary" noMargin size="md">
+          (The name is only stored on your device and is not visible to anyone).
         </Paragraph>
       </Block>
       <Block className={classes.root}>
@@ -92,8 +119,8 @@ const DetailsForm = ({ errors, form }: DetailsFormProps): React.ReactElement => 
           <Field
             component={TextField}
             name={FIELD_LOAD_NAME}
-            placeholder="Name of the Safe"
-            text="Safe name"
+            placeholder="Name of the Trust"
+            text="Trust name"
             type="text"
             validate={composeValidators(required, minMaxLength(1, 50))}
             testId="load-safe-name-field"
@@ -127,14 +154,14 @@ const DetailsForm = ({ errors, form }: DetailsFormProps): React.ReactElement => 
           <ScanQRWrapper handleScan={handleScan} />
         </Col>
       </Block>
-      <Block margin="sm">
+      <Block className={classes.consent} margin="sm">
         <Paragraph className={classes.links} color="primary" noMargin size="md">
           By continuing you consent to the{' '}
-          <a href="https://gnosis-safe.io/terms" rel="noopener noreferrer" target="_blank">
+          <a href="/#/terms" rel="noopener noreferrer" target="_blank">
             terms of use
           </a>{' '}
           and{' '}
-          <a href="https://gnosis-safe.io/privacy" rel="noopener noreferrer" target="_blank">
+          <a href="/#/privacy" rel="noopener noreferrer" target="_blank">
             privacy policy
           </a>
           .
@@ -148,8 +175,9 @@ const DetailsPage = () =>
   function LoadSafeDetails(controls: React.ReactNode, { errors, form }: StepperPageFormProps): React.ReactElement {
     return (
       <>
-        <OpenPaper controls={controls}>
+        <OpenPaper controls={controls} padding={false}>
           <DetailsForm errors={errors} form={form} />
+          {controls}
         </OpenPaper>
       </>
     )
