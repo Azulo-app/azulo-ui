@@ -2,8 +2,8 @@ import EtherLogo from 'src/config/assets/token_eth.svg'
 import { EnvironmentSettings, ETHEREUM_NETWORK, NetworkConfig, WALLETS } from 'src/config/networks/network.d'
 
 const baseConfig: EnvironmentSettings = {
-  clientGatewayUrl: '', // https://safe-client.rinkeby.staging.gnosisdev.com/v1
-  txServiceUrl: '', // https://safe-transaction.rinkeby.staging.gnosisdev.com/api/v1
+  clientGatewayUrl: 'https://safe-client.rinkeby.staging.gnosisdev.com/v1', // https://safe-client.rinkeby.staging.gnosisdev.com/v1
+  txServiceUrl: 'https://safe-transaction.rinkeby.staging.gnosisdev.com/api/v1', // https://safe-transaction.rinkeby.staging.gnosisdev.com/api/v1
   safeAppsUrl: 'https://safe-apps.dev.gnosisdev.com',
   gasPriceOracle: {
     url: 'https://gasstation-mumbai.matic.today',
@@ -12,7 +12,7 @@ const baseConfig: EnvironmentSettings = {
   rpcServiceUrl: 'https://rpc-mumbai.maticvigil.com',
   networkExplorerName: 'Etherscan',
   networkExplorerUrl: 'https://explorer-mumbai.maticvigil.com', // https://rinkeby.etherscan.io
-  networkExplorerApiUrl: '', // https://api-rinkeby.etherscan.io/api
+  networkExplorerApiUrl: 'https://api-rinkeby.etherscan.io/api', // https://api-rinkeby.etherscan.io/api
 }
 
 const polygon: NetworkConfig = {
@@ -27,12 +27,12 @@ const polygon: NetworkConfig = {
     production: {
       ...baseConfig,
       clientGatewayUrl: 'https://safe-client.rinkeby.gnosis.io/v1',
-      txServiceUrl: '', // https://safe-transaction.rinkeby.gnosis.io/api/v1
+      txServiceUrl: 'https://safe-transaction.rinkeby.gnosis.io/api/v1', // https://safe-transaction.rinkeby.gnosis.io/api/v1
       safeAppsUrl: 'https://apps.gnosis-safe.io',
     },
   },
   network: {
-    id: ETHEREUM_NETWORK.MUMBAI_MATIC,
+    id: ETHEREUM_NETWORK.POLYGON,
     backgroundColor: '#E8673C',
     textColor: '#ffffff',
     label: 'Polygon',
