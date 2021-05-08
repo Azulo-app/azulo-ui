@@ -54,6 +54,7 @@ interface TokenSelectFieldProps {
 
 const TokenSelectField = ({ initialValue, isValid = true, tokens }: TokenSelectFieldProps): ReactElement => {
   const classes = useSelectStyles()
+  // Filters available tokens for Superfluid compatible Super tokens
 
   return (
     <Field
@@ -66,7 +67,7 @@ const TokenSelectField = ({ initialValue, isValid = true, tokens }: TokenSelectF
       renderValue={(tokenAddress) => <SelectedToken tokenAddress={tokenAddress} tokens={tokens} />}
       validate={required}
     >
-      {tokens.map((token) => (
+      {tokens.filter(token => String(token.name).includes('Super')).map((token) => (
         <MenuItem key={token.address} value={token.address}>
           <ListItemIcon>
             <Img alt={token.name} height={28} onError={setImageToPlaceholder} src={token.logoUri} />

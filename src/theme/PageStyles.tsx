@@ -93,6 +93,9 @@ const mainStyles = makeStyles((theme) => ({
             fill: mainColor
         },
     },
+    marginRightButton: {
+        marginRight: '20px'
+    },
     greyButton: {
         background: background,
         border: `2px solid ${greyColor}`,

@@ -10,7 +10,7 @@ import Row from 'src/components/layout/Row'
 import DetailsForm, { safeFieldsValidation } from 'src/routes/import/components/DetailsForm'
 import OwnerList from 'src/routes/import/components/OwnerList'
 import ReviewInformation from 'src/routes/import/components/ReviewInformation'
-import { StartConnect } from 'src/routes/import/components/StartConnect'
+import { ImportConnect } from 'src/routes/import/components/ImportConnect'
 import Grid from '@material-ui/core/Grid'
 import { mainStyles } from 'src/theme/PageStyles'
 
@@ -68,7 +68,7 @@ const Layout = ({ network, onLoadSafeSubmit, provider, userAddress }: LayoutProp
             steps={steps}
             testId="load-safe-form"
           >
-            <StepperPage component={StartConnect} />
+            <StepperPage component={ImportConnect} />
             <StepperPage validate={safeFieldsValidation} component={DetailsForm} />
             <StepperPage network={network} component={OwnerList} />
             <StepperPage network={network} userAddress={userAddress} component={ReviewInformation} />

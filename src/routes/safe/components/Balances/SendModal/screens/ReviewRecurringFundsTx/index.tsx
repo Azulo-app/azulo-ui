@@ -30,6 +30,10 @@ import { TokenProps } from 'src/logic/tokens/store/model/token'
 import { RecordOf } from 'immutable'
 import { EstimationStatus, useEstimateTransactionGas } from 'src/logic/hooks/useEstimateTransactionGas'
 import { TransactionFees } from 'src/components/TransactionsFees'
+
+import { getWeb3 } from 'src/logic/wallets/getWeb3'
+import { unlockWallet } from 'src/utils/browserwallet_unlock'
+import SuperfluidSDK from '@superfluid-finance/js-sdk'
 import Button from 'src/components/layout/Button'
 import { mainStyles } from 'src/theme/PageStyles'
 
@@ -37,6 +41,7 @@ import { styles } from './style'
 import { EditableTxParameters } from 'src/routes/safe/components/Transactions/helpers/EditableTxParameters'
 import { TxParametersDetail } from 'src/routes/safe/components/Transactions/helpers/TxParametersDetail'
 import { TxParameters } from 'src/routes/safe/container/hooks/useTransactionParameters'
+import { INFURA_TOKEN } from 'src/utils/constants'
 
 const useStyles = makeStyles(styles)
 
@@ -121,46 +126,79 @@ const ReviewSendFundsTx = ({ onClose, onPrev, tx }: ReviewTxProps): React.ReactE
     manualGasLimit,
   })
 
-  const submitTx = async (txParameters: TxParameters) => {
-    const isSpendingLimit = sameString(tx.txType, 'spendingLimit')
+  const [loading, setLoadingStream] = useState(false)
 
-    if (!safeAddress) {
-      console.error('There was an error trying to submit the transaction, the Address was not found')
-      return
-    }
+  const submitTx = async (txParameters: any) => {
 
-    if (isSpendingLimit && txToken && tx.tokenSpendingLimit) {
-      const spendingLimitTokenAddress = isSendingNativeToken ? ZERO_ADDRESS : txToken.address
-      const spendingLimit = getSpendingLimitContract()
-      spendingLimit.methods
-        .executeAllowanceTransfer(
-          safeAddress,
-          spendingLimitTokenAddress,
-          tx.recipientAddress,
-          toTokenUnit(tx.amount, txToken.decimals),
-          ZERO_ADDRESS,
-          0,
-          tx.tokenSpendingLimit.delegate,
-          EMPTY_DATA,
-        )
-        .send({ from: tx.tokenSpendingLimit.delegate })
-        .on('transactionHash', () => onClose())
-        .catch(console.error)
-    } else {
-      dispatch(
-        createTransaction({
-          safeAddress: safeAddress,
-          to: txRecipient as string,
-          valueInWei: txValue,
-          txData: data,
-          txNonce: txParameters.safeNonce,
-          safeTxGas: txParameters.safeTxGas ? Number(txParameters.safeTxGas) : undefined,
-          ethParameters: txParameters,
-          notifiedTransaction: TX_NOTIFICATION_TYPES.STANDARD_TX,
-        }),
-      )
-      onClose()
-    }
+    const { walletProvider, walletAddress, network } = await unlockWallet({
+      debug: true,
+      infuraId: INFURA_TOKEN,
+    })
+  
+    const sf = new SuperfluidSDK.Framework({
+      ethers: walletProvider,
+    })
+
+    const flowRate = +tx.amount * 385802469135
+    setLoadingStream(true)
+
+    await sf.initialize()
+
+    const owner = sf.user({
+      address: safeAddress,
+      token: tx.token,
+    })
+
+    owner.flow({
+      recipient: tx.recipientAddress,
+      flowRate: flowRate,
+      onTransaction: () => {
+        setLoadingStream(false)
+        console.log('Flow created')
+        console.log('input.recipientAddress', tx.recipientAddress)
+        console.log('input.tokenAddress', tx.token)
+      },
+    })
+
+    // const isSpendingLimit = sameString(tx.txType, 'spendingLimit')
+
+    // if (!safeAddress) {
+    //   console.error('There was an error trying to submit the transaction, the Address was not found')
+    //   return
+    // }
+
+    // if (isSpendingLimit && txToken && tx.tokenSpendingLimit) {
+    //   const spendingLimitTokenAddress = isSendingNativeToken ? ZERO_ADDRESS : txToken.address
+    //   const spendingLimit = getSpendingLimitContract()
+    //   spendingLimit.methods
+    //     .executeAllowanceTransfer(
+    //       safeAddress,
+    //       spendingLimitTokenAddress,
+    //       tx.recipientAddress,
+    //       toTokenUnit(tx.amount, txToken.decimals),
+    //       ZERO_ADDRESS,
+    //       0,
+    //       tx.tokenSpendingLimit.delegate,
+    //       EMPTY_DATA,
+    //     )
+    //     .send({ from: tx.tokenSpendingLimit.delegate })
+    //     .on('transactionHash', () => onClose())
+    //     .catch(console.error)
+    // } else {
+    //   dispatch(
+    //     createTransaction({
+    //       safeAddress: safeAddress,
+    //       to: txRecipient as string,
+    //       valueInWei: txValue,
+    //       txData: data,
+    //       txNonce: txParameters.safeNonce,
+    //       safeTxGas: txParameters.safeTxGas ? Number(txParameters.safeTxGas) : undefined,
+    //       ethParameters: txParameters,
+    //       notifiedTransaction: TX_NOTIFICATION_TYPES.STANDARD_TX,
+    //     }),
+    //   )
+    //   onClose()
+    // }
   }
 
   const closeEditModalCallback = (txParameters: TxParameters) => {
@@ -196,7 +234,7 @@ const ReviewSendFundsTx = ({ onClose, onPrev, tx }: ReviewTxProps): React.ReactE
           {/* Header */}
           <Row align="center" className={classes.heading} grow data-testid="send-funds-review-step">
             <Paragraph className={classes.headingText} noMargin weight="bolder">
-              Send funds
+              Recurring funds
             </Paragraph>
             <Paragraph className={classes.annotation}>2 of 2</Paragraph>
             <IconButton disableRipple onClick={onClose}>
@@ -242,7 +280,7 @@ const ReviewSendFundsTx = ({ onClose, onPrev, tx }: ReviewTxProps): React.ReactE
                 size="md"
                 data-testid={`amount-${txToken?.symbol as string}-review-step`}
               >
-                {tx.amount} {txToken?.symbol}
+                {tx.amount} {txToken?.symbol} / month
               </Paragraph>
             </Row>
 
@@ -286,7 +324,7 @@ const ReviewSendFundsTx = ({ onClose, onPrev, tx }: ReviewTxProps): React.ReactE
               onClick={() => submitTx(txParameters)}
               variant="contained"
             >
-              Submit
+              Start payments
             </Button>
           </Row>
         </>

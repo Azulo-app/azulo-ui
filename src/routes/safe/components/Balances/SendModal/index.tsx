@@ -24,6 +24,8 @@ const ReviewCollectible = React.lazy(() => import('./screens/ReviewCollectible')
 
 const ReviewSendFundsTx = React.lazy(() => import('./screens/ReviewSendFundsTx'))
 
+const ReviewRecurringFundsTx = React.lazy(() => import('./screens/ReviewRecurringFundsTx'))
+
 const ContractInteraction = React.lazy(() => import('./screens/ContractInteraction'))
 
 const ContractInteractionReview: any = React.lazy(() => import('./screens/ContractInteraction/Review'))
@@ -89,6 +91,12 @@ const SendModal = ({
     setActiveScreen('sendFundsReviewTx')
     setTx(txInfo)
   }
+  
+  const handleRecurringTxCreation = (txInfo: SendCollectibleTxInfo) => {
+    setActiveScreen('recurringFundsReviewTx')
+    setTx(txInfo)
+  }
+
 
   const handleContractInteractionCreation = (contractInteractionInfo: any, submit: boolean): void => {
     setTx(contractInteractionInfo)
@@ -120,7 +128,15 @@ const SendModal = ({
       <Suspense
         fallback={
           <div className={classes.loaderStyle}>
-            <Loader size="md" />
+            <img style={{
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              width: '60px',
+              height: 'auto',
+              transform: 'translate(-50%, -50%)'
+            }} src="/resources/azulo_icon_loader.svg" />
+            {/* <Loader size="md" /> */}
           </div>
         }
       >
@@ -152,7 +168,7 @@ const SendModal = ({
           <RecurringFunds
             initialValues={tx as ReviewTxProp}
             onClose={onClose}
-            onReview={handleTxCreation}
+            onReview={handleRecurringTxCreation}
             recipientAddress={recipientAddress}
             selectedToken={selectedToken as string}
             amount={tokenAmount}
@@ -160,7 +176,7 @@ const SendModal = ({
         )}
 
         {activeScreen === 'recurringFundsReviewTx' && (
-          <ReviewSendFundsTx onClose={onClose} onPrev={() => setActiveScreen('sendFunds')} tx={tx as ReviewTxProp} />
+          <ReviewRecurringFundsTx onClose={onClose} onPrev={() => setActiveScreen('recurringFunds')} tx={tx as ReviewTxProp} />
         )}
 
 

@@ -159,6 +159,7 @@
   },
   "dependencies": {
     "@ethersproject/contracts": "^5.1.1",
+    "@ethersproject/providers": "^5.1.2",
     "@gnosis.pm/safe-apps-sdk": "1.0.3",
     "@gnosis.pm/safe-apps-sdk-v1": "npm:@gnosis.pm/safe-apps-sdk@0.4.2",
     "@gnosis.pm/safe-contracts": "1.1.1-dev.2",
