@@ -209,7 +209,7 @@
     "material-ui-search-bar": "^1.0.0",
     "notistack": "https://github.com/gnosis/notistack.git#v0.9.4",
     "object-hash": "^2.1.1",
-    "popper.js": "^1.16.1",
+    "popper.js":"^1.16.1-lts",
     "qrcode.react": "1.0.1",
     "query-string": "6.14.1",
     "react": "16.13.1",
