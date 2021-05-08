@@ -170,7 +170,15 @@ export const TxCollapsed = ({
     <div className="tx-status" ref={sameString(lastItemId, transaction.id) ? ref : null}>
       {transaction?.txStatus === 'PENDING' || transaction?.txStatus === 'PENDING_FAILED' ? (
         <CircularProgressPainter color={status.color}>
-          <Loader size="xs" color="pending" />
+          <img style={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            width: '60px',
+            height: 'auto',
+            transform: 'translate(-50%, -50%)'
+          }} src="/resources/azulo_icon_loader.svg" />
+          {/* <Loader size="md" /> */}
         </CircularProgressPainter>
       ) : (
         (transaction?.txStatus === 'AWAITING_EXECUTION' || transaction?.txStatus === 'AWAITING_CONFIRMATIONS') && (

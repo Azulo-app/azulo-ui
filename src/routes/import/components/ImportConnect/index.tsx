@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const StartConnectComponent = (): ReactElement => {
+const ImportConnectComponent = (): ReactElement => {
   const mainClasses = mainStyles()
   const classes = useStyles()
   const provider = useSelector(providerNameSelector)
@@ -137,12 +137,12 @@ const StartInfoComponent = (): ReactElement => {
   )
 }
 
-export const StartConnect = () =>
-  function StartConnectPage(controls: React.ReactNode, props: StepperPageFormProps): React.ReactElement {
+export const ImportConnect = () =>
+  function ImportConnectPage(controls: React.ReactNode, props: StepperPageFormProps): React.ReactElement {
     return (
       <>
         <OpenPaper controls={controls} padding={false}>
-          <StartConnectComponent />
+          <ImportConnectComponent />
           {controls}
           <StartInfoComponent />
         </OpenPaper>

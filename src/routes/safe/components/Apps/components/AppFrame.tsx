@@ -278,7 +278,15 @@ const AppFrame = ({ appUrl }: Props): React.ReactElement => {
   if (!safeApp) {
     return (
       <LoadingContainer>
-        <Loader size="md" />
+        <img style={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          width: '60px',
+          height: 'auto',
+          transform: 'translate(-50%, -50%)'
+        }} src="/resources/azulo_icon_loader.svg" />
+        {/* <Loader size="md" /> */}
       </LoadingContainer>
     )
   }
@@ -317,7 +325,15 @@ const AppFrame = ({ appUrl }: Props): React.ReactElement => {
                     The trust app is taking longer than usual to load. There might be a problem with the app provider.
                   </Title>
                 )}
-                <Loader size="md" />
+                <img style={{
+                  position: 'absolute',
+                  top: '50%',
+                  left: '50%',
+                  width: '60px',
+                  height: 'auto',
+                  transform: 'translate(-50%, -50%)'
+                }} src="/resources/azulo_icon_loader.svg" />
+                {/* <Loader size="md" /> */}
               </LoadingContainer>
             )}
 

@@ -12,7 +12,6 @@ import GnoForm from 'src/components/forms/GnoForm'
 import TextField from 'src/components/forms/TextField'
 import { composeValidators, maxValue, minValue, mustBeFloat, required } from 'src/components/forms/validator'
 import Block from 'src/components/layout/Block'
-import Button from 'src/components/layout/Button'
 import ButtonLink from 'src/components/layout/ButtonLink'
 import Col from 'src/components/layout/Col'
 import Hairline from 'src/components/layout/Hairline'
@@ -25,13 +24,10 @@ import { sameAddress } from 'src/logic/wallets/ethAddresses'
 import { SpendingLimit } from 'src/logic/safe/store/models/safe'
 import { userAccountSelector } from 'src/logic/wallets/store/selectors'
 
-import { getWeb3 } from 'src/logic/wallets/getWeb3'
-import SuperfluidSDK from '@superfluid-finance/js-sdk'
-
 import SafeInfo from 'src/routes/safe/components/Balances/SendModal/SafeInfo'
 import { AddressBookInput } from 'src/routes/safe/components/Balances/SendModal/screens/AddressBookInput'
-import { SpendingLimitRow } from 'src/routes/safe/components/Balances/SendModal/screens/SendFunds/SpendingLimitRow'
-import TokenSelectField from 'src/routes/safe/components/Balances/SendModal/screens/SendFunds/TokenSelectField'
+import { SpendingLimitRow } from 'src/routes/safe/components/Balances/SendModal/screens/RecurringFunds/SpendingLimitRow'
+import TokenSelectField from 'src/routes/safe/components/Balances/SendModal/screens/RecurringFunds/TokenSelectField'
 import { fromTokenUnit } from 'src/logic/tokens/utils/humanReadableValue'
 import { extendedSafeTokensSelector } from 'src/routes/safe/container/selector'
 import { safeSelector } from 'src/logic/safe/store/selectors'
@@ -43,6 +39,8 @@ import { EthHashInfo } from '@gnosis.pm/safe-react-components'
 import { spendingLimitAllowedBalance, getSpendingLimitByTokenAddress } from 'src/logic/safe/utils/spendingLimits'
 import { getBalanceAndDecimalsFromToken } from 'src/logic/tokens/utils/tokenHelpers'
 import Divider from 'src/components/Divider'
+import Button from 'src/components/layout/Button'
+import { mainStyles } from 'src/theme/PageStyles'
 
 const formMutators = {
   setMax: (args, state, utils) => {
@@ -90,6 +88,7 @@ const RecurringFunds = ({
   selectedToken = '',
   amount,
 }: SendFundsProps): ReactElement => {
+  const mainClasses = mainStyles()
   const classes = useStyles()
   const tokens = useSelector(extendedSafeTokensSelector)
   const { address: safeAddress = '' } = useSelector(safeSelector) || {}
@@ -127,36 +126,13 @@ const RecurringFunds = ({
 
   let tokenSpendingLimit
 
-  const [loading, setLoadingStream] = useState(false)
-
-  const web3 = getWeb3()
-  const sf = new SuperfluidSDK.Framework({
-    web3: web3
-  })
-
   const handleSubmit = async (values) => {
-    const input = values
-    console.log('input', input)
-    setLoadingStream(true)
-
-    await sf.initialize()
-
-    const owner = sf.user({
-      address: safeAddress,
-      token: input.token,
-    })
-
-    owner.flow({
-      recipient: input.recipientAddress,
-      flowRate: input.flowRate,
-      onTransaction: () => {
-        setLoadingStream(false)
-        console.log('Flow created')
-        console.log('input.ownerAddress', input.owner)
-        console.log('input.recipientAddress', input.recipientAddress)
-        console.log('input.tokenAddress', input.token)
-      },
-    })
+    const submitValues = values
+    // If the input wasn't modified, there was no mutation of the recipientAddress
+    if (!values.recipientAddress) {
+      submitValues.recipientAddress = selectedEntry?.address
+    }
+    onReview({ ...submitValues, tokenSpendingLimit })
   }
 
   const spendingLimits = useSelector(safeSpendingLimitsSelector)
@@ -335,7 +311,7 @@ const RecurringFunds = ({
                       inputAdornment={{
                         endAdornment: (
                           <InputAdornment position="end">
-                            <InputAdornmentChildSymbol symbol={selectedToken?.symbol} />
+                            <InputAdornmentChildSymbol symbol={selectedToken?.symbol} /> / month
                           </InputAdornment>
                         ),
                       }}
@@ -350,11 +326,11 @@ const RecurringFunds = ({
               </Block>
               <Hairline />
               <Row align="center" className={classes.buttonRow}>
-                <Button minWidth={140} onClick={onClose} color="secondary">
+                <Button minWidth={140} onClick={onClose} color="secondary" className={`${mainClasses.mainButton} ${mainClasses.noBgButton} ${mainClasses.marginRightButton}`}>
                   Cancel
                 </Button>
                 <Button
-                  className={classes.submitButton}
+                  className={`${mainClasses.mainButton}`}
                   color="primary"
                   data-testid="review-tx-btn"
                   disabled={!formState.valid || shouldDisableSubmitButton}
@@ -365,68 +341,6 @@ const RecurringFunds = ({
                   Review
                 </Button>
               </Row>
-
-
-
-
-              <br />
-              <br />
-              Recipient address
-              <Field
-                component={TextField}
-                name="recipientAddress"
-                placeholder="recipientAddress*"
-                text="recipientAddress*"
-                type="text"
-                testId="recipientAddress-input"
-                validation={{
-                  required: true,
-                  pattern: {
-                    value: /^0x([A-Fa-f0-9]{40})$/,
-                  },
-                }}
-              />
-              <br />
-              <br />
-              Token address
-              <Field
-                component={TextField}
-                name="token"
-                placeholder="tokenAddress*"
-                text="tokenAddress*"
-                type="text"
-                testId="tokenAddress-input"
-                validation={{
-                  required: true,
-                  pattern: {
-                    value: /^0x([A-Fa-f0-9]{40})$/,
-                  },
-                }}
-              />
-              <br />
-              <br />
-              Flow rate (tokens per second)
-              <Field
-                component={TextField}
-                name="flowRate"
-                initialValue="385802469135802"
-                placeholder="eg. 385802469135802*"
-                type="text"
-                testId="flowRate-input"
-                validation={{
-                  required: true,
-                  pattern: {
-                    value: /^[0-9]+$/,
-                  },
-                }}
-              />
-
-              <div className="rw-button-group">
-                <Button type="submit">
-                  Submit
-                </Button>
-              </div>
-
 
             </>
           )

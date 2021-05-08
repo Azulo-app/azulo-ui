@@ -26,7 +26,7 @@ const styles = () => ({
 
 const ProviderDisconnected = ({ classes }) => (
   <>
-    <KeyRing circleSize={35} dotRight={11} dotSize={16} dotTop={24} keySize={17} mode="error" />
+    {/* <KeyRing circleSize={35} dotRight={11} dotSize={16} dotTop={24} keySize={17} mode="error" /> */}
     <Col className={classes.account} end="sm" layout="column" middle="xs">
       <Paragraph
         className={classes.network}

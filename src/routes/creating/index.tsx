@@ -351,7 +351,18 @@ export const SafeDeployment = ({
   }, [safeCreationTxHash, waitingSafeDeployed])
 
   if (loading || stepIndex === undefined) {
-    return <Loader size="sm" />
+    return (
+      <>
+        <img style={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          width: '60px',
+          height: 'auto',
+          transform: 'translate(-50%, -50%)'
+        }} src="/resources/azulo_icon_loader.svg" />
+      </>
+    )
   }
 
   let FooterComponent

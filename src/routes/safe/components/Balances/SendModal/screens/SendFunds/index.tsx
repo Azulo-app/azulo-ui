@@ -12,7 +12,6 @@ import GnoForm from 'src/components/forms/GnoForm'
 import TextField from 'src/components/forms/TextField'
 import { composeValidators, maxValue, minValue, mustBeFloat, required } from 'src/components/forms/validator'
 import Block from 'src/components/layout/Block'
-import Button from 'src/components/layout/Button'
 import ButtonLink from 'src/components/layout/ButtonLink'
 import Col from 'src/components/layout/Col'
 import Hairline from 'src/components/layout/Hairline'
@@ -33,6 +32,8 @@ import { fromTokenUnit } from 'src/logic/tokens/utils/humanReadableValue'
 import { extendedSafeTokensSelector } from 'src/routes/safe/container/selector'
 import { safeSpendingLimitsSelector } from 'src/logic/safe/store/selectors'
 import { sameString } from 'src/utils/strings'
+import Button from 'src/components/layout/Button'
+import { mainStyles } from 'src/theme/PageStyles'
 
 import { styles } from './style'
 import { EthHashInfo } from '@gnosis.pm/safe-react-components'
@@ -86,6 +87,7 @@ const SendFunds = ({
   selectedToken = '',
   amount,
 }: SendFundsProps): ReactElement => {
+  const mainClasses = mainStyles()
   const classes = useStyles()
   const tokens = useSelector(extendedSafeTokensSelector)
   const addressBook = useSelector(addressBookSelector)
@@ -321,11 +323,11 @@ const SendFunds = ({
               </Block>
               <Hairline />
               <Row align="center" className={classes.buttonRow}>
-                <Button minWidth={140} onClick={onClose} color="secondary">
+                <Button minWidth={140} onClick={onClose} color="secondary" className={`${mainClasses.mainButton} ${mainClasses.noBgButton} ${mainClasses.marginRightButton}`}>
                   Cancel
                 </Button>
                 <Button
-                  className={classes.submitButton}
+                  className={`${mainClasses.mainButton}`}
                   color="primary"
                   data-testid="review-tx-btn"
                   disabled={!formState.valid || shouldDisableSubmitButton}

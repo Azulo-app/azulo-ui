@@ -10,7 +10,9 @@ import BGCurve from '../assets/bg_curve_2.svg';
 import FamilyTrustImg from '../assets/family_trust.svg';
 import ICBooks from '../assets/ic_books.svg';
 import { onConnectButtonClick } from 'src/components/ConnectButton'
-import { borderRadius } from 'src/theme/variables'
+import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
+import BusinessCenterIcon from '@material-ui/icons/BusinessCenter';
+import { borderRadius, mainColor } from 'src/theme/variables'
 import { mainStyles } from 'src/theme/PageStyles'
 
 const useStyles = makeStyles(() => ({
@@ -95,8 +97,9 @@ const useStyles = makeStyles(() => ({
       marginTop: '3px;'
     },
     '& svg': {
-      width: '20px',
-      height: '20px',
+      width: '30px',
+      height: '30px',
+      fill: mainColor
     }
   },
   featTitle: {
@@ -145,11 +148,11 @@ export const HomeLayout = (): React.ReactElement => {
                   Access trust
                 </Link>
               </div>
-              <Grid container alignItems="center" className={classes.features}>
+              <Grid container spacing={2} direction="row" justify="center" alignItems="flex-start" className={classes.features}>
 
                 <Grid item sm={12} md={6}>
                   <Grid container spacing={1}>
-                    <Grid item xs={2} className={classes.featIcon}><Img alt="Features" height={16} src={ICBooks} testId="feature-icon" /></Grid>
+                    <Grid item xs={2} className={classes.featIcon}><BusinessCenterIcon /></Grid>
                     <Grid item sm={10}>
                       <div className={classes.featTitle}>Create & manage trusts</div>
                       <div className={classes.featDesc}>Create and manage digital trusts. Add multiple trustees that have shared authority over the trust's transactions. Add beneficiaries to allow distributions and more. Built using Gnosis Safe.</div>
@@ -159,9 +162,9 @@ export const HomeLayout = (): React.ReactElement => {
                 
                 <Grid item sm={12} md={6}>
                   <Grid container spacing={1}>
-                    <Grid item xs={2} className={classes.featIcon}><Img alt="Features" height={16} src={ICBooks} testId="feature-icon" /></Grid>
+                    <Grid item xs={2} className={classes.featIcon}><AccountBalanceWalletIcon /></Grid>
                     <Grid item sm={10}>
-                      <div className={classes.featTitle}>Built for Eth assets</div>
+                      <div className={classes.featTitle}>Built for digital assets</div>
                       <div className={classes.featDesc}>Trusts support a range of digital assets including Ethereum, Ethereum network tokens, wrapped assets, and pooled assets (i.e. ERC20) and NFT collectables (i.e. ERC721).</div>
                     </Grid>
                   </Grid>

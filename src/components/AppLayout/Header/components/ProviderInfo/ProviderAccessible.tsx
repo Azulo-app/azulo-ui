@@ -71,8 +71,8 @@ const ProviderInfo = ({ connected, provider, userAddress }: ProviderInfoProps): 
   const addressColor = connected ? 'text' : 'warning'
   return (
     <>
-      {!connected && <KeyRing circleSize={35} dotRight={11} dotSize={16} dotTop={24} keySize={14} mode="warning" />}
-      <WalletIcon provider={provider.toUpperCase()} />
+      {/* {!connected && <KeyRing circleSize={35} dotRight={11} dotSize={16} dotTop={24} keySize={14} mode="warning" />}
+      <WalletIcon provider={provider.toUpperCase()} /> */}
       <Col className={classes.account} layout="column" start="sm">
         <Paragraph
           className={classes.network}

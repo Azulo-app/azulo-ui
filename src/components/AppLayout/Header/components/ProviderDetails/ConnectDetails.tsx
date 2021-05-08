@@ -42,9 +42,9 @@ const ConnectDetails = ({ classes }) => (
       </Paragraph>
     </Row>
 
-    <Row className={classes.logo}>
+    {/* <Row className={classes.logo}>
       <KeyRing center circleSize={60} dotRight={20} dotSize={20} dotTop={50} keySize={28} mode="error" />
-    </Row>
+    </Row> */}
     <Block className={classes.connect}>
       <ConnectButton data-testid="heading-connect-btn" />
     </Block>
