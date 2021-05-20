@@ -42,7 +42,7 @@ const wallets: Wallet[] = [
   {
     walletName: WALLETS.LATTICE,
     rpcUrl,
-    appName: 'Gnosis Safe',
+    appName: 'Azulo Trust',
     desktop: false,
   },
   {

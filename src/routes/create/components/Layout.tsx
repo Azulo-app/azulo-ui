@@ -1,5 +1,4 @@
-
-import * as React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import IconButton from '@material-ui/core/IconButton'
 import ChevronLeft from '@material-ui/icons/ChevronLeft'
@@ -51,8 +50,7 @@ export type InitialValuesForm = {
   safeCreationSalt: number
 }
 
-const useInitialValuesFrom = (userAccount: string, safeProps?: SafeProps): InitialValuesForm => {
-  const addressBook = useSelector(addressBookSelector)
+const useInitialValuesFrom = (userAccount: string, safeProps?: SafeProps, addressBook?: any): InitialValuesForm => {
   const ownerName = getNameFromAddressBook(addressBook, userAccount, { filterOnlyValidName: true })
 
   if (!safeProps) {
@@ -106,6 +104,8 @@ type LayoutProps = {
 export const Layout = (props: LayoutProps): React.ReactElement => {
   const mainClasses = mainStyles()
   const dispatch = useDispatch()
+  const [initialValues, setInitialValues] = useState<InitialValuesForm>()
+  const addressBook = useSelector(addressBookSelector)
 
   const onDisconnect = () => {
     dispatch(removeProvider())
@@ -124,7 +124,13 @@ export const Layout = (props: LayoutProps): React.ReactElement => {
 
   const steps = getSteps()
 
-  const initialValues = useInitialValuesFrom(userAccount, safeProps)
+  useEffect(() => {
+    if (userAccount) {
+      setInitialValues(useInitialValuesFrom(userAccount, safeProps, addressBook))
+    }
+  }, [userAccount, safeProps])
+
+  // const initialValues = useInitialValuesFrom(userAccount, safeProps)
 
   // if (!provider) {
   //   return <CreateLayout isOldMultisigMigration />

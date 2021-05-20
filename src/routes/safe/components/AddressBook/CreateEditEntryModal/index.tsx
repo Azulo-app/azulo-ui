@@ -64,21 +64,25 @@ export const CreateEditEntryModal = ({
 
   return (
     <Modal
-      description={isNew ? 'Create new addressBook entry' : 'Edit addressBook entry'}
+      description={isNew ? 'Add new beneficiary entry' : 'Edit beneficiary entry'}
       handleClose={onClose}
       open={isOpen}
       paperClassName="smaller-modal-window"
-      title={isNew ? 'Create new entry' : 'Edit entry'}
+      title={isNew ? 'Add new beneficiary' : 'Edit beneficiary'}
     >
       <Row align="center" className={classes.heading} grow>
         <Paragraph className={classes.manage} noMargin weight="bolder">
-          {isNew ? 'Create entry' : 'Edit entry'}
+          {isNew ? 'Add beneficiary' : 'Edit beneficiary'}
         </Paragraph>
         <IconButton disableRipple onClick={onClose}>
           <Close className={classes.close} />
         </IconButton>
       </Row>
       <Hairline />
+      <Paragraph className={classes.annotation} noMargin size="lg">
+        {isNew ? 'You can start adding your trust beneficiaries to the trust. Making it easier to send distributions and more.' :
+                  'Edit the details of the beneficiary below.'}
+      </Paragraph>
       <GnoForm formMutators={formMutators} onSubmit={onFormSubmitted} initialValues={initialValues}>
         {(...args) => {
           const formState = args[2]
@@ -101,7 +105,7 @@ export const CreateEditEntryModal = ({
                     <Field
                       component={TextField}
                       name="name"
-                      placeholder="Name"
+                      placeholder="Beneficiary name"
                       testId={START_ENTRY_INPUT_NAME_ID}
                       text="Name"
                       type="text"
@@ -142,7 +146,7 @@ export const CreateEditEntryModal = ({
                   variant="contained"
                   disabled={!formState.valid}
                 >
-                  {isNew ? 'Create' : 'Save'}
+                  {isNew ? 'Add beneficiary' : 'Save beneficiary'}
                 </Button>
               </Row>
             </>

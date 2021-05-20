@@ -93,7 +93,7 @@ const ReceiveModal = ({ onClose, safeAddress, safeName }: Props): ReactElement =
         {networkInfo.label} Network only send {networkInfo.label} assets to this Safe.
       </Paragraph>
       <Paragraph className={classes.annotation} noMargin size="lg">
-        This is the address of your Trust. Deposit funds by scanning the QR code or copying the address below. Only send{' '}
+        <strong>This is the address of your Trust</strong>. You can start depositing assets using the QR code or the address below. Only send{' '}
         {networkInfo.nativeCoin.name} and assets to this address (e.g. ETH, ERC20, ERC721)!
       </Paragraph>
       <Col layout="column" middle="xs">
@@ -101,7 +101,7 @@ const ReceiveModal = ({ onClose, safeAddress, safeName }: Props): ReactElement =
           {safeName}
         </Paragraph>
         <Block className={classes.qrContainer}>
-          <QRCode size={135} value={safeAddress} />
+          <QRCode size={180} value={safeAddress} />
         </Block>
         <Block className={classes.addressContainer} justify="center">
           <EthHashInfo hash={safeAddress} showAvatar showCopyBtn explorerUrl={getExplorerInfo(safeAddress)} />

@@ -1,4 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles'
+import { background, border } from 'src/theme/variables'
 
 const buttonWidth = '140px'
 export const useDropdownStyles = makeStyles({
@@ -32,8 +33,8 @@ export const useDropdownStyles = makeStyles({
     marginLeft: '18px',
   },
   button: {
-    backgroundColor: '#e8e7e6',
-    border: 'none',
+    backgroundColor: background,
+    border: `1px solid ${border}`,
     borderRadius: '3px',
     boxSizing: 'border-box',
     color: '#5d6d74',

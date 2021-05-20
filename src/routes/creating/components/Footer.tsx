@@ -1,4 +1,5 @@
 import React, { ReactElement, SyntheticEvent } from 'react'
+import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
 
 import { Icon, Link, Text } from '@gnosis.pm/safe-react-components'
@@ -8,6 +9,7 @@ import { getExplorerInfo } from 'src/config'
 import { mainStyles } from 'src/theme/PageStyles'
 import { mainColor, borderRadius, mainLightColor, warning, warningLight } from 'src/theme/variables'
 import Grid from '@material-ui/core/Grid'
+import { openCreateAction } from 'src/logic/createAction/store/actions/openCreateActions'
 
 const StyledText = styled(Text)`
   display: inline-flex;
@@ -102,6 +104,11 @@ export const ContinueFooter = ({
   onContinue: (event: SyntheticEvent) => void
 }): ReactElement => {
   const mainClasses = mainStyles()
+  const dispatch = useDispatch()
+
+  const openCreateActions = (actiontype) => {
+    dispatch(openCreateAction({ createActionOpen: true, createAction: actiontype }))
+  }
 
   return (
     <FooterContainer>
@@ -110,12 +117,22 @@ export const ContinueFooter = ({
         <Button
           color="primary"
           disabled={continueButtonDisabled}
-          onClick={onContinue}
+          onClick={(e)=> { openCreateActions('add_assets'); onContinue(e) } }
           variant="contained"
           data-testid="continue-btn"
-          className={mainClasses.mainButton}
+          className={`${mainClasses.mainButton} ${mainClasses.marginRightButton}`}
         >
-          Access trust
+          + Add assets
+        </Button>
+        <Button
+          color="primary"
+          disabled={continueButtonDisabled}
+          onClick={(e)=> { openCreateActions('add_beneficiaries'); onContinue(e) } }
+          variant="contained"
+          data-testid="continue-btn"
+          className={`${mainClasses.mainButton} ${mainClasses.borderButton}`}
+        >
+          Add beneficiaries
         </Button>
       </Grid>
     </FooterContainer>

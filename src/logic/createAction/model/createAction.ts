@@ -1,0 +1,1 @@
+export const CREATE_ACTION_KEY = 'CREATE_ACTION'

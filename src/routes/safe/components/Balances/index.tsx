@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles'
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 
 import ReceiveModal from 'src/components/App/ReceiveModal'
 import { styles } from './style'
@@ -30,6 +30,8 @@ import { mainColor, borderRadius, border } from 'src/theme/variables'
 import Button from 'src/components/layout/Button'
 import Grid from '@material-ui/core/Grid'
 import Box from '@material-ui/core/Box'
+import { openCreateAction } from 'src/logic/createAction/store/actions/openCreateActions'
+import { createActionOpen } from 'src/logic/createAction/store/selectors'
 
 const ContentHold = styled.div`
   border: 1px solid ${border};
@@ -68,11 +70,13 @@ const useStyles = makeStyles(styles)
 const Balances = (): React.ReactElement => {
   const mainClasses = mainStyles()
   const classes = useStyles()
+  const dispatch = useDispatch()
   const [state, setState] = useState(INITIAL_STATE)
 
   const address = useSelector(safeParamAddressFromStateSelector)
   const featuresEnabled = useSelector(safeFeaturesEnabledSelector)
   const safeName = useSelector(safeNameSelector) ?? ''
+  const createActionModal = useSelector(createActionOpen)
 
   useFetchTokens(address)
 
@@ -112,6 +116,15 @@ const Balances = (): React.ReactElement => {
       },
     }))
   }
+
+  useEffect(() => {
+    if (createActionModal) {
+      if (createActionModal && createActionModal.createActionOpen && createActionModal.createAction == 'add_assets') {
+        onShow('Receive')
+        dispatch(openCreateAction({ createActionOpen: false, createAction: '' }))
+      }
+    }
+  }, [createActionModal])
 
   const { assetDivider, assetTab, assetTabActive, assetTabs, controls, tokenControls } = classes
   const { erc721Enabled, sendFunds, showReceive } = state
