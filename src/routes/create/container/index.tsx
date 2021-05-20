@@ -19,7 +19,7 @@ import {
   getSafeNameFrom,
   getThresholdFrom,
 } from 'src/routes/create/utils/safeDataExtractor'
-import { TRUSTS_ADDRESS, CREATE_ADDRESS } from 'src/routes/routes'
+import { TRUSTS_ADDRESS, CREATE_ADDRESS, ASSETS_ADDRESS, BENEFICIARY_ADDRESS } from 'src/routes/routes'
 import { buildSafe } from 'src/logic/safe/store/actions/fetchSafe'
 import { history } from 'src/store'
 import { loadFromStorage, removeFromStorage, saveToStorage } from 'src/utils/storage'
@@ -27,6 +27,7 @@ import { userAccountSelector } from 'src/logic/wallets/store/selectors'
 import { SafeRecordProps } from 'src/logic/safe/store/models/safe'
 import { addOrUpdateSafe } from 'src/logic/safe/store/actions/addOrUpdateSafe'
 import { useAnalytics } from 'src/utils/googleAnalytics'
+import { createActionOpen } from 'src/logic/createAction/store/selectors'
 
 const SAFE_PENDING_CREATION_STORAGE_KEY = 'SAFE_PENDING_CREATION_STORAGE_KEY'
 
@@ -129,6 +130,8 @@ const Open = (): React.ReactElement => {
   const dispatch = useDispatch()
   const location = useLocation()
   const { trackEvent } = useAnalytics()
+  const [createAction, setCreateAction] = useState(String)
+  const createActionRequest = useSelector(createActionOpen)
 
   useEffect(() => {
     // #122: Allow to migrate an old Multisig by passing the parameters to the URL.
@@ -161,6 +164,15 @@ const Open = (): React.ReactElement => {
     load()
   }, [])
 
+  // Check what URL to redirect to
+  useEffect(() => {
+    if (createActionRequest) {
+      if (createActionRequest && createActionRequest.createActionOpen) {
+        setCreateAction(createActionRequest.createAction)
+      }
+    }
+  }, [createActionRequest])
+
   const createSafeProxy = async (formValues?: CreateSafeValues) => {
     let values = formValues
 
@@ -184,6 +196,7 @@ const Open = (): React.ReactElement => {
     const ownersNames = getNamesFrom(pendingCreation as CreateSafeValues)
     const ownerAddresses = pendingCreation ? getAccountsFrom(pendingCreation) : []
     const safeProps = await getSafeProps(safeAddress, name, ownersNames, ownerAddresses)
+    let firstURL = ASSETS_ADDRESS
 
     await dispatch(addOrUpdateSafe(safeProps))
 
@@ -193,8 +206,11 @@ const Open = (): React.ReactElement => {
     })
 
     removeFromStorage(SAFE_PENDING_CREATION_STORAGE_KEY)
+    if (createAction && createAction == 'add_beneficiaries') {
+      firstURL = BENEFICIARY_ADDRESS
+    }
     const url = {
-      pathname: `${TRUSTS_ADDRESS}/${safeProps.address}/assets`,
+      pathname: `${TRUSTS_ADDRESS}/${safeProps.address}${firstURL}`,
       state: {
         name,
         tx: pendingCreation?.txHash,

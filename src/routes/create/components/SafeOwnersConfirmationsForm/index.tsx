@@ -223,7 +223,7 @@ const SafeOwnersForm = (props): React.ReactElement => {
             <Grid container direction="row" justify="flex-start" spacing={2} alignItems="flex-start">
               <Grid item xs={3} className={`${mainClasses.cardTitle} ${classes.cardTitle}`}>
                 Set trustee(s)
-                <Tooltip className={classes.infoIcon} title="Your trust can have one or more trustees. We have prefilled the first owner with your connected wallet details, but you are free to change this to a different owner." arrow><HelpOutline /></Tooltip>
+                <Tooltip className={classes.infoIcon} title="Your trust can have one or more trustees. We have pre-filled the first trustee with the connected wallet, you are free to change this trustee." arrow><HelpOutline /></Tooltip>
               </Grid>
               <Grid item xs={9}>
                 {[...Array(Number(numOwners))].map((x, index) => {

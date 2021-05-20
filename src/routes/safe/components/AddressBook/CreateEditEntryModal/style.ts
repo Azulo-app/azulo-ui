@@ -15,6 +15,10 @@ export const useStyles = makeStyles(
     container: {
       padding: `${md} ${lg}`,
     },
+    annotation: {
+      margin: lg,
+      marginBottom: 0,
+    },
     close: {
       height: '35px',
       width: '35px',

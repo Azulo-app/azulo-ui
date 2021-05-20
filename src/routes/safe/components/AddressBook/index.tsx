@@ -28,6 +28,9 @@ import Grid from '@material-ui/core/Grid'
 import Box from '@material-ui/core/Box'
 import Divider from 'src/components/layout/Divider'
 
+import { openCreateAction } from 'src/logic/createAction/store/actions/openCreateActions'
+import { createActionOpen } from 'src/logic/createAction/store/selectors'
+
 const ContentHold = styled.div`
   border: 1px solid ${border};
   padding: 32px;
@@ -71,7 +74,7 @@ const initialEntryState: Entry = { entry: { address: '', name: '', isNew: true }
 const AddressBookTable = (): ReactElement => {
   const mainClasses = mainStyles()
   const classes = useStyles()
-  const location = useLocation();
+  const location = useLocation()
   const dispatch = useDispatch()
   const address = useSelector(safeParamAddressFromStateSelector)
   const entryAddressToEditOrCreateNew = useSelector(addressBookQueryParamsSelector)
@@ -80,6 +83,7 @@ const AddressBookTable = (): ReactElement => {
   const [editCreateEntryModalOpen, setEditCreateEntryModalOpen] = useState(false)
   const { trackEvent } = useAnalytics()
   const [state, setState] = useState(INITIAL_STATE)
+  const createActionModal = useSelector(createActionOpen)
 
   useEffect(() => {
     trackEvent({ category: SAFE_NAVIGATION_EVENT, action: 'Beneficiaries' })
@@ -152,6 +156,15 @@ const AddressBookTable = (): ReactElement => {
   }
 
   const { erc721Enabled, sendFunds, showReceive } = state
+
+  useEffect(() => {
+    if (createActionModal) {
+      if (createActionModal.createActionOpen && createActionModal.createAction == 'add_beneficiaries') {
+        setEditCreateEntryModalOpen(true)
+        dispatch(openCreateAction({ createActionOpen: false, createAction: '' }))
+      }
+    }
+  }, [createActionModal])
 
   return (
     <>
@@ -230,12 +243,27 @@ const AddressBookTable = (): ReactElement => {
         newEntryModalHandler={newEntryModalHandler}
         onClose={() => setEditCreateEntryModalOpen(false)}
       />
-      <SendModal
-        activeScreenType="sendFunds"
-        isOpen={sendFunds.isOpen}
-        onClose={hideSendFunds}
-        selectedToken={sendFunds.selectedToken}
-      />
+      {
+        (location.pathname == `${TRUSTS_ADDRESS}/${address}/beneficiaries/auto-distributions`) ? (
+          <>
+            <SendModal
+              activeScreenType="recurringFunds"
+              isOpen={sendFunds.isOpen}
+              onClose={hideSendFunds}
+              selectedToken={sendFunds.selectedToken}
+            />
+          </>
+        ) : (
+          <>
+            <SendModal
+              activeScreenType="sendFunds"
+              isOpen={sendFunds.isOpen}
+              onClose={hideSendFunds}
+              selectedToken={sendFunds.selectedToken}
+            />
+          </>
+        )
+      }
     </>
   )
 }

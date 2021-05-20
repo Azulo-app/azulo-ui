@@ -19,6 +19,7 @@ import StepConnector from '@material-ui/core/StepConnector'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
 import Check from '@material-ui/icons/Check'
+import { ContactSupportOutlined } from '@material-ui/icons'
 
 const QontoConnector = withStyles({
   alternativeLabel: {
@@ -146,6 +147,12 @@ function GnoStepper<V>(props: GnoStepperProps<V>): React.ReactElement {
     }
   }, [props.initialValues])
 
+  // useEffect(() => {
+  //   if (Object.keys(values).length == 0 && userAddress) {
+  //     setValues(props.initialValues)
+  //   }
+  // }, [userAddress])
+
   const getPageProps: any = (pages) => {
     const aux: any = React.Children.toArray(pages)[page]
     return aux.props
@@ -194,6 +201,9 @@ function GnoStepper<V>(props: GnoStepperProps<V>): React.ReactElement {
 
   const handleSubmit = async (formValues) => {
     const { children, onSubmit } = props
+    if (!formValues.owner0000Address) {
+      formValues = props.initialValues
+    }
     const isLastPage = page === React.Children.count(children) - 1
     if (isLastPage) {
       return onSubmit(formValues)
