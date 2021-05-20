@@ -143,7 +143,7 @@ const AutoDistributions = (): React.ReactElement => {
     listFlows(
       {
         tokenAddress: "0xa623b2DD931C5162b7a0B25852f4024Db48bb1A0",
-        account: "0x60Bd53e0aC10c3F6e16D9768FA9DBE56339DAF9b",
+        account: trustAddress,
       }
     )
   }, [flows])
