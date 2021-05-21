@@ -86,7 +86,7 @@ const AutoDistributions = (): React.ReactElement => {
     account,
   }) => {
     const sf = new SuperfluidSDK.Framework({
-      web3: web3ReadOnly,
+      getWeb3,
     })
 
     await sf.initialize()
