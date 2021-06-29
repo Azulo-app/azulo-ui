@@ -1,7 +1,7 @@
 import { loadFromStorage, saveToStorage } from 'src/utils/storage'
 import { SafeRecordProps } from 'src/logic/safe/store/models/safe'
 
-export const SAFES_KEY = 'SAFES'
+export const SAFES_KEY = 'TRUSTS'
 export const DEFAULT_SAFE_KEY = 'DEFAULT_SAFE'
 
 type StoredSafes = Record<string, SafeRecordProps>

@@ -42,7 +42,7 @@ const QontoConnector = withStyles({
     borderTopWidth: 2,
     borderRadius: 1,
   },
-})(StepConnector);
+})(StepConnector)
 
 const useQontoStepIconStyles = makeStyles({
   root: {
@@ -65,11 +65,11 @@ const useQontoStepIconStyles = makeStyles({
     zIndex: 1,
     fontSize: 18,
   },
-});
+})
 
 function QontoStepIcon(props) {
-  const classes = useQontoStepIconStyles();
-  const { active, completed } = props;
+  const classes = useQontoStepIconStyles()
+  const { active, completed } = props
 
   return (
     <div
@@ -79,7 +79,7 @@ function QontoStepIcon(props) {
     >
       {completed ? <Check className={classes.completed} /> : <div className={classes.circle} />}
     </div>
-  );
+  )
 }
 
 QontoStepIcon.propTypes = {
@@ -91,7 +91,7 @@ QontoStepIcon.propTypes = {
    * Mark the step as completed. Is passed to child components.
    */
   completed: PropTypes.bool,
-};
+}
 const transitionProps = {
   timeout: {
     enter: 350,
@@ -189,7 +189,7 @@ function GnoStepper<V>(props: GnoStepperProps<V>): React.ReactElement {
     const finalValues = { ...formValues, ...pageInitialProps }
 
     setValues(finalValues)
-    let newPage = Math.min(page + 1, React.Children.count(children) - 1)
+    const newPage = Math.min(page + 1, React.Children.count(children) - 1)
     history.push(history.location.pathname + '#step-' + (+newPage + 1))
     setPage(newPage)
   }
@@ -230,13 +230,13 @@ function GnoStepper<V>(props: GnoStepperProps<V>): React.ReactElement {
 
   useEffect(() => {
     return () => {
-      if (history.action === "POP") {
-        let step = history.location.hash.split("-")
+      if (history.action === 'POP') {
+        const step = history.location.hash.split('-')
         if (+step[1] > 0 && +step[1] <= steps.length) {
-          let newPage = Math.max(+step[1] - 1, 0)
+          const newPage = Math.max(+step[1] - 1, 0)
           setPage(newPage)
         } else if (page !== 0) {
-          let newPage = Math.max(page - 1, 0)
+          const newPage = Math.max(page - 1, 0)
           setPage(newPage)
         }
       }
@@ -284,7 +284,9 @@ function GnoStepper<V>(props: GnoStepperProps<V>): React.ReactElement {
 
                   return (
                     <FormStep key={label}>
-                      <StepLabel StepIconComponent={QontoStepIcon} {...labelProps}>{label}</StepLabel>
+                      <StepLabel StepIconComponent={QontoStepIcon} {...labelProps}>
+                        {label}
+                      </StepLabel>
                     </FormStep>
                   )
                 })}
@@ -315,7 +317,7 @@ const useStyles = makeStyles({
     },
     '& > .MuiStepLabel-labelContainer': {
       cursor: 'pointer',
-    }
+    },
   },
 })
 

@@ -132,8 +132,12 @@ const Balances = (): React.ReactElement => {
   return (
     <>
       <Grid container alignItems="center">
-        <Grid item className={mainClasses.accTitleHold}><div className={mainClasses.accTitle}>Assets</div></Grid>
-        <Box flexGrow={1}><div className={mainClasses.accDesc}>See the balances of all your trust assets</div></Box>
+        <Grid item className={mainClasses.accTitleHold}>
+          <div className={mainClasses.accTitle}>Assets</div>
+        </Grid>
+        <Box flexGrow={1}>
+          <div className={mainClasses.accDesc}>See the balances of all your trust assets</div>
+        </Box>
         <Grid item>
           <Button className={mainClasses.mainButton} onClick={() => onShow('Receive')} variant="contained">
             + Receive assets

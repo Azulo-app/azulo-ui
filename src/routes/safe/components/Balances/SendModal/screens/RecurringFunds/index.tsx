@@ -326,7 +326,12 @@ const RecurringFunds = ({
               </Block>
               <Hairline />
               <Row align="center" className={classes.buttonRow}>
-                <Button minWidth={140} onClick={onClose} color="secondary" className={`${mainClasses.mainButton} ${mainClasses.noBgButton} ${mainClasses.marginRightButton}`}>
+                <Button
+                  minWidth={140}
+                  onClick={onClose}
+                  color="secondary"
+                  className={`${mainClasses.mainButton} ${mainClasses.noBgButton} ${mainClasses.marginRightButton}`}
+                >
                   Cancel
                 </Button>
                 <Button
@@ -341,7 +346,6 @@ const RecurringFunds = ({
                   Review
                 </Button>
               </Row>
-
             </>
           )
         }}

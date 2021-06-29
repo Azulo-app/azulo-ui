@@ -125,7 +125,6 @@ export const checkAndUpdateSafe = (safeAdd: string) => async (dispatch: Dispatch
     threshold: remoteThreshold ? Number(remoteThreshold) : undefined,
     featuresEnabled: localSafe?.currentVersion ? enabledFeatures(localSafe.currentVersion) : localSafe?.featuresEnabled,
   }
-
   dispatch(updateSafe(updatedSafe))
 
   if (!remoteOwners.length) {

@@ -79,12 +79,9 @@ const AutoDistributions = (): React.ReactElement => {
   const [flowsLoader, setFlowsLoader] = useState<boolean>(true)
   const [flows, setFlows] = useState<any>(null)
   const dispatch = useDispatch()
-  let flowData: AutoDistributionRow[] = [];
+  let flowData: AutoDistributionRow[] = []
 
-  const listFlows = async ({
-    tokenAddress,
-    account,
-  }) => {
+  const listFlows = async ({ tokenAddress, account }) => {
     const sf = new SuperfluidSDK.Framework({
       web3: web3ReadOnly,
     })
@@ -95,7 +92,7 @@ const AutoDistributions = (): React.ReactElement => {
       account: account,
     })
     flowData = []
-    let nowDate = new Date()
+    const nowDate = new Date()
 
     if (listflows && listflows.outFlows && listflows.outFlows.length > 0) {
       for (let i = 0; i < listflows.outFlows.length; i++) {
@@ -106,18 +103,18 @@ const AutoDistributions = (): React.ReactElement => {
           receiver: listflows.outFlows[i].receiver,
         })
         // Flow rate
-        let niceFlowrate = ((listflows.outFlows[i].flowRate * 3600 * 24 * 30) / 1e18);
+        const niceFlowrate = (listflows.outFlows[i].flowRate * 3600 * 24 * 30) / 1e18
 
         // Get total flow
-        let timepassed = (nowDate.getTime() - theFlow.timestamp.getTime()) / 1000;
-        let totalFlow = ((timepassed * listflows.outFlows[i].flowRate) / 1e18);
+        const timepassed = (nowDate.getTime() - theFlow.timestamp.getTime()) / 1000
+        const totalFlow = (timepassed * listflows.outFlows[i].flowRate) / 1e18
 
         // Get token info
-        let tokenInfo = await getERC20DecimalsAndSymbol(tokenAddress)
+        const tokenInfo = await getERC20DecimalsAndSymbol(tokenAddress)
 
         // Get beneficiary name
-        let getAddressBook = addressBook.find((address) => {
-          return address.address === listflows.outFlows[i].receiver;
+        const getAddressBook = addressBook.find((address) => {
+          return address.address === listflows.outFlows[i].receiver
         })
 
         // Create table rows
@@ -127,25 +124,29 @@ const AutoDistributions = (): React.ReactElement => {
           currency: tokenInfo.symbol,
           flowRate: niceFlowrate,
           autototal: totalFlow,
-        });
+        })
       }
       setFlows(flowData)
       setFlowsLoader(false)
     }
-0x0eEE37e52f6443E4E154e54f5E48e7eBe764D11C
   }
+
+  useEffect(() => {
+    const timer1 = setTimeout(() => setFlowsLoader(false), 5000)
+    return () => {
+      clearTimeout(timer1)
+    }
+  }, [])
 
   useEffect(() => {
     trackEvent({ category: SAFE_NAVIGATION_EVENT, action: 'Beneficiaries Auto Distributions' })
   }, [trackEvent])
 
   useEffect(() => {
-    listFlows(
-      {
-        tokenAddress: "0xa623b2DD931C5162b7a0B25852f4024Db48bb1A0",
-        account: trustAddress,
-      }
-    )
+    listFlows({
+      tokenAddress: '0xa623b2DD931C5162b7a0B25852f4024Db48bb1A0', // TODO: For each super tokens
+      account: trustAddress,
+    })
   }, [flows])
 
   useEffect(() => {
@@ -179,17 +180,20 @@ const AutoDistributions = (): React.ReactElement => {
     <>
       {flowsLoader && (
         <Block>
-          <img style={{
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            width: '60px',
-            height: 'auto',
-            transform: 'translate(-50%, -50%)'
-          }} src="/resources/azulo_icon_loader.svg" />
+          <img
+            style={{
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              width: '60px',
+              height: 'auto',
+              transform: 'translate(-50%, -50%)',
+            }}
+            src="/resources/azulo_icon_loader.svg"
+          />
         </Block>
       )}
-      {!flowsLoader && (
+      {!flowsLoader && flows && (
         <Block className={classes.formContainer}>
           <TableContainer>
             <Table
@@ -205,7 +209,7 @@ const AutoDistributions = (): React.ReactElement => {
                 sortedData.map((row, index) => {
                   const userOwner = isUserAnOwnerOfAnySafe(safesList, row.address)
                   const hideBorderBottom = index >= 3 && index === sortedData.size - 1 && classes.noBorderBottom
-                  return (                    
+                  return (
                     <TableRow
                       className={cn(classes.hide, hideBorderBottom)}
                       data-testid={AUTO_DISTRIBUTION_ROW_ID}
@@ -214,7 +218,12 @@ const AutoDistributions = (): React.ReactElement => {
                     >
                       {autoColumns.map((column) => {
                         return (
-                          <TableCell align={column.align} component="td" key={column.id} style={cellWidth(column.width)}>
+                          <TableCell
+                            align={column.align}
+                            component="td"
+                            key={column.id}
+                            style={cellWidth(column.width)}
+                          >
                             {column.id === AD_RECEIVER_ID ? (
                               <Block justify="left">
                                 <EthHashInfo
@@ -256,7 +265,7 @@ const AutoDistributions = (): React.ReactElement => {
                               data-testid={SEND_ENTRY_BUTTON}
                             >
                               <CallMadeIcon color="primary" />
-                                Stream details
+                              Stream details
                             </Button>
                           ) : null}
                         </Row>
@@ -267,6 +276,13 @@ const AutoDistributions = (): React.ReactElement => {
               }
             </Table>
           </TableContainer>
+        </Block>
+      )}
+      {!flowsLoader && (
+        <Block>
+          <p className={`${mainClasses.center} ${mainClasses.textMedium}`}>
+            No auto distributions are currently active.
+          </p>
         </Block>
       )}
     </>

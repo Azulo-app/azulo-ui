@@ -55,7 +55,7 @@ export const SpendingLimitSettings = (): ReactElement => {
             <Col end="xs">
               <Button
                 color="primary"
-                size="md"
+                size="medium"
                 className={`${mainClasses.mainButton} ${mainClasses.borderButton}`}
                 data-testid="new-spending-limit-button"
                 onClick={openNewSpendingLimitModal}

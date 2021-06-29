@@ -50,7 +50,9 @@ const ReviewComponent = ({ userAddress, values }: Props): React.ReactElement => 
             <Grid container direction="row" justify="space-evenly" alignItems="center">
               <Grid item className={mainClasses.createStepTitle}>
                 <Grid container direction="row" justify="flex-start" alignItems="center">
-                  <Grid item className={mainClasses.createStepNum}><span>4</span></Grid>
+                  <Grid item className={mainClasses.createStepNum}>
+                    <span>4</span>
+                  </Grid>
                   <Grid item>Step 4: Review & Access</Grid>
                 </Grid>
               </Grid>
@@ -121,7 +123,7 @@ const ReviewComponent = ({ userAddress, values }: Props): React.ReactElement => 
               </Paragraph>
             </Block>
             {owners.map((address, index) => (
-              <>
+              <div key={index}>
                 <Row className={classes.owner}>
                   <Col align="center" xs={12}>
                     <EthHashInfo
@@ -134,7 +136,7 @@ const ReviewComponent = ({ userAddress, values }: Props): React.ReactElement => 
                   </Col>
                 </Row>
                 {index !== owners.length - 1 && <Hairline />}
-              </>
+              </div>
             ))}
           </TableContainer>
         </Col>
