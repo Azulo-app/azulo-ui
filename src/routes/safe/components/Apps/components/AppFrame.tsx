@@ -278,14 +278,17 @@ const AppFrame = ({ appUrl }: Props): React.ReactElement => {
   if (!safeApp) {
     return (
       <LoadingContainer>
-        <img style={{
-          position: 'absolute',
-          top: '50%',
-          left: '50%',
-          width: '60px',
-          height: 'auto',
-          transform: 'translate(-50%, -50%)'
-        }} src="/resources/azulo_icon_loader.svg" />
+        <img
+          style={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            width: '60px',
+            height: 'auto',
+            transform: 'translate(-50%, -50%)',
+          }}
+          src="/resources/azulo_icon_loader.svg"
+        />
         {/* <Loader size="md" /> */}
       </LoadingContainer>
     )
@@ -307,10 +310,17 @@ const AppFrame = ({ appUrl }: Props): React.ReactElement => {
   return (
     <>
       <Grid container alignItems="center">
-        <Grid item className={mainClasses.accTitleHold}><div className={mainClasses.accTitle}>Apps</div></Grid>
-        <Box flexGrow={1}><div className={mainClasses.accDesc}>Extend your trust functionality with Apps</div></Box>
+        <Grid item className={mainClasses.accTitleHold}>
+          <div className={mainClasses.accTitle}>Apps</div>
+        </Grid>
+        <Box flexGrow={1}>
+          <div className={mainClasses.accDesc}>Extend your trust functionality with Apps</div>
+        </Box>
         <Grid item>
-          <Link className={`${mainClasses.mainButton} ${mainClasses.borderButton}`} to={`${TRUSTS_ADDRESS}/${safeAddress}/apps`}>
+          <Link
+            className={`${mainClasses.mainButton} ${mainClasses.borderButton}`}
+            to={`${TRUSTS_ADDRESS}/${safeAddress}/apps`}
+          >
             Back to apps
           </Link>
         </Grid>
@@ -325,14 +335,17 @@ const AppFrame = ({ appUrl }: Props): React.ReactElement => {
                     The trust app is taking longer than usual to load. There might be a problem with the app provider.
                   </Title>
                 )}
-                <img style={{
-                  position: 'absolute',
-                  top: '50%',
-                  left: '50%',
-                  width: '60px',
-                  height: 'auto',
-                  transform: 'translate(-50%, -50%)'
-                }} src="/resources/azulo_icon_loader.svg" />
+                <img
+                  style={{
+                    position: 'absolute',
+                    top: '50%',
+                    left: '50%',
+                    width: '60px',
+                    height: 'auto',
+                    transform: 'translate(-50%, -50%)',
+                  }}
+                  src="/resources/azulo_icon_loader.svg"
+                />
                 {/* <Loader size="md" /> */}
               </LoadingContainer>
             )}

@@ -169,13 +169,21 @@ const AddressBookTable = (): ReactElement => {
   return (
     <>
       <Grid container alignItems="center">
-        <Grid item className={mainClasses.accTitleHold}><div className={mainClasses.accTitle}>Beneficiary</div></Grid>
-        <Box flexGrow={1}><div className={mainClasses.accDesc}>View and manage beneficiaries of your trust and distributions</div></Box>
+        <Grid item className={mainClasses.accTitleHold}>
+          <div className={mainClasses.accTitle}>Beneficiary</div>
+        </Grid>
+        <Box flexGrow={1}>
+          <div className={mainClasses.accDesc}>View and manage beneficiaries of your trust and distributions</div>
+        </Box>
         <Grid item>
-          <Button className={mainClasses.mainButton} onClick={() => {
-                setSelectedEntry(initialEntryState)
-                setEditCreateEntryModalOpen(true)
-              }} variant="contained">
+          <Button
+            className={mainClasses.mainButton}
+            onClick={() => {
+              setSelectedEntry(initialEntryState)
+              setEditCreateEntryModalOpen(true)
+            }}
+            variant="contained"
+          >
             + Add beneficiary
           </Button>
         </Grid>
@@ -204,20 +212,21 @@ const AddressBookTable = (): ReactElement => {
                 Auto Distributions
               </NavLink>
             </Grid>
-            {
-              (location.pathname == `${TRUSTS_ADDRESS}/${address}/beneficiaries/auto-distributions`) ? (
+            {location.pathname == `${TRUSTS_ADDRESS}/${address}/beneficiaries/auto-distributions` ? (
               <>
                 <Grid item xs={6} container justify="flex-end">
-                  <Button className={`${mainClasses.mainButton} ${mainClasses.borderButton}`}
-                      onClick={() => {
-                        showSendFunds(address)
-                      }} variant="contained">
+                  <Button
+                    className={`${mainClasses.mainButton} ${mainClasses.borderButton}`}
+                    onClick={() => {
+                      showSendFunds(address)
+                    }}
+                    variant="contained"
+                  >
                     + Add distribution
                   </Button>
                 </Grid>
               </>
-              ) : null
-            }
+            ) : null}
           </Grid>
         </Row>
         <Switch>
@@ -243,27 +252,25 @@ const AddressBookTable = (): ReactElement => {
         newEntryModalHandler={newEntryModalHandler}
         onClose={() => setEditCreateEntryModalOpen(false)}
       />
-      {
-        (location.pathname == `${TRUSTS_ADDRESS}/${address}/beneficiaries/auto-distributions`) ? (
-          <>
-            <SendModal
-              activeScreenType="recurringFunds"
-              isOpen={sendFunds.isOpen}
-              onClose={hideSendFunds}
-              selectedToken={sendFunds.selectedToken}
-            />
-          </>
-        ) : (
-          <>
-            <SendModal
-              activeScreenType="sendFunds"
-              isOpen={sendFunds.isOpen}
-              onClose={hideSendFunds}
-              selectedToken={sendFunds.selectedToken}
-            />
-          </>
-        )
-      }
+      {location.pathname == `${TRUSTS_ADDRESS}/${address}/beneficiaries/auto-distributions` ? (
+        <>
+          <SendModal
+            activeScreenType="recurringFunds"
+            isOpen={sendFunds.isOpen}
+            onClose={hideSendFunds}
+            selectedToken={sendFunds.selectedToken}
+          />
+        </>
+      ) : (
+        <>
+          <SendModal
+            activeScreenType="sendFunds"
+            isOpen={sendFunds.isOpen}
+            onClose={hideSendFunds}
+            selectedToken={sendFunds.selectedToken}
+          />
+        </>
+      )}
     </>
   )
 }

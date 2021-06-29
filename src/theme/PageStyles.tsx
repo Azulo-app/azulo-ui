@@ -1,5 +1,13 @@
-import { makeStyles } from "@material-ui/core/styles";
-import { borderRadius, border, mainColor, greyColor, mainFontFamily, mainLightColor, background } from 'src/theme/variables'
+import { makeStyles } from '@material-ui/core/styles'
+import {
+    borderRadius,
+    border,
+    mainColor,
+    greyColor,
+    mainFontFamily,
+    mainLightColor,
+    background,
+} from 'src/theme/variables'
 
 const mainStyles = makeStyles((theme) => ({
     '@global': {
@@ -252,7 +260,10 @@ const mainStyles = makeStyles((theme) => ({
     },
     center: {
         textAlign: 'center'
+    },
+    textMedium: {
+        fontSize: '16px'
     }
-}));
+}))
 
-export {mainStyles}
+export { mainStyles }

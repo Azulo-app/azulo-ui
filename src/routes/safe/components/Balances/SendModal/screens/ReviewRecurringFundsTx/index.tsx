@@ -31,8 +31,7 @@ import { RecordOf } from 'immutable'
 import { EstimationStatus, useEstimateTransactionGas } from 'src/logic/hooks/useEstimateTransactionGas'
 import { TransactionFees } from 'src/components/TransactionsFees'
 
-import { getWeb3 } from 'src/logic/wallets/getWeb3'
-import { unlockWallet } from 'src/utils/browserwallet_unlock'
+import { getWeb3, web3ReadOnly } from 'src/logic/wallets/getWeb3'
 import SuperfluidSDK from '@superfluid-finance/js-sdk'
 import Button from 'src/components/layout/Button'
 import { mainStyles } from 'src/theme/PageStyles'
@@ -128,77 +127,105 @@ const ReviewSendFundsTx = ({ onClose, onPrev, tx }: ReviewTxProps): React.ReactE
 
   const [loading, setLoadingStream] = useState(false)
 
+  // const submitTx = async (txParameters: TxParameters): Promise<void> => {
+  //   const txRecipient = tx.contractAddress
+  //   const txData = tx.data ? tx.data.trim() : ''
+  //   const txValue = tx.value ? toTokenUnit(tx.value, nativeCoin.decimals) : '0'
+
+  //   if (safeAddress) {
+  //     dispatch(
+  //       createTransaction({
+  //         safeAddress: safeAddress,
+  //         to: txRecipient as string,
+  //         valueInWei: txValue,
+  //         txData,
+  //         txNonce: txParameters.safeNonce,
+  //         safeTxGas: txParameters.safeTxGas ? Number(txParameters.safeTxGas) : undefined,
+  //         ethParameters: txParameters,
+  //         notifiedTransaction: TX_NOTIFICATION_TYPES.STANDARD_TX,
+  //       }),
+  //     )
+  //   } else {
+  //     console.error('There was an error trying to submit the transaction, the safeAddress was not found')
+  //   }
+
+  //   onClose()
+  // }
+
   const submitTx = async (txParameters: any) => {
+    const txRecipient = '0xF4C5310E51F6079F601a5fb7120bC72a70b96e2A' // tx.contractAddress
+    const txData = '' // tx.data ? tx.data.trim() : ''
+    // const txValue = tx.value ? toTokenUnit(tx.value, nativeCoin.decimals) : '0'
+    const txValue = '0'
 
-    const { walletProvider, walletAddress, network } = await unlockWallet({
-      debug: true,
-      infuraId: INFURA_TOKEN,
-    })
-  
-    const sf = new SuperfluidSDK.Framework({
-      ethers: walletProvider,
-    })
+    // const sf = new SuperfluidSDK.Framework({
+    //   web3: web3ReadOnly,
+    // })
 
-    const flowRate = +tx.amount * 385802469135
+    const flowRate = Math.round(+tx.amount * 385802469135)
     setLoadingStream(true)
 
-    await sf.initialize()
+    // await sf.initialize()
 
-    const owner = sf.user({
-      address: safeAddress,
-      token: tx.token,
-    })
+    // console.log('safeAddress', safeAddress)
+    // console.log('txParameters', txParameters)
+    // console.log('sf', sf)
 
-    owner.flow({
-      recipient: tx.recipientAddress,
-      flowRate: flowRate,
-      onTransaction: () => {
-        setLoadingStream(false)
-        console.log('Flow created')
-        console.log('input.recipientAddress', tx.recipientAddress)
-        console.log('input.tokenAddress', tx.token)
-      },
-    })
+    // const owner = sf.user({
+    //   address: safeAddress,
+    //   token: tx.token,
+    // })
 
-    // const isSpendingLimit = sameString(tx.txType, 'spendingLimit')
+    // await owner.flow({
+    //   recipient: tx.recipientAddress,
+    //   flowRate: flowRate,
+    //   onTransaction: () => {
+    //     setLoadingStream(false)
+    //     console.log('Flow created')
+    //     console.log('input.recipientAddress', tx.recipientAddress)
+    //     console.log('input.tokenAddress', tx.token)
+    //   },
+    // })
 
-    // if (!safeAddress) {
-    //   console.error('There was an error trying to submit the transaction, the Address was not found')
-    //   return
-    // }
+    const isSpendingLimit = sameString(tx.txType, 'spendingLimit')
 
-    // if (isSpendingLimit && txToken && tx.tokenSpendingLimit) {
-    //   const spendingLimitTokenAddress = isSendingNativeToken ? ZERO_ADDRESS : txToken.address
-    //   const spendingLimit = getSpendingLimitContract()
-    //   spendingLimit.methods
-    //     .executeAllowanceTransfer(
-    //       safeAddress,
-    //       spendingLimitTokenAddress,
-    //       tx.recipientAddress,
-    //       toTokenUnit(tx.amount, txToken.decimals),
-    //       ZERO_ADDRESS,
-    //       0,
-    //       tx.tokenSpendingLimit.delegate,
-    //       EMPTY_DATA,
-    //     )
-    //     .send({ from: tx.tokenSpendingLimit.delegate })
-    //     .on('transactionHash', () => onClose())
-    //     .catch(console.error)
-    // } else {
-    //   dispatch(
-    //     createTransaction({
-    //       safeAddress: safeAddress,
-    //       to: txRecipient as string,
-    //       valueInWei: txValue,
-    //       txData: data,
-    //       txNonce: txParameters.safeNonce,
-    //       safeTxGas: txParameters.safeTxGas ? Number(txParameters.safeTxGas) : undefined,
-    //       ethParameters: txParameters,
-    //       notifiedTransaction: TX_NOTIFICATION_TYPES.STANDARD_TX,
-    //     }),
-    //   )
-    //   onClose()
-    // }
+    if (!safeAddress) {
+      console.error('There was an error trying to submit the transaction, the Address was not found')
+      return
+    }
+
+    if (isSpendingLimit && txToken && tx.tokenSpendingLimit) {
+      const spendingLimitTokenAddress = isSendingNativeToken ? ZERO_ADDRESS : txToken.address
+      const spendingLimit = getSpendingLimitContract()
+      spendingLimit.methods
+        .executeAllowanceTransfer(
+          safeAddress,
+          spendingLimitTokenAddress,
+          tx.recipientAddress,
+          toTokenUnit(tx.amount, txToken.decimals),
+          ZERO_ADDRESS,
+          0,
+          tx.tokenSpendingLimit.delegate,
+          EMPTY_DATA,
+        )
+        .send({ from: tx.tokenSpendingLimit.delegate })
+        .on('transactionHash', () => onClose())
+        .catch(console.error)
+    } else {
+      dispatch(
+        createTransaction({
+          safeAddress: safeAddress,
+          to: txRecipient as string,
+          valueInWei: txValue,
+          txData,
+          txNonce: txParameters.safeNonce,
+          safeTxGas: txParameters.safeTxGas ? Number(txParameters.safeTxGas) : undefined,
+          ethParameters: txParameters,
+          notifiedTransaction: TX_NOTIFICATION_TYPES.STANDARD_TX,
+        }),
+      )
+      onClose()
+    }
   }
 
   const closeEditModalCallback = (txParameters: TxParameters) => {
@@ -313,7 +340,12 @@ const ReviewSendFundsTx = ({ onClose, onPrev, tx }: ReviewTxProps): React.ReactE
 
           {/* Footer */}
           <Row align="center" className={classes.buttonRow}>
-            <Button color="primary" variant="outlined" onClick={onPrev} className={`${mainClasses.mainButton} ${mainClasses.noBgButton} ${mainClasses.marginRightButton}`}>
+            <Button
+              color="primary"
+              variant="outlined"
+              onClick={onPrev}
+              className={`${mainClasses.mainButton} ${mainClasses.noBgButton} ${mainClasses.marginRightButton}`}
+            >
               Back
             </Button>
             <Button

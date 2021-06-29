@@ -45,8 +45,6 @@ const ReviewComponent = ({ values, form }: ReviewComponentProps): ReactElement =
   useEffect(() => {
     if (gasLimit && form.mutators) {
       form.mutators.setValue('gasLimit', gasLimit)
-    } else {
-      
     }
   }, [gasLimit, form.mutators])
 
